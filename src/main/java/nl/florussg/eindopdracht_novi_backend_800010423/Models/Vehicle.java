@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import java.util.stream.Stream;
 
 @Entity
-public class Car {
+public class Vehicle {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 // NOG TE BEKIJKEN HOE DIT IN TE RICHTEN //
 @Entity
-public class AssignmentStatus {
+public class AppointmentStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
