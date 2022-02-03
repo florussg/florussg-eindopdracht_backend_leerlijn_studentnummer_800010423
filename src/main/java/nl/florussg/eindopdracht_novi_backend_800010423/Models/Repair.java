@@ -5,32 +5,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-// NOG TE BEKIJKEN HOE DIT IN TE RICHTEN //
 @Entity
-public class AppointmentStatus {
+public class Repair {
 
+    //attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
 
-    enum Status {
-        assignment_made,
-        assignment_execute,
-        APK_pass,
-        APK_fail,
-        assignment_ready,
-        needs_repair;
+    //this is a inherited from the Part class! Still have to make this relation
+    private String partToRepair;
 
-
-    }
-
-
-
-
-
-
-
-
-
+    private String finding;
 
 }
+
+
+
