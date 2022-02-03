@@ -1,10 +1,8 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Car {
@@ -24,6 +22,11 @@ public class Car {
     // Nog te bepalen hoe ik de uploadfunctie ga inrichten //
     //private VectorOperators.Binary carpapers; of multipart.MultipartFile;
 
+    @ManyToOne
+    private Customer carCustomer;
+
+    @OneToMany(mappedBy = "carAppointment")
+    private List<Appointment> carAppointment;
 
     //getters and setters
     public Long getId() {

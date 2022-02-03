@@ -1,9 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Repair {
@@ -17,6 +14,9 @@ public class Repair {
     private String partToRepair;
 
     private String finding;
+
+    @OneToOne(mappedBy = "repairAppointmentOrApkNeedsRepairToPass")
+    Appointment repair;
 
 }
 

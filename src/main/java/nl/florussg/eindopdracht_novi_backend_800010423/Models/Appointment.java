@@ -3,6 +3,7 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
 public class Appointment {
 
     //attributes
@@ -12,12 +13,20 @@ public class Appointment {
 
     private LocalDateTime dateTimeAssignment;
 
-    private Boolean apk; //if True then it's an APK appointment, false it's an repair appointment
+    private Boolean apkOrRepair; //if True then it's an APK appointment, if false it's an repair appointment
 
     @Enumerated(EnumType.STRING)
     private ApkStatus appointmentStatus;
 
+    @ManyToOne
+    private Car carAppointment;
+
+    @OneToOne //CAN AN ASSIGNMENT HAVE ONE OR MORE REPAIRS LINKED? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Repair repairAppointmentOrApkNeedsRepairToPass;
+
+
     //getters and setters
+
     public long getId() {
         return id;
     }
@@ -34,12 +43,12 @@ public class Appointment {
         this.dateTimeAssignment = dateTimeAssignment;
     }
 
-    public Boolean getApk() {
-        return apk;
+    public Boolean getApkOrRepair() {
+        return apkOrRepair;
     }
 
-    public void setApk(Boolean apk) {
-        this.apk = apk;
+    public void setApkOrRepair(Boolean apkOrRepair) {
+        this.apkOrRepair = apkOrRepair;
     }
 
     public ApkStatus getAppointmentStatus() {
@@ -50,6 +59,15 @@ public class Appointment {
         this.appointmentStatus = appointmentStatus;
     }
 
+    public Car getCarAppointment() {
+        return carAppointment;
+    }
+
+    public void setCarAppointment(Car carAppointment) {
+        this.carAppointment = carAppointment;
+    }
+
+
     //methods
-    //ADD method calculatetotalcostapk() here?
+    //ADD method calculateTotalCostAppointment() here?
 }

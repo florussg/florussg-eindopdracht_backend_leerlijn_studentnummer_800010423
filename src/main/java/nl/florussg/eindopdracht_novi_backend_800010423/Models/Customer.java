@@ -1,9 +1,7 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -20,6 +18,9 @@ public class Customer {
     private int bsnnumber;
 
     private int phonenumber;
+
+    @OneToMany (mappedBy = "carCustomer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Car> ownedCar; //ARRAYLIST VAN MAKEN? VOLGENS MIJ OVERBODIG ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //getters and setters
     public long getId() {
