@@ -2,6 +2,7 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Appointment {
@@ -13,16 +14,18 @@ public class Appointment {
 
     private LocalDateTime dateTimeAssignment;
 
-    private Boolean apkOrRepair; //if True then it's an APK appointment, if false it's an repair appointment
+    private Boolean apk; //if true then the appointment contains an APK inspection
 
-    @Enumerated(EnumType.STRING)
-    private ApkStatus appointmentStatus;
+    private Boolean repair; //if true then the appointment contains an repair
+
+    @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    private ApkStatus apkStatus;
 
     @ManyToOne
     private Car carAppointment;
 
-    @OneToOne //CAN AN ASSIGNMENT HAVE ONE OR MORE REPAIRS LINKED? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Repair repairAppointmentOrApkNeedsRepairToPass;
+    @OneToMany
+    private List<Repair> repairs;
 
 
     //getters and setters
@@ -43,20 +46,28 @@ public class Appointment {
         this.dateTimeAssignment = dateTimeAssignment;
     }
 
-    public Boolean getApkOrRepair() {
-        return apkOrRepair;
+    public Boolean getApk() {
+        return apk;
     }
 
-    public void setApkOrRepair(Boolean apkOrRepair) {
-        this.apkOrRepair = apkOrRepair;
+    public void setApk(Boolean apk) {
+        this.apk = apk;
     }
 
-    public ApkStatus getAppointmentStatus() {
-        return appointmentStatus;
+    public Boolean getRepair() {
+        return repair;
     }
 
-    public void setAppointmentStatus(ApkStatus appointmentStatus) {
-        this.appointmentStatus = appointmentStatus;
+    public void setRepair(Boolean repair) {
+        this.repair = repair;
+    }
+
+    public ApkStatus getApkStatus() {
+        return apkStatus;
+    }
+
+    public void setApkStatus(ApkStatus apkStatus) {
+        this.apkStatus = apkStatus;
     }
 
     public Car getCarAppointment() {
@@ -67,7 +78,14 @@ public class Appointment {
         this.carAppointment = carAppointment;
     }
 
+    public List<Repair> getRepairs() {
+        return repairs;
+    }
 
-    //methods
-    //ADD method calculateTotalCostAppointment() here?
+    public void setRepairs(List<Repair> repairs) {
+        this.repairs = repairs;
+    }
+
+//methods
+    //Add method calculateTotalCostAppointment() here?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }

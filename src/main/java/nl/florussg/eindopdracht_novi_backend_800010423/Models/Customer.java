@@ -20,7 +20,7 @@ public class Customer {
     private int phonenumber;
 
     @OneToMany (mappedBy = "carCustomer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Car> ownedCar; //ARRAYLIST VAN MAKEN? VOLGENS MIJ OVERBODIG ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    private List<Car> ownedCar; //ArrayList van maken?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //getters and setters
     public long getId() {
@@ -61,6 +61,14 @@ public class Customer {
 
     public void setPhonenumber(int phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public List<Car> getOwnedCar() {
+        return ownedCar;
+    }
+
+    public void setOwnedCar(List<Car> ownedCar) {
+        this.ownedCar = ownedCar;
     }
 }
 

@@ -20,7 +20,7 @@ public class Car {
 
     private String fileNameCarRegistrationDocument;
     // Nog te bepalen hoe ik de uploadfunctie ga inrichten //
-    //private VectorOperators.Binary carpapers; of multipart.MultipartFile;
+    //private VectorOperators.Binary carpapers; of multipart.MultipartFile;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @ManyToOne
     private Customer carCustomer;
@@ -67,5 +67,21 @@ public class Car {
 
     public void setFileNameCarRegistrationDocument(String fileNameCarRegistrationDocument) {
         this.fileNameCarRegistrationDocument = fileNameCarRegistrationDocument;
+    }
+
+    public Customer getCarCustomer() {
+        return carCustomer;
+    }
+
+    public void setCarCustomer(Customer carCustomer) {
+        this.carCustomer = carCustomer;
+    }
+
+    public List<Appointment> getCarAppointment() {
+        return carAppointment;
+    }
+
+    public void setCarAppointment(List<Appointment> carAppointment) {
+        this.carAppointment = carAppointment;
     }
 }

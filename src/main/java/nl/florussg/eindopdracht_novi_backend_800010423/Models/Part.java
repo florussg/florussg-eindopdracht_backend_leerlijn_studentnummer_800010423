@@ -1,10 +1,8 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Part {
@@ -18,7 +16,8 @@ public class Part {
 
     private BigDecimal price;
 
-    private int stock;
+    @OneToMany (mappedBy = "part")
+    private List<RepairPart> partForRepair;
 
     //getters and setters
     public long getId() {
@@ -45,11 +44,4 @@ public class Part {
         this.price = price;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
 }
