@@ -18,11 +18,11 @@ public class Appointment {
 
     private Boolean repair; //if true then the appointment contains an repair
 
-    @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    private ApkStatus apkStatus;
-
     @ManyToOne
     private Car carAppointment;
+
+    @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    private ApkStatus apkStatus;
 
     @OneToMany
     private List<Repair> repairs;
@@ -88,4 +88,7 @@ public class Appointment {
 
 //methods
     //Add method calculateTotalCostAppointment() here?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //price APK = 40,-
+    //price part
+    //price per hour to repair part = 25,-
 }
