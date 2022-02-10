@@ -8,27 +8,18 @@ public class RepairPart {
 
     //attributes
     //nog te veranderen naar een embeddedId d.m.v. KEY Klasse?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @EmbeddedId
+    RepairPartKey id;
 
     @ManyToOne
-    @MapsId
+    @MapsId("repairId")
     private Repair repair;
 
     @ManyToOne
-    @MapsId
+    @MapsId("partId")
     private Part part;
 
     private int amount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Repair getRepair() {
         return repair;

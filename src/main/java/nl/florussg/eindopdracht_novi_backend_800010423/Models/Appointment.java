@@ -24,9 +24,8 @@ public class Appointment {
     @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private ApkStatus apkStatus;
 
-    @OneToMany
+    @OneToMany (mappedBy = "repairAppointment")
     private List<Repair> repairs;
-
 
     //getters and setters
 

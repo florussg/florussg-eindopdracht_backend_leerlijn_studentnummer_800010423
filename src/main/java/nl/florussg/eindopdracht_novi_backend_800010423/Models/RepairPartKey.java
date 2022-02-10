@@ -14,7 +14,6 @@ public class RepairPartKey implements Serializable {
 
     Long repairId;
 
-
     //getters and setters
     public Long getPartId() {
         return partid;
@@ -41,6 +40,7 @@ public class RepairPartKey implements Serializable {
         //final nodig?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         final RepairPartKey other = (RepairPartKey) o;
 
+        //Is dit allemaal nodig?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if (!other.canEqual((Object) this))
             return false;
         final Object this$repairId = this.getRepairId();
@@ -55,7 +55,6 @@ public class RepairPartKey implements Serializable {
     protected boolean canEqual(final Object otherOne) {
         return otherOne instanceof RepairPartKey;
     }
-
 
     public int hashCode() {
     return Objects.hash(getRepairId(), getPartId());

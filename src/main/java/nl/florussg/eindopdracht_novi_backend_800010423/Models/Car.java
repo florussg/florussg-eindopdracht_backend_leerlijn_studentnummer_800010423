@@ -20,7 +20,7 @@ public class Car {
 
     private String fileNameCarRegistrationDocument;
     // Nog te bepalen hoe ik de uploadfunctie ga inrichten //
-    //private VectorOperators.Binary carpapers; of multipart.MultipartFile;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //private VectorOperators.Binary carpapers; of multipart.MultipartFile;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @ManyToOne
     private Customer carCustomer;
