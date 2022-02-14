@@ -8,8 +8,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,7 +35,6 @@ public class CustomerService {
 
       public Customer getCustomerByBsnnumber (int bsnnumber) {
           Optional<Customer> optionalCustomer = customerRepository.findCustomerByBsnnumber(bsnnumber);
-          //Optional<Customer> customer = Optional.ofNullable(customerRepository.findCustomerByBsnnumber(bsnnumber));
           if (optionalCustomer.isPresent()) {
               return optionalCustomer.get();
           } else {
@@ -45,15 +42,26 @@ public class CustomerService {
           }
       }
 
-    public Customer addCustomer (CustomerDto customerDto) {
-        Customer customer = new Customer();
-        customer.setFirstname(customerDto.getFirstname());
-        customer.setLastname(customerDto.getLastname());
-        customer.setBsnnumber(customerDto.getBsnnumber());
-        customer.setPhonenumber(customerDto.getPhonenumber());
+    public long addCustomer (CustomerDto customerDto, Customer customer) {
+        int bsnnumberInput = customerDto.getBsnnumber();
+        int bsnnumberinRepo = customer.getBsnnumber();
 
-        return customerRepository.save(customer);
+        if (bsnnumberInput == bsnnumberinRepo ) {
+            throw new BadRequestException("Customer already exists based on input-bsnnumber");
+            }
+        else {
+            Customer newCustomer = new Customer();
+            newCustomer.setFirstname(customerDto.getFirstname());
+            newCustomer.setLastname(customerDto.getLastname());
+            newCustomer.setBsnnumber(customerDto.getBsnnumber());
+            newCustomer.setPhonenumber(customerDto.getPhonenumber());
+
+            Customer saveCustomer = customerRepository.save(newCustomer);
+            return saveCustomer.getId();
+        }
     }
+
+
 
 
 }
