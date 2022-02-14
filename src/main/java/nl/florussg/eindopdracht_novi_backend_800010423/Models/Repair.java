@@ -9,7 +9,7 @@ public class Repair {
     //attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    long id;
 
     //Deze relatie nog werkend krijgen met de tussenklasse ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @OneToMany (mappedBy = "repair")
@@ -24,11 +24,11 @@ public class Repair {
     private Appointment repairAppointment;
 
     //getters and setters
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

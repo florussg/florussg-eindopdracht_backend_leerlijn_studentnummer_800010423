@@ -27,6 +27,9 @@ public class Appointment {
     @OneToMany (mappedBy = "repairAppointment")
     private List<Repair> repairs;
 
+    @ManyToOne
+    private Customer appointmentOfCustomer;
+
     //getters and setters
 
     public long getId() {
@@ -85,7 +88,15 @@ public class Appointment {
         this.repairs = repairs;
     }
 
-//methods
+    public Customer getAppointmentOfCustomer() {
+        return appointmentOfCustomer;
+    }
+
+    public void setAppointmentOfCustomer(Customer appointmentOfCustomer) {
+        this.appointmentOfCustomer = appointmentOfCustomer;
+    }
+
+    //methods
     //Add method calculateTotalCostAppointment() here?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //price APK = 40,-
     //price part

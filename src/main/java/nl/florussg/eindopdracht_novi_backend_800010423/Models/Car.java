@@ -10,7 +10,7 @@ public class Car {
     //attributes
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    Long id;
+    long id;
 
     private String brand;
 
@@ -29,11 +29,11 @@ public class Car {
     private List<Appointment> carAppointment;
 
     //getters and setters
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

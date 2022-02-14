@@ -10,24 +10,24 @@ import java.util.Objects;
 public class RepairPartKey implements Serializable {
 
     //attributen
-    Long partid;
+    long partid;
 
-    Long repairId;
+    long repairId;
 
     //getters and setters
-    public Long getPartId() {
+    public long getPartId() {
         return partid;
     }
 
-    public void setPartId(Long partid) {
+    public void setPartId(long partid) {
         this.partid = partid;
     }
 
-    public Long getRepairId() {
+    public long getRepairId() {
         return repairId;
     }
 
-    public void setRepairId(Long repairId) {
+    public void setRepairId(long repairId) {
         this.repairId = repairId;
     }
 
