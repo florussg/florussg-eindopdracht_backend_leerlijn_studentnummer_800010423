@@ -1,10 +1,15 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 public class CustomerController {
@@ -30,5 +35,17 @@ public class CustomerController {
     public ResponseEntity<Object> getCustomerByBsnnumber(@RequestParam(name="number", defaultValue = "") int bsnnumber) {
         return ResponseEntity.ok(customerService.getCustomerByBsnnumber(bsnnumber));
     }
+
+    @PostMapping(value = "/customers/add")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Object> addCustomer(@Valid @RequestBody CustomerDto customerDto) {
+
+        long newId = customerService.addCustomer(customerDto);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(newId).toUri();
+        return ResponseEntity.created(location).build();
+    }
+    //Waarom start hij met id 1 na het maken van een Post?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 }

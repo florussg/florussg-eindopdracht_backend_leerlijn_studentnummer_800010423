@@ -42,11 +42,9 @@ public class CustomerService {
           }
       }
 
-    public long addCustomer (CustomerDto customerDto, Customer customer) {
-        int bsnnumberInput = customerDto.getBsnnumber();
-        int bsnnumberinRepo = customer.getBsnnumber();
+    public long addCustomer (CustomerDto customerDto) {
 
-        if (bsnnumberInput == bsnnumberinRepo ) {
+        if(checkIfCustomerExistsInDatabase(customerDto) == true) {
             throw new BadRequestException("Customer already exists based on input-bsnnumber");
             }
         else {
@@ -61,6 +59,15 @@ public class CustomerService {
         }
     }
 
+        public boolean checkIfCustomerExistsInDatabase (CustomerDto customerDto) {
+            int bsnnumberInput = customerDto.getBsnnumber();
+            Optional<Customer> optionalCustomer = customerRepository.findCustomerByBsnnumber(bsnnumberInput);
+            if (optionalCustomer.isPresent()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
 
 
