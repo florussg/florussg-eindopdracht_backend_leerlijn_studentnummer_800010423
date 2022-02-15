@@ -45,7 +45,4 @@ public class CustomerController {
                 .buildAndExpand(newId).toUri();
         return ResponseEntity.created(location).build();
     }
-    //Waarom start hij met id 1 na het maken van een Post?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 }

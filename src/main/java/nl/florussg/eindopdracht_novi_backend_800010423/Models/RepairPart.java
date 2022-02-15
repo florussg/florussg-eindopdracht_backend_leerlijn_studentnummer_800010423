@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class RepairPart {
 
     //attributes
-    //nog te veranderen naar een embeddedId d.m.v. KEY Klasse?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   //nog te veranderen naar een embeddedId d.m.v. KEY Klasse?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @EmbeddedId
     RepairPartKey id;
 
@@ -15,13 +15,13 @@ public class RepairPart {
     @MapsId("repairId")
     private Repair repair;
 
-    @ManyToOne
-    @MapsId("partId")
-    private Part part;
+   @ManyToOne
+   @MapsId("partId")
+   private Part part;
 
     private int amount;
 
-    public Repair getRepair() {
+  public Repair getRepair() {
         return repair;
     }
 
@@ -31,11 +31,11 @@ public class RepairPart {
 
     public Part getPart() {
         return part;
-    }
+   }
 
-    public void setPart(Part part) {
+   public void setPart(Part part) {
         this.part = part;
-    }
+   }
 
     public int getAmount() {
         return amount;
@@ -43,5 +43,5 @@ public class RepairPart {
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
+   }
 }
