@@ -115,12 +115,6 @@ public class CustomerService {
         }
     }
 
-
-
-
-
-
-
         //methods
         public boolean checkIfCustomerExistsInDatabaseBasedOnBsnnumber (CustomerDto customerDto) {
             int bsnnumberInput = customerDto.getBsnnumber();
@@ -131,7 +125,4 @@ public class CustomerService {
                 return false;
             }
         }
-
-
-
 }
