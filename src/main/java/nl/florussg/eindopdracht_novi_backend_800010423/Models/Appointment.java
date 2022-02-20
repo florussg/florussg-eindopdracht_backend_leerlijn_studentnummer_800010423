@@ -18,10 +18,12 @@ public class Appointment {
 
     private Boolean repair; //if true then the appointment contains an repair
 
+    //private Boolean completed; if apk and repair False then the appointment is 'completed'. Create autosetter?~~~~~~~~
+
     @ManyToOne
     private Car carAppointment;
 
-    @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private ApkStatus apkStatus;
 
     @OneToMany (mappedBy = "repairAppointment")
