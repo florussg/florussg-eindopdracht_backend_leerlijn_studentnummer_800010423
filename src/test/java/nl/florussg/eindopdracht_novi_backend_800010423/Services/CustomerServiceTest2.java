@@ -1,6 +1,7 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
+import nl.florussg.eindopdracht_novi_backend_800010423.EindopdrachtNoviBackend800010423Application;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +26,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
-//@SpringBootTest
-//@ContextConfiguration(classes={EindopdrachtNoviBackend800010423Application.class})
-//@EnableConfigurationProperties
-public class CustomerServiceTest {
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ContextConfiguration(classes={EindopdrachtNoviBackend800010423Application.class})
+@EnableConfigurationProperties
+@AutoConfigureMockMvc
+public class CustomerServiceTest2 {
 
-    @InjectMocks
-    private CustomerService customerService;
+   @InjectMocks
+   private CustomerService customerService;
 
     @Mock
     private CustomerRepository customerRepository;
@@ -65,64 +74,35 @@ public class CustomerServiceTest {
         customers.add(customerOne);
         customers.add(customerTwo);
         customers.add(customerThree);
+
+        Customer customer;
     }
 
-    @Test
-    public void getAllCustomersWithNoLastname() {
-        when(customerRepository.findAll()).thenReturn(customers);
 
-        Iterable<Customer> foundCustomers = customerService.getAllCustomers("");
-
-        verify(customerRepository,times(1)).findAll();
-
-        assertThat(foundCustomers).isEqualTo(customers);
-        }
 
     @Test
-    public void getAllCustomersWithLastname() {
-        //arrange -gedrag in programmeren
-        when(customerRepository.findAllByLastnameContainingIgnoreCase("glenn")).thenReturn(customers);
+    public void getOneCustomerById() {
 
-        //act -uitvoeren wat er getest wordt
-        Iterable<Customer> foundCustomers = customerService.getAllCustomers("Janssen");
+        when(customerRepository.existsById(1L)).thenReturn(true);
+        Mockito
+                .doReturn(Optional.of(customerOne)).when(customerRepository).findById(1L);
 
-        //assert -vergelijking
-        verify(customerRepository,times(1)).findAllByLastnameContainingIgnoreCase("Janssen");
-        //assertThat(foundCustomers).isEqualTo(customers);
-        assertEquals(customers,foundCustomers);
+        Customer customerFound = customerService.getOneCustomerById(1L);
+
+        assertThat(customerFound).isEqualTo(customerOne);
+    }
+    
+    @Test
+    public void getCustomerByBsnnumber() {
+        when(customerRepository.findCustomerByBsnnumber(customerOne.getBsnnumber())).thenReturn(Optional.ofNullable(customerOne));
+
+
     }
 
-//    @Test
-//    void getOneCustomerById() {
-//        when(customerRepository.findById(.getId())).thenReturn(Optional.ofNullable());
-//
-//        Optional<Customer> optionalCustomer = Optional.ofNullable(customerService.getOneCustomerById(1L));
-//
-//        verify(customerRepository,times(1)).findById(1L);
-//        assertEquals(,optionalCustomer);
-//    }
 
-    @Test
-    void getCustomerByBsnnumber() {
-    }
 
-    @Test
-    void addCustomer() {
-    }
 
-    @Test
-    void deleteCustomer() {
-    }
 
-    @Test
-    void editCustomer() {
-    }
 
-    @Test
-    void partialEditCustomer() {
-    }
 
-    @Test
-    void checkIfCustomerExistsInDatabaseBasedOnBsnnumber() {
-    }
 }
