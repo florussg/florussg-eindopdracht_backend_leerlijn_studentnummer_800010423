@@ -8,6 +8,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,9 +19,11 @@ public class CustomerService {
 
     public Iterable<Customer> getAllCustomers(String lastname) {
         if (lastname.isEmpty()) {
-            return customerRepository.findAll();
+            List<Customer> all = customerRepository.findAll();
+            return all;
         } else {
-            return customerRepository.findAllByLastnameContainingIgnoreCase(lastname);
+            Iterable<Customer> allByLastnameContainingIgnoreCase = customerRepository.findAllByLastnameContainingIgnoreCase(lastname);
+            return allByLastnameContainingIgnoreCase;
         }
     }
 
@@ -68,7 +71,7 @@ public class CustomerService {
         }
     }
 
-    public void editCustomer (long id, CustomerDto customerDto) {
+    public Customer editCustomer (long id, CustomerDto customerDto) {
         Optional <Customer> optionalCustomer = customerRepository.findById(id);
 
         if(optionalCustomer.isPresent()) {
@@ -84,9 +87,13 @@ public class CustomerService {
             customerToEdit.setPhonenumber(customerDto.getPhonenumber());
 
             customerRepository.save(customerToEdit);
+
+            return customerToEdit;
+
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }
+
     }
 
     public void partialEditCustomer (long id, CustomerDto customerDto) {

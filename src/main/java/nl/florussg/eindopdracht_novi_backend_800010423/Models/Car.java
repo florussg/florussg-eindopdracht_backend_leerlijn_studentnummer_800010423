@@ -1,6 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-
 import javax.persistence.*;
 import java.util.List;
 

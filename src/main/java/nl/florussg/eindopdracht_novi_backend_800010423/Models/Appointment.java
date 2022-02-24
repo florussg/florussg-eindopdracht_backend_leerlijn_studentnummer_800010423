@@ -16,7 +16,7 @@ public class Appointment {
 
     private Boolean apk; //if true then the appointment contains an APK inspection
 
-    private Boolean repair; //if true then the appointment contains an repair
+    private Boolean repair; //if true then the appointment contains a repair
 
     //private Boolean completed; if apk and repair False then the appointment is 'completed'. Create autosetter?~~~~~~~~
 
