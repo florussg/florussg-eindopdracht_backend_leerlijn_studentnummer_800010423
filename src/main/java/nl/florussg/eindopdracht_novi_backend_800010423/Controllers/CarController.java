@@ -59,7 +59,12 @@ public class CarController {
         return ResponseEntity.noContent().build();
     }
 
-
+    @PatchMapping(value = "cars/{licenseplateNumber")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> partialEditCar (@PathVariable String licenseplateNumber, @RequestBody CarDto carDto) {
+        carService.partialEditCar(licenseplateNumber, carDto);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

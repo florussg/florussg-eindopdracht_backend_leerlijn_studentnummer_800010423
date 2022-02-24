@@ -4,6 +4,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CarDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,40 @@ public class CarService {
 
             carRepository.save(carToEdit);
             return carToEdit;
+        } else {
+            throw new RecordNotFoundException("A car with this licenseplate number does not exist");
+        }
+    }
+
+    public void partialEditCar (String licenseplateNumber, CarDto carDto ) {
+        Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
+
+        if (optionalCar.isPresent()) {
+            //Car carToEditId = carRepository.findById(optionalCar.get().getId());
+
+          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            //Car carToEdit = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(optionalCar.get().getLicenseplatenumber());
+
+            if (carDto.getLicenseplateNumber() != null && !carDto.getLicenseplateNumber().isEmpty()) {
+                if (checkIfCarExistsInDatabaseBasedOnLicenseplateNumber(carDto) == true) {
+                    throw new BadRequestException("Car already exists based on input-licenseplate number");
+                } else {
+                    carToEdit.setLicenseplatenumber(carDto.getLicenseplateNumber());
+                }
+
+            if (carDto.getBrand() != null && !carDto.getBrand().isEmpty()) {
+                carToEdit.setBrand(carDto.getBrand());
+            }
+            if (carDto.getType() != null && !carDto.getType().isEmpty()) {
+                carToEdit.setType(carDto.getType());
+            }
+
+            if (carDto.getFileNameCarRegistrationDocument() != null && !carDto.getFileNameCarRegistrationDocument().isEmpty()) {
+                carToEdit.setFileNameCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
+                }
+            }
         } else {
             throw new RecordNotFoundException("A car with this licenseplate number does not exist");
         }
