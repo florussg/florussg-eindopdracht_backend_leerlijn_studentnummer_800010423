@@ -1,7 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,7 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> addCustomer(@Valid @RequestBody CustomerDto customerDto) {
 
-        long newId = customerService.addCustomer(customerDto);
+        long newId = customerService.addNewCustomer(customerDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newId).toUri();
         return ResponseEntity.created(location).build();

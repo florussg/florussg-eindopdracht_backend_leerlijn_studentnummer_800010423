@@ -1,13 +1,19 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CarDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
+import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
+import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +22,8 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+    private CarRepository carRepository;
+    private AppointmentRepository appointmentRepository;
 
     public Iterable<Customer> getAllCustomers(String lastname) {
         if (lastname.isEmpty()) {
@@ -45,7 +53,7 @@ public class CustomerService {
           }
       }
 
-    public long addCustomer (CustomerDto customerDto) {
+    public long addNewCustomer(CustomerDto customerDto) {
 
         if(checkIfCustomerExistsInDatabaseBasedOnBsnnumber(customerDto) == true) {
             throw new BadRequestException("Customer already exists based on input-bsnnumber");
@@ -117,6 +125,22 @@ public class CustomerService {
 
             customerRepository.save(customerToEdit);
 
+        } else {
+            throw new RecordNotFoundException("A customer with this id does not exist");
+        }
+    }
+
+    public void addExcistingCarToCustomer(long id, Car car) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+
+        if (optionalCustomer.isPresent()) {
+            Customer customer = optionalCustomer.get();
+            List<Car> carsFromCustomer = customer.getOwnedCars();
+
+            carsFromCustomer.add(car);
+            car.setCarCustomer(customer);
+            customerRepository.save(customer);
+            carRepository.save(car);
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }

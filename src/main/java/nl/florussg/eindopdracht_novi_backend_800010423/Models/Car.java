@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name= "car")
 public class Car {
 
     //attributes
@@ -11,12 +12,16 @@ public class Car {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     long id;
 
+    @Column(name= "brand")
     private String brand;
 
+    @Column(name= "type")
     private String type;
 
-    private String licenseplatenumber;
+    @Column(name= "licenseplate_number")
+    private String licenseplateNumber;
 
+    @Column(name= "registration_document")
     private String fileNameCarRegistrationDocument;
     // Nog te bepalen hoe ik de uploadfunctie ga inrichten //
     //private VectorOperators.Binary carpapers; of multipart.MultipartFile;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,6 +31,12 @@ public class Car {
 
     @OneToMany(mappedBy = "carAppointment")
     private List<Appointment> carAppointment;
+
+
+    //Default constructor
+    public Car() {
+    }
+
 
     //getters and setters
     public long getId() {
@@ -53,11 +64,11 @@ public class Car {
     }
 
     public String getLicenseplatenumber() {
-        return licenseplatenumber;
+        return licenseplateNumber;
     }
 
     public void setLicenseplatenumber(String licenseplatenumber) {
-        this.licenseplatenumber = licenseplatenumber;
+        this.licenseplateNumber = licenseplatenumber;
     }
 
     public String getFileNameCarRegistrationDocument() {
@@ -83,4 +94,6 @@ public class Car {
     public void setCarAppointment(List<Appointment> carAppointment) {
         this.carAppointment = carAppointment;
     }
+
+
 }

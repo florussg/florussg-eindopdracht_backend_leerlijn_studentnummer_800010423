@@ -1,14 +1,12 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
-import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -141,7 +139,7 @@ public class CustomerServiceTest {
 
         //act - uitvoeren wat er getest wordt.
         Customer customerCreated = customerRepository.save(customerOne);
-        long customerCreatedId = customerService.addCustomer(customerDto);
+        long customerCreatedId = customerService.addNewCustomer(customerDto);
         verify(customerRepository).save(customerOne);
 
         //assert - vergelijking.

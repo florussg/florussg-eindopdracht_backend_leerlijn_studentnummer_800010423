@@ -12,23 +12,27 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "firstname")
     private String firstname;
 
+    @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "bsn_number")
     private int bsnnumber;
 
+    @Column(name = "phone_number")
     private int phonenumber;
 
-//    @OneToMany (mappedBy = "carCustomer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Car> ownedCar; //ArrayList van maken?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//
-//    @OneToMany (mappedBy = "appointmentOfCustomer")
-//    private List<Appointment> customerAppointment;
+    @OneToMany(mappedBy = "carCustomer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Car> ownedCars;
+
+    @OneToMany(mappedBy = "appointmentOfCustomer")
+    private List<Appointment> customerAppointments;
 
     //Default constructor
-    public Customer(){
-            }
+    public Customer() {
+    }
 
     //getters and setters
     public long getId() {
@@ -71,20 +75,20 @@ public class Customer {
         this.phonenumber = phonenumber;
     }
 
-//    public List<Car> getOwnedCar() {
-//        return ownedCar;
-//    }
-//
-//    public void setOwnedCar(List<Car> ownedCar) {
-//        this.ownedCar = ownedCar;
-//    }
-//
-//    public List<Appointment> getCustomerAppointment() {
-//        return customerAppointment;
-//    }
-//
-//    public void setCustomerAppointment(List<Appointment> customerAppointment) {
-//        this.customerAppointment = customerAppointment;
+    public List<Car> getOwnedCars() {
+        return ownedCars;
     }
 
+    public void setOwnedCars(List<Car> ownedCar) {
+        this.ownedCars = ownedCar;
+    }
+
+    public List<Appointment> getCustomerAppointments() {
+        return customerAppointments;
+    }
+
+    public void setCustomerAppointments(List<Appointment> customerAppointment) {
+        this.customerAppointments = customerAppointment;
+    }
+}
 
