@@ -3,6 +3,8 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -48,12 +50,12 @@ public class Appointment {
         this.id = id;
     }
 
-    public LocalDateTime getDateTimeAssignment() {
+    public LocalDateTime getDateTimeAppointment() {
         return dateTimeAppointment;
     }
 
-    public void setDateTimeAssignment(LocalDateTime dateTimeAssignment) {
-        this.dateTimeAppointment = dateTimeAssignment;
+    public void setDateTimeAppointment(LocalDateTime dateTimeAppointment) {
+        this.dateTimeAppointment = dateTimeAppointment;
     }
 
     public Boolean getApk() {
@@ -104,14 +106,22 @@ public class Appointment {
         this.appointmentOfCustomer = appointmentOfCustomer;
     }
 
-    public LocalDate getDateFromAppointment(Appointment appointment) {
-        LocalDate date = appointment.getDateFromAppointment(appointment);
-        return date;
-    }
-
     //methods
+
     //Add method calculateTotalCostAppointment() here?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //price APK = 40,-
     //price part
     //price per hour to repair part = 25,-
+
+//        public LocalDate getDateFromAppointment(Appointment appointment) {
+//        LocalDate date = appointment.getDateFromAppointment(appointment);
+//        return date;
+//    }
+//
+//    public LocalTime getTimeFromAppointment(Appointment appointment) {
+//        LocalTime time = appointment.getTimeFromAppointment(appointment);
+//        return time;
+//    }
+
+
 }

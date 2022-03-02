@@ -1,12 +1,14 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 public class AppointmentController {
@@ -32,5 +34,13 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAllRepairAppointments());
     }
 
+    @PostMapping (value = "/appointments/new")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Object> addNewAppointment(@RequestBody Appointment appointment) {
+        long newId = appointmentService.addNewAppointment(appointment);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(newId).toUri();
+        return ResponseEntity.created(location).build();
+    }
 
 }

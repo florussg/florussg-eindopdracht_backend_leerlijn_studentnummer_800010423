@@ -1,5 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +27,6 @@ public class AppointmentService {
 
     @Autowired
     private CarRepository carRepository;
-
 
     public Iterable<Appointment> getAllAppointments() {
         List<Appointment> all = appointmentRepository.findAll();
@@ -52,31 +54,87 @@ public class AppointmentService {
     }
 
 
-    //SAMEN MET JOHAN NAAR KIJKEN?????~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    public boolean checkIfAppointmentsPerDayIsNotHigherThenFour(Appointment appointment) {
+    public long addNewAppointment(Appointment appointment) {
+        if (checkIfAppointmentsPerDayIsNotHigherThenThree(appointment) == true) {
 
-        LocalDate appointmentInputDate = appointment.getDateFromAppointment(appointment);
-        Iterator<Appointment> optionalAppointment = appointmentRepository.findAppointmentByDate();
+            Appointment newAppointment = new Appointment();
+            newAppointment.setDateTimeAppointment(appointment.getDateTimeAppointment());
+            newAppointment.setApk(appointment.getApk());
+            newAppointment.setRepair(appointment.getRepair());
+            newAppointment.setCarAppointment(appointment.getCarAppointment());
 
-        if (optionalAppointment.equals(appointmentInputDate)) {
+            Appointment saveAppointment = appointmentRepository.save(newAppointment);
+            return saveAppointment.getId();
+
+        } else {
+            throw new BadRequestException("To many appointments today, make another appointment");
+        }
+    }
+
+
+    public boolean checkIfAppointmentsPerDayIsNotHigherThenThree(Appointment appointment) {
+
+       String dateNewAppointment = getDateFromDateTimeAppointment(appointment);
+
+        Iterator<Appointment> optionalAppointment = appointmentRepository.findAppointmentByDateTimeAppointment_MonthValueAndDayValue();
+        Iterator dateRepo = getDateFromDateTimeAppointment(optionalAppointment);
+
+        if (optionalAppointment.(date)) {
 
             for (Iterator<Appointment> it = optionalAppointment; it.hasNext(); ) {
                 int appointmentsPerDay = '0';
-                int maxAppointmentsPerDay = '4';
+                int maxAppointmentsPerDay = '3';
                 appointmentsPerDay++;
                 if (appointmentsPerDay >= maxAppointmentsPerDay) {
-                    return false;
-
+                    break;
                 } else {
-                    return true;
+                    continue;
                 }
             }
-        }
-        else {
             return true;
+
+        } else {
+            return false;
         }
-        return true;
     }
+
+
+    public String getDateFromDateTimeAppointment (Appointment appointment) {
+        String date = String.valueOf(appointment.getDateTimeAppointment());
+        LocalDateTime ldt = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
+
+        return ldt.format(DateTimeFormatter.ofPattern("MM-dd"));
+    }
+
+
+//    public boolean checkIfAppointmentsPerDayIsNotHigherThenThree(Appointment appointment) {
+//
+//        LocalDate appointmentInputDate = appointment.getDateFromAppointment(appointment);
+//        Iterator<Appointment> optionalAppointment = appointmentRepository.findAppointmentByDate();
+//
+//        if (optionalAppointment.equals(appointmentInputDate)) {
+//
+//            for (Iterator<Appointment> it = optionalAppointment; it.hasNext(); ) {
+//                int appointmentsPerDay = '0';
+//                int maxAppointmentsPerDay = '3';
+//                appointmentsPerDay++;
+//                if (appointmentsPerDay >= maxAppointmentsPerDay) {
+//                    break;
+//                } else {
+//                    continue;
+//                }
+//            }
+//        return true;
+//
+//        } else {
+//            return false;
+//            }
+//    }
+
+//    public boolean checkIfTimeAssignmentIsAfter0900 (Appointment appointment) {
+//        String DateTime = appointment.
+//        LocalDate appointmentInputTime = appointment.
+//    }
 
 }
 

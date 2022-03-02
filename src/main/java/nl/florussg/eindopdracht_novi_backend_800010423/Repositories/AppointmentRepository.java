@@ -12,6 +12,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<Appointment> findAppointmentByRepairIsTrue();
     Iterator<Appointment> findAppointmentByDate();
 
+    Iterator<Appointment> findAppointmentByDateTime();
+    Iterator<Appointment> findAppointmentByDateTimeAppointment_Date();
+
     //@Query(value= "SELECT DATE FROM appointment, COUNT appointment
     //@Query(value = "SELECT * FROM books b WHERE b.title LIKE %:s%", nativeQuery = true) // using SQL
 }
