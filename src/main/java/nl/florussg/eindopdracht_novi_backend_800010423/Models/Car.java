@@ -35,11 +35,9 @@ public class Car {
     @OneToMany(mappedBy = "carAppointment")
     private List<Appointment> carAppointment;
 
-
     //Default constructor
     public Car() {
     }
-
 
     //getters and setters
     public long getId() {

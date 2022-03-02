@@ -19,6 +19,7 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
+    @Autowired
     private CustomerRepository customerRepository;
 
     public Iterable<Car> getAllCars() {

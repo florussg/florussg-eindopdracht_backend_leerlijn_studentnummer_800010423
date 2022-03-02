@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name="appointment")
 public class Appointment {
 
     //attributes
@@ -12,19 +13,22 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name= "appointment_date_time")
     private LocalDateTime dateTimeAssignment;
 
+    @Column(name= "appointment_apk")
     private Boolean apk; //if true then the appointment contains an APK inspection
 
+    @Column(name = "appointment_repair")
     private Boolean repair; //if true then the appointment contains a repair
 
     //private Boolean completed; if apk and repair False then the appointment is 'completed'. Create autosetter?~~~~~~~~
 
-    @ManyToOne
-    private Car carAppointment;
-
     @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private ApkStatus apkStatus;
+
+    @ManyToOne
+    private Car carAppointment;
 
     @OneToMany (mappedBy = "repairAppointment")
     private List<Repair> repairs;
