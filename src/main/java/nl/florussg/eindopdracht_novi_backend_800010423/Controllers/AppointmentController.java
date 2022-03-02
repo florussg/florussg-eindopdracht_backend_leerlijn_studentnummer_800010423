@@ -26,5 +26,11 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAllApkAppointments());
     }
 
+    @GetMapping (value= "/appointments/repair")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> getAllRepairAppointments() {
+        return ResponseEntity.ok(appointmentService.getAllRepairAppointments());
+    }
+
 
 }

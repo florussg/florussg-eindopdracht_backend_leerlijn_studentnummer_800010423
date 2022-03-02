@@ -1,7 +1,9 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,7 +16,7 @@ public class Appointment {
     private long id;
 
     @Column(name= "appointment_date_time")
-    private LocalDateTime dateTimeAssignment;
+    private LocalDateTime dateTimeAppointment;
 
     @Column(name= "appointment_apk")
     private Boolean apk; //if true then the appointment contains an APK inspection
@@ -47,11 +49,11 @@ public class Appointment {
     }
 
     public LocalDateTime getDateTimeAssignment() {
-        return dateTimeAssignment;
+        return dateTimeAppointment;
     }
 
     public void setDateTimeAssignment(LocalDateTime dateTimeAssignment) {
-        this.dateTimeAssignment = dateTimeAssignment;
+        this.dateTimeAppointment = dateTimeAssignment;
     }
 
     public Boolean getApk() {
@@ -100,6 +102,11 @@ public class Appointment {
 
     public void setAppointmentOfCustomer(Customer appointmentOfCustomer) {
         this.appointmentOfCustomer = appointmentOfCustomer;
+    }
+
+    public LocalDate getDateFromAppointment(Appointment appointment) {
+        LocalDate date = appointment.getDateFromAppointment(appointment);
+        return date;
     }
 
     //methods
