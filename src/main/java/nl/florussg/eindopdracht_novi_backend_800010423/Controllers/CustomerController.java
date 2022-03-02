@@ -1,6 +1,7 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,4 +73,18 @@ public class CustomerController {
         customerService.partialEditCustomer(id, customerDto);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value= "/customers/{id}/cars")
+    public ResponseEntity<Object> addNewCarToCustomer(@PathVariable long id, @RequestBody Car car) {
+        customerService.addNewCarToCustomer(id, car);
+        return ResponseEntity.ok().build();
+    }
+
+//    @PostMapping(value= "/customers/{id}/cars{id}")
+//    public ResponseEntity<Object> addNewCarToCustomer(@PathVariable long idCustomer, @PathVariable long id) {
+//        customerService.addNewCarToCustomer(id, car);
+//        return ResponseEntity.ok().build();
+//    }
+
+
 }

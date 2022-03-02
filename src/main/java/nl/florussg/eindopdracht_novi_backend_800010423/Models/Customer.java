@@ -1,5 +1,7 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -89,6 +91,10 @@ public class Customer {
 
     public void setCustomerAppointments(List<Appointment> customerAppointment) {
         this.customerAppointments = customerAppointment;
+    }
+
+    public void addOwnedCars(Car car) {
+        ownedCars.add(car);
     }
 }
 

@@ -6,6 +6,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFound
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
+import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
+    private CustomerRepository customerRepository;
 
     public Iterable<Car> getAllCars() {
         List<Car> all = carRepository.findAll();
@@ -93,12 +95,7 @@ public class CarService {
         Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
 
         if (optionalCar.isPresent()) {
-            //Car carToEditId = carRepository.findById(optionalCar.get().getId());
-
-          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-            //Car carToEdit = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(optionalCar.get().getLicenseplatenumber());
+            Car carToEdit = optionalCar.get();
 
             if (carDto.getLicenseplateNumber() != null && !carDto.getLicenseplateNumber().isEmpty()) {
                 if (checkIfCarExistsInDatabaseBasedOnLicenseplateNumber(carDto) == true) {
@@ -106,6 +103,7 @@ public class CarService {
                 } else {
                     carToEdit.setLicenseplatenumber(carDto.getLicenseplateNumber());
                 }
+            }
 
             if (carDto.getBrand() != null && !carDto.getBrand().isEmpty()) {
                 carToEdit.setBrand(carDto.getBrand());
@@ -117,12 +115,13 @@ public class CarService {
             if (carDto.getFileNameCarRegistrationDocument() != null && !carDto.getFileNameCarRegistrationDocument().isEmpty()) {
                 carToEdit.setFileNameCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
                 }
-            }
+
+            carRepository.save(carToEdit);
+
         } else {
             throw new RecordNotFoundException("A car with this licenseplate number does not exist");
         }
     }
-
 
 
     public boolean checkIfCarExistsInDatabaseBasedOnLicenseplateNumber(CarDto carDto) {
@@ -134,6 +133,28 @@ public class CarService {
             return false;
         }
     }
+
+
+    //    public void addExcistingCustomerToCar(long id, Customer customer) {
+//        Optional<Car> optionalCar = carRepository.findById(id);
+//
+//        if (optionalCar.isPresent()) {
+//            Car car = optionalCar.get();
+//            List<Customer> customerOwnsCars = (List<Customer>) car.getCarCustomer();
+//
+//            customerOwnsCars.add(customer);
+//            customer.setOwnedCars((List<Car>) car);
+//            carRepository.save(car);
+//            customerRepository.save(customer);
+//        } else {
+//            throw new RecordNotFoundException("A car with this id does not exist");
+//        }
+//    }
+
+
+
+
+
 }
 
 

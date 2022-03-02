@@ -1,5 +1,7 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class Car {
     //private VectorOperators.Binary carpapers; of multipart.MultipartFile;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     @ManyToOne
+    @JsonIgnore
     private Customer carCustomer;
 
     @OneToMany(mappedBy = "carAppointment")

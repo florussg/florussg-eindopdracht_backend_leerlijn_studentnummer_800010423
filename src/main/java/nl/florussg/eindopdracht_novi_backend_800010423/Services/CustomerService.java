@@ -22,7 +22,11 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
     private CarRepository carRepository;
+
+    @Autowired
     private AppointmentRepository appointmentRepository;
 
     public Iterable<Customer> getAllCustomers(String lastname) {
@@ -130,17 +134,21 @@ public class CustomerService {
         }
     }
 
-    public void addExcistingCarToCustomer(long id, Car car) {
+    public void addNewCarToCustomer(long id, Car car) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
 
         if (optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
-            List<Car> carsFromCustomer = customer.getOwnedCars();
+            //List<Car> carsFromCustomer = customer.getOwnedCars();
 
-            carsFromCustomer.add(car);
+
             car.setCarCustomer(customer);
-            customerRepository.save(customer);
+
             carRepository.save(car);
+            customer.addOwnedCars(car);
+
+            customerRepository.save(customer);
+
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }
