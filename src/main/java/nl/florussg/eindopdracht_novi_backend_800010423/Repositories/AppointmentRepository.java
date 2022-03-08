@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    Optional<Appointment> findAppointmentByApkIsTrue();
-    Optional<Appointment> findAppointmentByRepairIsTrue();
+    //List<Appointment> findAppointmentByApkIsTrue();
+    //Optional<Appointment> findAppointmentByRepairIsTrue();
 
 
 //    Iterator<Appointment> findAppointmentByDate();
@@ -23,5 +23,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     @Query(value= "select * from appointment where appointment_date_time::text like '%:stringDate%'", nativeQuery = true)
     List<Appointment> findAppointmentByDate(@Param("stringDate") String stringDate);
+
     //@Query(value = "SELECT * FROM books b WHERE b.title LIKE %:s%", nativeQuery = true) // using SQL
+
+    @Query(value= "select * from appointment where appointment_apk is true", nativeQuery = true)
+    List<Appointment> findAppointmentByApkIsTrue();
+
+    @Query(value= "select * from appointment where appointment_repair is true", nativeQuery = true)
+    List<Appointment> findAppointmentByRepairIsTrue();
 }

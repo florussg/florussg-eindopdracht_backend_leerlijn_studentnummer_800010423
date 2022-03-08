@@ -33,21 +33,45 @@ public class AppointmentService {
         return all;
     }
 
-    public Appointment getAllApkAppointments() {
-        Optional<Appointment> optionalApkAppointments = appointmentRepository.findAppointmentByApkIsTrue();
-        if (optionalApkAppointments.isPresent()) {
-            Appointment foundApkAppointments = optionalApkAppointments.get();
-            return foundApkAppointments;
+    public List<Appointment> getAllApkAppointments() {
+        List<Appointment> allApkAppointments = appointmentRepository.findAppointmentByApkIsTrue();
+        if(allApkAppointments.size() > 0) {
+            return allApkAppointments;
         } else {
             throw new RecordNotFoundException("There are no open APK appointments");
         }
     }
 
-    public Appointment getAllRepairAppointments() {
-        Optional<Appointment> optionalRepairAppointments = appointmentRepository.findAppointmentByRepairIsTrue();
-        if (optionalRepairAppointments.isPresent()) {
-            Appointment foundRepairAppointments = optionalRepairAppointments.get();
-            return foundRepairAppointments;
+//    public Appointment getAllApkAppointments() {
+//        Optional<Appointment> optionalApkAppointments = appointmentRepository.findAppointmentByApkIsTrue();
+//        if (optionalApkAppointments.isPresent()) {
+//            Appointment foundApkAppointments = optionalApkAppointments.get();
+//            return foundApkAppointments;
+//        } else {
+//            throw new RecordNotFoundException("There are no open APK appointments");
+//        }
+//    }
+
+//    public Iterable<Appointment> getAllApkAppointments() {
+//            List<Appointment> foundApkAppointments = appointmentRepository.findAppointmentByApkIsTrue();
+//            return foundApkAppointments;
+//        }
+
+
+//    public Appointment getAllRepairAppointments() {
+//        Optional<Appointment> optionalRepairAppointments = appointmentRepository.findAppointmentByRepairIsTrue();
+//        if (optionalRepairAppointments.isPresent()) {
+//            Appointment foundRepairAppointments = optionalRepairAppointments.get();
+//            return foundRepairAppointments;
+//        } else {
+//            throw new RecordNotFoundException("There are no open repair appointments");
+//        }
+//    }
+
+    public List<Appointment> getAllRepairAppointments() {
+        List<Appointment> allRepairAppointments = appointmentRepository.findAppointmentByRepairIsTrue();
+        if(allRepairAppointments.size() > 0) {
+            return allRepairAppointments;
         } else {
             throw new RecordNotFoundException("There are no open repair appointments");
         }
@@ -55,7 +79,7 @@ public class AppointmentService {
 
 
     public long addNewAppointment(Appointment appointment) {
-        //if (checkIfAppointmentsPerDayIsNotHigherThenThree(appointment) == true) {
+        if (checkIfAppointmentsPerDayIsNotHigherThenThree(appointment.getDateTimeAppointment()) == true) {
 
 //        Appointment newAppointment = new Appointment();
 //        newAppointment.setDateTimeAppointment(appointment.getDateTimeAppointment());
@@ -63,13 +87,15 @@ public class AppointmentService {
 //        newAppointment.setRepair(appointment.getRepair());
 //        newAppointment.setCarAppointment(appointment.getCarAppointment());
 
-        Appointment saveAppointment = appointmentRepository.save(appointment);
-        return saveAppointment.getId();
+            Appointment saveAppointment = appointmentRepository.save(appointment);
+            return saveAppointment.getId();
 
-        //} else {
-            //throw new BadRequestException("To many appointments today, make another appointment");
-        //}
+        } else {
+            throw new BadRequestException("To many appointments today, make another appointment");
+        }
     }
+
+
 
 
 //    public boolean checkIfAppointmentsPerDayIsNotHigherThenThree(Appointment appointment) {
@@ -104,7 +130,7 @@ public class AppointmentService {
         String date = String.valueOf(dateTimeAppointment);
         LocalDateTime ldt = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
 
-        return ldt.format(DateTimeFormatter.ofPattern("MM-dd"));
+        return ldt.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
     }
 
 
@@ -112,12 +138,15 @@ public class AppointmentService {
 
         String date = getDateFromDateTimeAppointment(dateTimeAppointment);
 
-        List foundApointment = appointmentRepository.findAppointmentByDate(date);
-        if(foundApointment.size() > 3) {
-            
-
+        List foundAppointment = appointmentRepository.findAppointmentByDate(date);
+        //hier gaat het mis, var banaan wordt niet gezet!
+        //var banaan = new String("banaan");
+        if (foundAppointment.size() > 3) {
+            return false;
+        } else {
+            return true;
         }
-
+    }
 //        Iterator<Appointment> optionalAppointment = appointmentRepository.find();
 //
 //        if (optionalAppointment.equals(appointmentInputDate)) {
@@ -137,8 +166,8 @@ public class AppointmentService {
 //        } else {
 //            return false;
 //            }
-        return true;
-    }
+
+
 
 //    public boolean checkIfTimeAssignmentIsAfter0900 (Appointment appointment) {
 //        String DateTime = appointment.
