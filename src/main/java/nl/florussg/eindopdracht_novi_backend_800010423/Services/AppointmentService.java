@@ -101,9 +101,27 @@ public class AppointmentService {
         if(optionalAppointment.isPresent()) {
             appointmentRepository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("There is no open appointment with this id");
+            throw new RecordNotFoundException("There is no appointment with this id");
         }
     }
+
+    public Appointment editAppointment(long id, Appointment appointment) {
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
+        if(optionalAppointment.isPresent()) {
+            Appointment appointmentToEdit = optionalAppointment.get();
+
+            appointmentToEdit.setDateTimeAppointment(appointment.getDateTimeAppointment());
+            appointmentToEdit.setApk(appointment.getApk());
+            appointmentToEdit.setRepair(appointment.getRepair());
+
+            appointmentRepository.save(appointmentToEdit);
+            return appointmentToEdit;
+
+        } else {
+            throw new RecordNotFoundException("There is no appointment with this id");
+        }
+    }
+
 
 
 

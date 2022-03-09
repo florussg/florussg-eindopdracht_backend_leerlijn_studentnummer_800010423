@@ -50,4 +50,10 @@ public class AppointmentController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping(value = "/appointments/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> editAppointment (@PathVariable long id, @RequestBody Appointment appointment) {
+        appointmentService.editAppointment(id, appointment);
+        return ResponseEntity.noContent().build();
+    }
 }
