@@ -43,4 +43,11 @@ public class AppointmentController {
         return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping (value = "/appointments/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> deleteAppointment (@PathVariable long id) {
+        appointmentService.deleteAppointment(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

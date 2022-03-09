@@ -91,10 +91,19 @@ public class AppointmentService {
             return saveAppointment.getId();
 
         } else {
-            throw new BadRequestException("To many appointments today, make another appointment");
+            throw new BadRequestException("To many appointments today, make an appointment on another day");
         }
     }
 
+
+    public void deleteAppointment(long id) {
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
+        if(optionalAppointment.isPresent()) {
+            appointmentRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException("There is no open appointment with this id");
+        }
+    }
 
 
 
@@ -125,7 +134,7 @@ public class AppointmentService {
 //    }
 
 
-
+    //methods
     public String getDateFromDateTimeAppointment (LocalDateTime dateTimeAppointment) {
         String date = String.valueOf(dateTimeAppointment);
         LocalDateTime ldt = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
