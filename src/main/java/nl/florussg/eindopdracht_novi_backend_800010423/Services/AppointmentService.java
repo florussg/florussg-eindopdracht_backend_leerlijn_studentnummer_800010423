@@ -139,7 +139,6 @@ public class AppointmentService {
         String date = getDateFromDateTimeAppointment(dateTimeAppointment);
 
         List foundAppointment = appointmentRepository.findAppointmentByDate(date);
-        //hier gaat het mis, var banaan wordt niet gezet!
         //var banaan = new String("banaan");
         if (foundAppointment.size() > 3) {
             return false;
