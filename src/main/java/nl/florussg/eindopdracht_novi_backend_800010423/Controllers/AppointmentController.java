@@ -1,5 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.ApkStatus;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.AppointmentService;
@@ -65,11 +66,18 @@ public class AppointmentController {
         return ResponseEntity.noContent().build();
     }
 
-    //Possible parameters are APK_inspection_started, APK_pass, APK_fail, APK_inspection_cancelled
+    //Possible parameters are: "started", "pass", "fail", "cancelled"
     @PatchMapping(value = "/appointments/{id}/setapkstatus")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> setApkStatus (@PathVariable long id, @RequestBody Appointment appointment) {
         appointmentService.setApkStatus(id, appointment);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping(value =  "/appointments/{id}/customer")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> addCustomerToAppointment (@PathVariable long id, @RequestBody int bsnnumber ) {
+        appointmentService.addCustomerToAppointment(id, bsnnumber);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,9 +1,11 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.ApkStatus;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
@@ -112,7 +114,6 @@ public class AppointmentService {
         }
     }
 
-    //set APK status
     public void setApkStatus (long id, Appointment status) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
 
@@ -129,10 +130,27 @@ public class AppointmentService {
                 }
 
             appointmentRepository.save(appointmentToEdit);
-            //appointmentToEdit.setApkStatus(appointment.getApkStatus());
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
             }
+    }
+
+    public void addCustomerToAppointment (long appointmentId, int customerBsn) {
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+        Optional<Customer> optionalCustomer= customerRepository.findCustomerByBsnnumber(customerBsn);
+
+        if (optionalAppointment.isPresent() && optionalCustomer.isPresent()) {
+
+            Appointment appointmentToEdit = optionalAppointment.get();
+            Customer customerToAdd = optionalCustomer.get();
+
+            appointmentToEdit.setAppointmentOfCustomer(customerToAdd);
+
+            appointmentRepository.save(appointmentToEdit);
+
+        } else {
+            throw new RecordNotFoundException("There is no appointment with this id or the customer with this BSN does not exist");
+        }
     }
 
 
