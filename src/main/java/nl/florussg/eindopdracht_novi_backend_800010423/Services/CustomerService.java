@@ -139,8 +139,6 @@ public class CustomerService {
 
         if (optionalCustomer.isPresent()) {
             Customer customer = optionalCustomer.get();
-            //List<Car> carsFromCustomer = customer.getOwnedCars();
-
 
             car.setCarCustomer(customer);
 

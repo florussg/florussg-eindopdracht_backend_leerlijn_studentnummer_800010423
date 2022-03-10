@@ -117,7 +117,7 @@ public class CarService {
                 carToEdit.setFileNameCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
                 }
 
-            carRepository.save(carToEdit);
+        carRepository.save(carToEdit);
 
         } else {
             throw new RecordNotFoundException("A car with this licenseplate number does not exist");
