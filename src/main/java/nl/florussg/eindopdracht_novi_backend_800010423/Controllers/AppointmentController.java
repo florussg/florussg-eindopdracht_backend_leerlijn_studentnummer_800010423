@@ -80,4 +80,18 @@ public class AppointmentController {
         appointmentService.addCustomerToAppointment(id, bsnnumber);
         return ResponseEntity.noContent().build();
     }
+
+//    @PatchMapping(value = "/appointments/{id}/car")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public ResponseEntity<Object> addCarToAppointment(@PathVariable long id, @RequestParam(name = "license", defaultValue = "") String licenseplateNumber) {
+//        appointmentService.addCarToAppointment(id, licenseplateNumber);
+//        return ResponseEntity.noContent().build();
+//    }
+
+    @PatchMapping(value = "/appointments/{id}/car")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> addCarToAppointment(@PathVariable long id, @RequestBody String licenseplateNumber) {
+        appointmentService.addCarToAppointment(id, licenseplateNumber);
+        return ResponseEntity.noContent().build();
+    }
 }
