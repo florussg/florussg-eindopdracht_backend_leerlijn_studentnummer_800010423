@@ -254,7 +254,6 @@ class AppointmentServiceTest {
         appointmentApkStatusNull.setApkStatus(null);
 
         when(appointmentRepository.findById(10L)).thenReturn(Optional.of(appointmentApkStatusNull));
-        //when(appointmentRepository.save(appointmentApkStatusNull)).thenReturn(appointmentApkStatusNull);
 
         Exception exception = assertThrows(BadRequestException.class, () -> {
             appointmentService.setApkStatus(10L, appointmentApkStatusNull);
@@ -264,12 +263,48 @@ class AppointmentServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
-        //Assertions.assertEquals("You can not change the APK status because the input field is null", Exception.;
-        //assertEquals("",);
-        //assertThatExceptionOfType(BadRequestException.class).isThrownBy(() -> {}).withMessage("You can not change the APK status because the input field is null");
     }
 
+    @Test
+    void setApkStatusNotAnApkAppointment() {
+
+        Appointment appointmentApkStatusNotAnApkAppointment = new Appointment();
+        appointmentApkStatusNotAnApkAppointment.setId(10L);
+        appointmentApkStatusNotAnApkAppointment.setApk(false);
+
+        when(appointmentRepository.findById(10L)).thenReturn(Optional.of(appointmentApkStatusNotAnApkAppointment));
+
+        Exception exception = assertThrows(BadRequestException.class, () -> {
+            appointmentService.setApkStatus(10L, appointmentApkStatusNotAnApkAppointment);
+        });
+
+        String expectedMessage = "This is not an APK appointment";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test //TODO Nog af te maken, werkt nog niet!
+    void setApkStatusNoAppointmentFound() {
+
+        Appointment appointmentApkStatusNoAppointmentFound = new Appointment();
+        appointmentApkStatusNoAppointmentFound.setId(10L);
+
+
+        when(appointmentRepository.findById(10L)).thenReturn(Optional.ofNullable(appointmentOne));
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+            appointmentService.setApkStatus(10L, appointmentOne);
+        });
+
+        String expectedMessage = "There is no appointment with this id";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
+    //TODO Nog te maken
     @Test
     void addCustomerToAppointment() {
 
