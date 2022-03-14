@@ -9,6 +9,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -34,8 +36,8 @@ class AppointmentServiceTest {
     @InjectMocks
     private AppointmentService appointmentService;
 
-    @Mock
-    private ApkStatus apkStatus;
+//    @Mock
+//    private ApkStatus apkStatus;
 
     @Mock
     private AppointmentRepository appointmentRepository;
@@ -228,23 +230,51 @@ class AppointmentServiceTest {
     @Test
     void setApkStatus() {
 
-        when(appointmentRepository.findById(3L)).thenReturn(Optional.ofNullable(appointmentThree));
+        when(appointmentRepository.findById(3L)).thenReturn(Optional.of(appointmentThree));
         when(appointmentRepository.save(appointmentThree)).thenReturn(appointmentThree);
 
-        appointmentThree.setApkStatus(ApkStatus.APK_pass);
+        //appointmentThree.setApkStatus(ApkStatus.APK_pass);
         Appointment appointmentToSetApkStatus = appointmentService.setApkStatus(3L, appointmentSetApk);
 
         //verify(appointmentRepository, times(1)).findById(appointmentThree.getId());
+        verify(appointmentRepository, times(1)).findById(appointmentThree.getId());
         verify(appointmentRepository, times(1)).save(appointmentThree);
-        assertThat(appointmentToSetApkStatus.getApkStatus()).isSameAs(appointmentThree.getApkStatus());
 
+       assertThat(appointmentToSetApkStatus.getId()).isEqualTo(appointmentThree.getId());
 
         //assertThat(appointmentToSetApkStatus.getApkStatus()).isEqualTo(appointmentThree.getApkStatus());
+    }
 
+    @Test
+    void setApkStatusIsNull() {
+
+        Appointment appointmentApkStatusNull = new Appointment();
+        appointmentApkStatusNull.setId(10L);
+        appointmentApkStatusNull.setApk(true);
+        appointmentApkStatusNull.setApkStatus(null);
+
+        when(appointmentRepository.findById(10L)).thenReturn(Optional.of(appointmentApkStatusNull));
+        //when(appointmentRepository.save(appointmentApkStatusNull)).thenReturn(appointmentApkStatusNull);
+
+        Exception exception = assertThrows(BadRequestException.class, () -> {
+            appointmentService.setApkStatus(10L, appointmentApkStatusNull);
+        });
+
+        String expectedMessage = "You can not change the APK status because the input field is null";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        //Assertions.assertEquals("You can not change the APK status because the input field is null", Exception.;
+        //assertEquals("",);
+        //assertThatExceptionOfType(BadRequestException.class).isThrownBy(() -> {}).withMessage("You can not change the APK status because the input field is null");
     }
 
     @Test
     void addCustomerToAppointment() {
+
+
+
     }
 
     @Test
@@ -258,8 +288,20 @@ class AppointmentServiceTest {
 
 
 
+//    @Test ~~~~~~~~~ WERKT ~~~~~~~~~~
+//    public void whenExceptionThrown_thenAssertionSucceeds() {
+//        Exception exception = assertThrows(NumberFormatException.class, () -> {
+//            Integer.parseInt("1a");
+//        });
+//
+//        String expectedMessage = "For input string";
+//        String actualMessage = exception.getMessage();
+//
+//        assertTrue(actualMessage.contains(expectedMessage));
+//    }
 
-    @Test //WERKT NIET
+
+    @Test //WERKT NIET~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     void addNewAppointmentException() {
 
 //        when(appointmentRepository.save(appointmentOne)).thenReturn(appointmentOne);

@@ -119,7 +119,7 @@ public class AppointmentService {
         if (optionalAppointment.isPresent()) {
             Appointment appointmentToEdit = optionalAppointment.get();
             if (appointmentToEdit.getApk() == true) {
-                if (status != null && !status.toString().isEmpty()) {
+                if (status.getApkStatus() != null && !status.getApkStatus().toString().isEmpty()) {
                     appointmentToEdit.setApkStatus(status.getApkStatus());
                 } else {
                     throw new BadRequestException("You can not change the APK status because the input field is null");
