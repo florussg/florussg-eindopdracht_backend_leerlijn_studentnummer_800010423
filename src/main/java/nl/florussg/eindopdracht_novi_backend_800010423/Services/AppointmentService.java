@@ -187,7 +187,6 @@ public class AppointmentService {
             return ldt.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
         }
 
-
         public boolean checkIfAppointmentsPerDayIsNotHigherThenThree (LocalDateTime dateTimeAppointment){
 
             String date = getDateFromDateTimeAppointment(dateTimeAppointment);
