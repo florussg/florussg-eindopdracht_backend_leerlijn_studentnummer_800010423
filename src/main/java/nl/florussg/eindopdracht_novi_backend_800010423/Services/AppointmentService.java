@@ -1,10 +1,8 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.ApkStatus;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
@@ -13,10 +11,8 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,7 +71,7 @@ public class AppointmentService {
         }
     }
 
-    public void editAppointment(long id, Appointment appointment) {
+    public Appointment editAppointment(long id, Appointment appointment) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
         if (optionalAppointment.isPresent()) {
             Appointment appointmentToEdit = optionalAppointment.get();
@@ -85,14 +81,15 @@ public class AppointmentService {
             appointmentToEdit.setRepair(appointment.getRepair());
 
             appointmentRepository.save(appointmentToEdit);
-            //return appointmentToEdit;
+            //
 
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
         }
+        return appointment;
     }
 
-    public void partialEditAppointment(long id, Appointment appointment) {
+    public Appointment partialEditAppointment(long id, Appointment appointment) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
 
         if (optionalAppointment.isPresent()) {
@@ -113,9 +110,10 @@ public class AppointmentService {
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
         }
+        return appointment;
     }
 
-    public void setApkStatus(long id, Appointment status) {
+    public Appointment setApkStatus(long id, Appointment status) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
 
         if (optionalAppointment.isPresent()) {
@@ -131,6 +129,9 @@ public class AppointmentService {
             }
 
             appointmentRepository.save(appointmentToEdit);
+
+            return appointmentToEdit;
+
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
         }
