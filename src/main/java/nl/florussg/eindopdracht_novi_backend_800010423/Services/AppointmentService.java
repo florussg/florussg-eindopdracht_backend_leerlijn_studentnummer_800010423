@@ -16,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.Mockito.*;
+
 @Service
 public class AppointmentService {
 
@@ -137,7 +139,7 @@ public class AppointmentService {
         }
     }
 
-    public void addCustomerToAppointment(long appointmentId, int customerBsn) {
+    public Appointment addCustomerToAppointment(long appointmentId, int customerBsn) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
         Optional<Customer> optionalCustomer = customerRepository.findCustomerByBsnnumber(customerBsn);
 
@@ -150,12 +152,14 @@ public class AppointmentService {
 
             appointmentRepository.save(appointmentToEdit);
 
+            return appointmentToEdit;
+
         } else {
             throw new RecordNotFoundException("There is no appointment with this id or the customer with this BSN does not exist");
         }
     }
 
-    public void addCarToAppointment(long appointmentId, String licenseplateNumber) {
+    public Appointment addCarToAppointment(long appointmentId, String licenseplateNumber) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
         Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
 
@@ -174,6 +178,8 @@ public class AppointmentService {
             appointmentToEdit.setCarAppointment(carToAdd);
 
             appointmentRepository.save(appointmentToEdit);
+
+            return appointmentToEdit;
 
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
@@ -200,6 +206,7 @@ public class AppointmentService {
             }
         }
     }
+
 
 
 

@@ -36,9 +36,6 @@ class AppointmentServiceTest {
     @InjectMocks
     private AppointmentService appointmentService;
 
-//    @Mock
-//    private ApkStatus apkStatus;
-
     @Mock
     private AppointmentRepository appointmentRepository;
 
@@ -70,13 +67,13 @@ class AppointmentServiceTest {
     @BeforeEach
     public void setUp() {
 
-        car.setId(1L);
+        car.setId(2L);
         car.setBrand("Seat");
         car.setType("Leon");
         car.setLicenseplatenumber("31-LZ-XL");
         car.setFileNameCarRegistrationDocument("kentekenpapieren.pdf");
 
-        customer.setId(1L);
+        customer.setId(2L);
         customer.setFirstname("Piet");
         customer.setLastname("Janssen");
         customer.setBsnnumber(111111111);
@@ -116,7 +113,6 @@ class AppointmentServiceTest {
         appointments.add(appointmentTwo);
         appointments.add(appointmentThree);
         appointments.add(appointmentFour);
-
     }
 
     @Test
@@ -182,6 +178,7 @@ class AppointmentServiceTest {
         appointmentService.deleteAppointment(appointmentOne.getId());
         verify(appointmentRepository).deleteById(appointmentOne.getId());
     }
+
     @Test
     void deleteAppointmentException() {
         assertThrows(RecordNotFoundException.class, () -> appointmentService.deleteAppointment(1000L));
@@ -216,8 +213,8 @@ class AppointmentServiceTest {
 
     @Test
     void partialEditAppointmentRepair() {
-        when(appointmentRepository.findById(2L)).thenReturn(Optional.ofNullable(appointmentThree));
-        when(appointmentRepository.save(appointmentTwo)).thenReturn(appointmentThree);
+        when(appointmentRepository.findById(2L)).thenReturn(Optional.ofNullable(appointmentTwo));
+        when(appointmentRepository.save(appointmentTwo)).thenReturn(appointmentTwo);
 
         Appointment appointmentPartialEdit = appointmentService.partialEditAppointment(2L, appointmentTwo);
 
@@ -233,20 +230,16 @@ class AppointmentServiceTest {
         when(appointmentRepository.findById(3L)).thenReturn(Optional.of(appointmentThree));
         when(appointmentRepository.save(appointmentThree)).thenReturn(appointmentThree);
 
-        //appointmentThree.setApkStatus(ApkStatus.APK_pass);
         Appointment appointmentToSetApkStatus = appointmentService.setApkStatus(3L, appointmentSetApk);
 
-        //verify(appointmentRepository, times(1)).findById(appointmentThree.getId());
         verify(appointmentRepository, times(1)).findById(appointmentThree.getId());
         verify(appointmentRepository, times(1)).save(appointmentThree);
 
        assertThat(appointmentToSetApkStatus.getId()).isEqualTo(appointmentThree.getId());
-
-        //assertThat(appointmentToSetApkStatus.getApkStatus()).isEqualTo(appointmentThree.getApkStatus());
     }
 
     @Test
-    void setApkStatusIsNull() {
+    void setApkStatusIsNullException() {
 
         Appointment appointmentApkStatusNull = new Appointment();
         appointmentApkStatusNull.setId(10L);
@@ -266,7 +259,7 @@ class AppointmentServiceTest {
     }
 
     @Test
-    void setApkStatusNotAnApkAppointment() {
+    void setApkStatusNotAnApkAppointmentException() {
 
         Appointment appointmentApkStatusNotAnApkAppointment = new Appointment();
         appointmentApkStatusNotAnApkAppointment.setId(10L);
@@ -284,14 +277,13 @@ class AppointmentServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test //TODO Nog af te maken, werkt nog niet!
+    @Test
     void setApkStatusNoAppointmentFound() {
 
         Appointment appointmentApkStatusNoAppointmentFound = new Appointment();
         appointmentApkStatusNoAppointmentFound.setId(10L);
 
-
-        when(appointmentRepository.findById(10L)).thenReturn(Optional.ofNullable(appointmentOne));
+        when(appointmentRepository.findById(10L)).thenReturn(Optional.empty());
 
         Exception exception = assertThrows(RecordNotFoundException.class, () -> {
             appointmentService.setApkStatus(10L, appointmentOne);
@@ -301,21 +293,39 @@ class AppointmentServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
 
-    //TODO Nog te maken
     @Test
     void addCustomerToAppointment() {
 
+        when(appointmentRepository.findById(1L)).thenReturn(Optional.of(appointmentOne));
+        when(appointmentRepository.save(appointmentOne)).thenReturn(appointmentOne);
+        when(customerRepository.findCustomerByBsnnumber(111111111)).thenReturn((Optional.of(customer)));
 
+        Appointment customerAdded = appointmentService.addCustomerToAppointment(1L, 111111111);
 
+        verify(appointmentRepository, times(1)).findById(appointmentOne.getId());
+        verify(appointmentRepository, times(1)).save(appointmentOne);
+
+        assertThat(customerAdded.getAppointmentOfCustomer()).isEqualTo(appointmentOne.getAppointmentOfCustomer());
     }
 
     @Test
     void addCarToAppointment() {
+
+        when(appointmentRepository.findById(1L)).thenReturn(Optional.of(appointmentOne));
+        when(appointmentRepository.save(appointmentOne)).thenReturn(appointmentOne);
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("31-LZ-XL")).thenReturn(Optional.of(car));
+
+        Appointment carAdded = appointmentService.addCarToAppointment(1L, "31-LZ-XL");
+
+        verify(appointmentRepository, times(1)).findById(appointmentOne.getId());
+        verify(appointmentRepository, times(1)).save(appointmentOne);
+
+        assertThat(carAdded.getCarAppointment()).isEqualTo(appointmentOne.getCarAppointment());
     }
 
+    //TODO Nog te maken
     @Test
     void checkIfAppointmentsPerDayIsNotHigherThenThree() {
         }
