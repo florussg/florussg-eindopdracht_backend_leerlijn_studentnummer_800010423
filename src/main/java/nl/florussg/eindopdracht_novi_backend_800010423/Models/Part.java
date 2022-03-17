@@ -16,6 +16,8 @@ public class Part {
 
     private BigDecimal price;
 
+    private String brandPart;
+
     @OneToMany (mappedBy = "part")
     private List<RepairPart> partForRepair;
 
@@ -42,6 +44,22 @@ public class Part {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getBrandPart() {
+        return brandPart;
+    }
+
+    public void setBrandPart(String brandPart) {
+        this.brandPart = brandPart;
+    }
+
+    public List<RepairPart> getPartForRepair() {
+        return partForRepair;
+    }
+
+    public void setPartForRepair(List<RepairPart> partForRepair) {
+        this.partForRepair = partForRepair;
     }
 
 }

@@ -13,3 +13,12 @@ VALUES ('2022-03-02T13:26:00', true, false),
        ('2022-03-25T13:00:00', false, true),
        ('2022-04-01T09:00:00', true, false),
        ('2022-04-01T11:00:00', false, true);
+
+INSERT INTO part (description, price)
+VALUES ('Remschijf voor Toyota Yaris 2001', 45),
+       ('Remschijf achter Toyota Yaris 2001', 45),
+       ('Koppelingsplaat Seat Leon 2015', 700),
+       ('Motor Seat Leon 2015', 1500),
+       ('Wiellager Mazda CX5', 80),
+       ('Ruitenwisser generiek', 10);
+
