@@ -1,5 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Part;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.PartRepository;
@@ -23,7 +24,17 @@ public class PartService {
         return all;
     }
 
-    public
+    public List<Part> getAllPartsByBrandTypeYear (String userInput) {
+        List<Part> all = partRepository.findPartByBrandTypeYearContaining(userInput);
+
+        if (all.size() > 0) {
+            return all;
+        } else {
+            throw new RecordNotFoundException("No parts found based on your user input");
+        }
+    }
+
+
 
 
 

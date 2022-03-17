@@ -14,11 +14,12 @@ VALUES ('2022-03-02T13:26:00', true, false),
        ('2022-04-01T09:00:00', true, false),
        ('2022-04-01T11:00:00', false, true);
 
-INSERT INTO part (description, price)
-VALUES ('Remschijf voor Toyota Yaris 2001', 45),
-       ('Remschijf achter Toyota Yaris 2001', 45),
-       ('Koppelingsplaat Seat Leon 2015', 700),
-       ('Motor Seat Leon 2015', 1500),
-       ('Wiellager Mazda CX5', 80),
-       ('Ruitenwisser generiek', 10);
+INSERT INTO part (description, price, brand_type_year)
+VALUES ('Remschijf voor', 45, 'Toyota Yaris 2001'),
+       ('Remschijf achter', 45, 'Toyota Yaris 2001'),
+       ('Koppelingsplaat', 700, 'Seat Leon 2015'),
+       ('Motorblok ECO', 1500, 'Seat Leon 2015'),
+       ('Wiellager', 80, 'Mazda CX5 2020'),
+       ('Ruitenwisser', 10, 'Mazda CX5 2020');
+
 
