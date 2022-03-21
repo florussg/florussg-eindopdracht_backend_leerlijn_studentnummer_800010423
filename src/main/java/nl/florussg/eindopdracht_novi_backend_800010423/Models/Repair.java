@@ -20,7 +20,7 @@ public class Repair {
     @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private RepairStatus repairStatus;
 
-    @ManyToOne
+    @OneToOne
     private Appointment repairAppointment;
 
     //getters and setters
@@ -56,13 +56,26 @@ public class Repair {
         this.repairStatus = repairStatus;
     }
 
-    public Appointment getRepairAppointment() {
+    public Appointment getRepairAppointment(Appointment appointmentId) {
         return repairAppointment;
     }
 
     public void setRepairAppointment(Appointment repairAppointment) {
         this.repairAppointment = repairAppointment;
     }
+
+    public void setRepairAppointmentById(Long repairAppointmentId) {
+        this.repairAppointment = repairAppointment;
+    }
+
+
+
+
+
+
+
+
+
 }
 
 

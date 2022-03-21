@@ -21,7 +21,7 @@ public class RepairPart {
 
     private int amount;
 
-  public Repair getRepair() {
+    public Repair getRepair() {
         return repair;
     }
 

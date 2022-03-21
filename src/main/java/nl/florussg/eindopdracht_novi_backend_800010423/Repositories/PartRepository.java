@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface PartRepository extends JpaRepository<Part, Long> {
 
     //@Query(value= "select * from part where cast (brand_type_year as text) like '%:brandTypeYear%'", nativeQuery = true)
-    List<Part> findPartByBrandTypeYearContaining(String brandTypeYear);
+    List<Part> findPartByBrandTypeYearContainingIgnoreCase(String brandTypeYear);
 
     Optional<Part> findPartByDescription (String description);
 

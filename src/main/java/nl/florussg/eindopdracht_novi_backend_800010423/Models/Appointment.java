@@ -26,6 +26,7 @@ public class Appointment {
     @Column(name = "appointment_repair")
     private Boolean repair; //if true then the appointment contains a repair
 
+    //TODO If there is time left add a Boolean completed
     //private Boolean completed; if apk and repair False then the appointment is 'completed'. Create autosetter?~~~~~~~~
 
     @Enumerated(EnumType.STRING)
@@ -34,10 +35,10 @@ public class Appointment {
     @ManyToOne
     private Car carAppointment;
 
-    @OneToMany (mappedBy = "repairAppointment")
-    private List<Repair> repairs;
+    @OneToOne //(mappedBy = "repairAppointment")
+    private Repair appointmentRepair;
 
-    @ManyToOne //appointmentOfCustomer veranderen naar CustomerAppointment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    @ManyToOne //TODO appointmentOfCustomer veranderen naar CustomerAppointment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private Customer appointmentOfCustomer;
 
     //getters and setters
@@ -90,20 +91,20 @@ public class Appointment {
         this.carAppointment = carAppointment;
     }
 
-    public List<Repair> getRepairs() {
-        return repairs;
-    }
-
-    public void setRepairs(List<Repair> repairs) {
-        this.repairs = repairs;
-    }
-
     public Customer getAppointmentOfCustomer() {
         return appointmentOfCustomer;
     }
 
     public void setAppointmentOfCustomer(Customer appointmentOfCustomer) {
         this.appointmentOfCustomer = appointmentOfCustomer;
+    }
+
+    public Repair getAppointmentRepair() {
+        return appointmentRepair;
+    }
+
+    public void setAppointmentRepair(Repair appointmentRepair) {
+        this.appointmentRepair = appointmentRepair;
     }
 
     //methods
@@ -113,15 +114,7 @@ public class Appointment {
     //price part
     //price per hour to repair part = 25,-
 
-//        public LocalDate getDateFromAppointment(Appointment appointment) {
-//        LocalDate date = appointment.getDateFromAppointment(appointment);
-//        return date;
-//    }
-//
-//    public LocalTime getTimeFromAppointment(Appointment appointment) {
-//        LocalTime time = appointment.getTimeFromAppointment(appointment);
-//        return time;
-//    }
+
 
 
 }

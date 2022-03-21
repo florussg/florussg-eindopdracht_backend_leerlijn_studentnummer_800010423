@@ -1,7 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.ApkStatus;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;

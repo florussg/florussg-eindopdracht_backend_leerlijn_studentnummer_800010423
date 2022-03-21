@@ -37,7 +37,17 @@ public class PartController {
         return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping (value= "parts/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> deletePart (@PathVariable long id) {
+        partservice.deletePart(id);
+        return ResponseEntity.noContent().build();
+    }
 
-
-
+    @PutMapping (value = "parts/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> editPart (@PathVariable long id, @RequestBody Part part) {
+        partservice.editPart(id, part);
+        return ResponseEntity.noContent().build();
+    }
 }
