@@ -35,7 +35,8 @@ public class Appointment {
     @ManyToOne
     private Car carAppointment;
 
-    @OneToOne //(mappedBy = "repairAppointment")
+    //TODO checken of het een OneToOne is of toch oneToMany
+    @OneToOne (mappedBy = "repairAppointment")
     private Repair appointmentRepair;
 
     @ManyToOne //TODO appointmentOfCustomer veranderen naar CustomerAppointment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

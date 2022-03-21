@@ -27,53 +27,33 @@ public class RepairService {
     private RepairPartRepository repairPartRepository;
 
 
-       public long addRepair (Repair repair, long appointmentId) {
-        if (checkIfAppointmentHasRepairBooleanTrue(appointmentId) == false) {
-            throw new BadRequestException("You cant add a repair while the appointment doesnt have a repair-value on true!");
-        } else {
-            //Repair saveRepair = new Repair();
-            //saveRepair.setRepairAppointmentById(appointmentId);
-            //repairRepository.save(saveRepair);
-            Repair repairToSave = new Repair();
-            repairToSave.setRepairAppointmentById(appointmentId);
-            repairToSave.setRepairStatus(repair.getRepairStatus());
-            repairToSave.setPartToRepair(repair.getPartToRepair());
-            repairToSave.setFinding(repair.getFinding());
+       public long createRepairAndLinkItToTheAppointment (Repair repair, long appointmentId) {
 
-           var test = repairRepository.save(repairToSave);
-           test.getId();
-           if(appointmentRepository.findById(appointmentId).isPresent()){
-               Appointment appointment = appointmentRepository.findById(appointmentId).get();
-               linkRepairToAppointment(test.getId(), appointmentId);
-           }
-           return repairToSave.getId();
+        if (appointmentRepository.findById(appointmentId).isPresent()){
+            if (checkIfAppointmentHasRepairBooleanTrue(appointmentId) == false) {
+                throw new BadRequestException("You cant add a repair while the appointment doesnt have a repair-value on true!");
+
+            } else {
+                var repairSaved = repairRepository.save(repair);
+
+                linkRepairToAppointment(repairSaved.getId(), appointmentId);
+                autoSetStartingRepairStatus(repairSaved.getId());
+                return repair.getId();
+            }
+
+        } else {
+            throw new RecordNotFoundException("There is no appointment with this id!");
         }
     }
 
-    public long linkRepairToAppointment (long repairId, long appointmentId) {
-           Optional<Repair> optionalRepair = repairRepository.findById(repairId);
-           Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
 
-           if (optionalRepair.isPresent() && optionalAppointment.isPresent()) {
-               Repair repairToEdit = optionalRepair.get();
-               Appointment appointmentToAdd = optionalAppointment.get();
-
-               repairToEdit.setRepairAppointment(appointmentToAdd);
-
-               repairRepository.save(repairToEdit);
-               return repairToEdit.getId();
-           } else {
-               throw new RecordNotFoundException("Repair or appointment does not exist");
-           }
-    }
-
-    public Repair setRepairStatus (long idRepair, RepairStatus repairStatus) {
+    public Repair setRepairStatus (long idRepair, Repair inputStatus) {
 
         Optional<Repair> optionalRepair = repairRepository.findById(idRepair);
 
         if (optionalRepair.isPresent()) {
             Repair repairToChangeStatus = optionalRepair.get();
-            repairToChangeStatus.setRepairStatus(repairStatus);
+            repairToChangeStatus.setRepairStatus(inputStatus.getRepairStatus());
 
             repairRepository.save(repairToChangeStatus);
             return repairToChangeStatus;
@@ -82,26 +62,20 @@ public class RepairService {
         }
     }
 
-    public List<Repair> getRepairWithStatusStarted(String repairStatus) {
-        List<Repair> allRepairsWithStatusStarted = repairRepository.findRepairByRepairStatus(repairStatus);
-        if (allRepairsWithStatusStarted.size() > 0) {
-            return allRepairsWithStatusStarted;
+    //TODO Bespreken Johan, waarom deze repo querie niet werkt
+    public List<Repair> findRepairByRepairStatus (String repairStatus) {
+        List<Repair> allRepairs = repairRepository.findRepairByRepairStatusContaining(repairStatus);
+        if (allRepairs.size() > 0) {
+            return allRepairs;
         } else {
-            throw new RecordNotFoundException("There are no repairs with a repair status Started");
+            throw new RecordNotFoundException("There are no repairs based on your input");
         }
     }
 
-
-
-//    public List<Repair> getAllOpenRepairs() {
-//    }
-//
-//    public Repair getOneRepairWithPartsToRepair (long id) {
-//        List<>
-//
-//        return null;
-//    }
-
+    public List<Repair> getAllRepairs() {
+           List<Repair> all = repairRepository.findAll();
+           return all;
+    }
 
 
 
@@ -126,4 +100,36 @@ public class RepairService {
             throw new RecordNotFoundException("There is no appointment with this id");
         }
     }
+
+    public long linkRepairToAppointment (long repairId, long appointmentId) {
+        Optional<Repair> optionalRepair = repairRepository.findById(repairId);
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+
+        if (optionalRepair.isPresent() && optionalAppointment.isPresent()) {
+            Repair repairToEdit = optionalRepair.get();
+            Appointment appointmentToAdd = optionalAppointment.get();
+
+            repairToEdit.setRepairAppointment(appointmentToAdd);
+
+            repairRepository.save(repairToEdit);
+            return repairToEdit.getId();
+        } else {
+            throw new RecordNotFoundException("Repair or appointment does not exist");
+        }
+    }
+
+    public void autoSetStartingRepairStatus(long repairId) {
+        Optional<Repair> optionalRepair = repairRepository.findById(repairId);
+
+        if (optionalRepair.isPresent()) {
+            Repair repairToSetStatus = optionalRepair.get();
+            if (repairToSetStatus.getRepairStatus() == null || repairToSetStatus.getRepairStatus().toString().isEmpty()) {
+                repairToSetStatus.setRepairStatus(RepairStatus.REPAIR_pending_on_approval_customer);
+
+                repairRepository.save(repairToSetStatus);
+            }
+        }
+    }
+
+
 }

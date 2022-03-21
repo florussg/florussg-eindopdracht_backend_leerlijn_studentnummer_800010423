@@ -20,7 +20,7 @@ public class Repair {
     @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private RepairStatus repairStatus;
 
-    @OneToOne
+    @OneToOne //(mappedBy = "appointmentRepair")
     private Appointment repairAppointment;
 
     //getters and setters
