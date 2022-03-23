@@ -17,7 +17,7 @@ public class Repair {
 
     private String finding;
 
-    @Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //@Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private RepairStatus repairStatus;
 
     @OneToOne //(mappedBy = "appointmentRepair")

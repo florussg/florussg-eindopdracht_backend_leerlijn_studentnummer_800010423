@@ -23,3 +23,5 @@ VALUES ('Remschijf voor', 45, 'Toyota Yaris 2001'),
        ('Ruitenwisser', 10, 'Mazda CX5 2020');
 
 
+
+

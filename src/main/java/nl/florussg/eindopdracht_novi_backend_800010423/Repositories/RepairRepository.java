@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface RepairRepository extends JpaRepository<Repair, Long> {
 
     //List<Repair> getAllRepairsByRepairStatusContaining (String repairStatus);
-    List<Repair> findRepairByRepairStatusContaining (String repairStatus);
-
+    //List<Repair> findRepairByRepairStatusContaining (String repairStatus);
+    List<Repair> findRepairByRepairStatusEquals (RepairStatus repairStatus);
 
 }

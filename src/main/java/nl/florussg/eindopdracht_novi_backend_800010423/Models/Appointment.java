@@ -29,6 +29,7 @@ public class Appointment {
     //TODO If there is time left add a Boolean completed
     //private Boolean completed; if apk and repair False then the appointment is 'completed'. Create autosetter?~~~~~~~~
 
+    //TODO veranderen enum net zoals in Repair
     @Enumerated(EnumType.STRING)
     private ApkStatus apkStatus;
 

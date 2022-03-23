@@ -63,8 +63,8 @@ public class RepairService {
     }
 
     //TODO Bespreken Johan, waarom deze repo querie niet werkt
-    public List<Repair> findRepairByRepairStatus (String repairStatus) {
-        List<Repair> allRepairs = repairRepository.findRepairByRepairStatusContaining(repairStatus);
+    public List<Repair> findRepairByRepairStatus (RepairStatus repairStatus) {
+        List<Repair> allRepairs = repairRepository.findRepairByRepairStatusEquals(repairStatus);
         if (allRepairs.size() > 0) {
             return allRepairs;
         } else {
@@ -124,7 +124,7 @@ public class RepairService {
         if (optionalRepair.isPresent()) {
             Repair repairToSetStatus = optionalRepair.get();
             if (repairToSetStatus.getRepairStatus() == null || repairToSetStatus.getRepairStatus().toString().isEmpty()) {
-                repairToSetStatus.setRepairStatus(RepairStatus.REPAIR_pending_on_approval_customer);
+                repairToSetStatus.setRepairStatus(RepairStatus.PENDINGAPPROVAL);
 
                 repairRepository.save(repairToSetStatus);
             }
