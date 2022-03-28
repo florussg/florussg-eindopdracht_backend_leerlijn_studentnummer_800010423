@@ -8,6 +8,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPartKey;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.PartRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairPartRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,10 +16,13 @@ import java.util.Optional;
 @Service
 public class RepairPartService {
 
+    @Autowired
     private RepairRepository repairRepository;
 
+    @Autowired
     private RepairPartRepository repairPartRepository;
 
+    @Autowired
     private PartRepository partRepository;
 
 
@@ -26,7 +30,7 @@ public class RepairPartService {
 
     public RepairPartKey addPartToRepair(long repairId, long partId, int amountPart) {
 
-        if (!repairRepository.findById(repairId).isPresent()) {
+        if (repairRepository.findById(repairId) == null) {
             throw new RecordNotFoundException("No repair with this id found");
         }
 
@@ -45,7 +49,6 @@ public class RepairPartService {
         repairParts.setAmount(amountPart);
 
         RepairPartKey newId = new RepairPartKey(repairId, partId);
-
         repairParts.setId(newId);
 
         //partToAdd.setPartForRepair(partToAdd.getPartForRepair());

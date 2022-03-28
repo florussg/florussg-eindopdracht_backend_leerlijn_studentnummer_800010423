@@ -1,7 +1,10 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPart;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPartKey;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairStatus;
+import nl.florussg.eindopdracht_novi_backend_800010423.Services.RepairPartService;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,9 @@ public class RepairController {
 
     @Autowired
     private RepairService repairService;
+
+    @Autowired
+    private RepairPartService repairPartService;
 
     @PostMapping(value = "/appointments/{id}/repair")
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,6 +55,34 @@ public class RepairController {
         return ResponseEntity.ok(repairService.getAllRepairs());
     }
 
+    @PostMapping ("repair/parts/{repairId}/{partId}/{amount}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Object> addPartToRepair (@PathVariable("repairId") long repairId,
+                                                   @PathVariable( "partId") long partId,
+                                                   @PathVariable int amount) {
+
+        RepairPartKey newId = repairPartService.addPartToRepair(repairId, partId, amount);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(newId).toUri();
+
+        return ResponseEntity.created(location).build();
+
+
+
+
+
+
+
+//        RepairPartKey newId = repairPartService.addPartToRepair(repairPart.getRepair().getId(), repairPart.getPart().getId(), repairPart.getAmount());
+//
+//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+//
+//        return ResponseEntity.created(location).body(newId);
+
+
+
+    }
 
 
 
