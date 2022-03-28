@@ -22,6 +22,10 @@ VALUES ('Remschijf voor', 45, 'Toyota Yaris 2001'),
        ('Wiellager', 80, 'Mazda CX5 2020'),
        ('Ruitenwisser', 10, 'Mazda CX5 2020');
 
+INSERT INTO repair (finding, repair_status, repair_appointment_id)
+VALUES ('APK failed want remschijven voorzijde onder de minimale eis', 2, 2),
+       ('APK failed want band links achter onder de minimale eis', 1,4);
+
 
 
 

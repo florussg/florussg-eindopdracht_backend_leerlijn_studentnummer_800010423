@@ -15,11 +15,19 @@ public class RepairPart {
     @MapsId("repairId")
     private Repair repair;
 
-   @ManyToOne
-   @MapsId("partId")
-   private Part part;
+    @ManyToOne
+    @MapsId("partId")
+    private Part part;
 
     private int amount;
+
+    public RepairPartKey getId() {
+        return id;
+    }
+
+    public void setId(RepairPartKey id) {
+        this.id = id;
+    }
 
     public Repair getRepair() {
         return repair;

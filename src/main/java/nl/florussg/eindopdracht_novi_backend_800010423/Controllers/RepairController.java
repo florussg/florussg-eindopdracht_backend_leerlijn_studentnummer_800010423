@@ -4,7 +4,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairStatus;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,24 +37,17 @@ public class RepairController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "repairs")
+    @GetMapping(value = "repairs/status")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllRepairsBasedOnRepairStatus(@RequestParam(name = "input", defaultValue = "") RepairStatus repairStatus) {
         return ResponseEntity.ok(repairService.findRepairByRepairStatus(repairStatus));
     }
 
-
-//    @GetMapping(value = "repairs")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<Object> getAllRepairsBasedOnRepairStatus(@RequestParam(name = "input", defaultValue = "") RepairStatus repairStatus) {
-//        return ResponseEntity.ok(repairService.findRepairByRepairStatus(repairStatus));
-//    }
-
-//    @GetMapping (value= "repairs")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public ResponseEntity<Object> getAllRepairs() {
-//        return ResponseEntity.ok(repairService.getAllRepairs());
-//    }
+    @GetMapping (value= "repairs")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> getAllRepairs() {
+        return ResponseEntity.ok(repairService.getAllRepairs());
+    }
 
 
 

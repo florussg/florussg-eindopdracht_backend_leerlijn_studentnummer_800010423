@@ -1,12 +1,56 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Part;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPart;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPartKey;
+import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.PartRepository;
+import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairPartRepository;
+import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class RepairPartService {
 
+    private RepairRepository repairRepository;
+
+    private RepairPartRepository repairPartRepository;
+
+    private PartRepository partRepository;
+
 
     //add parts to repair
 
+    public RepairPartKey addPartToRepair(long repairId, long partId, int amountPart) {
 
+        if (!repairRepository.findById(repairId).isPresent()) {
+            throw new RecordNotFoundException("No repair with this id found");
+        }
+
+        if (!partRepository.findById(partId).isPresent()) {
+            throw new RecordNotFoundException("No part with this id found");
+        }
+
+        var repairParts = new RepairPart();
+
+        Repair repair = repairRepository.findById(repairId).orElse(null);
+
+        Part partToAdd = partRepository.findById(partId).orElse(null);
+
+        repairParts.setRepair(repair);
+        repairParts.setPart(partToAdd);
+        repairParts.setAmount(amountPart);
+
+        RepairPartKey newId = new RepairPartKey(repairId, partId);
+
+        repairParts.setId(newId);
+
+        //partToAdd.setPartForRepair(partToAdd.getPartForRepair());
+        repairPartRepository.save(repairParts);
+
+        return repairParts.getId();
+    }
 }

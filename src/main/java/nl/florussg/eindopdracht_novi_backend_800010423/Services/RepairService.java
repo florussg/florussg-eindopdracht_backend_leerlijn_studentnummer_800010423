@@ -46,7 +46,6 @@ public class RepairService {
         }
     }
 
-
     public Repair setRepairStatus (long idRepair, Repair inputStatus) {
 
         Optional<Repair> optionalRepair = repairRepository.findById(idRepair);
@@ -62,7 +61,6 @@ public class RepairService {
         }
     }
 
-    //TODO Bespreken Johan, waarom deze repo querie niet werkt
     public List<Repair> findRepairByRepairStatus (RepairStatus repairStatus) {
         List<Repair> allRepairs = repairRepository.findRepairByRepairStatusEquals(repairStatus);
         if (allRepairs.size() > 0) {
@@ -77,15 +75,7 @@ public class RepairService {
            return all;
     }
 
-
-
-
-
-
-
-
     // methods
-
     public boolean checkIfAppointmentHasRepairBooleanTrue (long appointmentId) {
 
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
@@ -131,5 +121,7 @@ public class RepairService {
         }
     }
 
+
+    //TODO testen nog te maken!
 
 }
