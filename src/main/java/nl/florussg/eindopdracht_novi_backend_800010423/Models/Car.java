@@ -23,10 +23,12 @@ public class Car {
     @Column(name= "licenseplate_number")
     private String licenseplateNumber;
 
+    //TODO Deze uiteindelijk verwijderen zodra CarRegistrationDocument registrationDocument werkt
     @Column(name= "registration_document")
-    private String fileNameCarRegistrationDocument;
-    // Nog te bepalen hoe ik de uploadfunctie ga inrichten //
-    //private VectorOperators.Binary carpapers; of multipart.MultipartFile;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    private String carRegistrationDocument;
+
+    @OneToOne
+    private CarRegistrationDocument registrationDocument;
 
     @ManyToOne
     @JsonIgnore
@@ -72,12 +74,12 @@ public class Car {
         this.licenseplateNumber = licenseplatenumber;
     }
 
-    public String getFileNameCarRegistrationDocument() {
-        return fileNameCarRegistrationDocument;
+    public String getCarRegistrationDocument() {
+        return carRegistrationDocument;
     }
 
-    public void setFileNameCarRegistrationDocument(String fileNameCarRegistrationDocument) {
-        this.fileNameCarRegistrationDocument = fileNameCarRegistrationDocument;
+    public void setCarRegistrationDocument(String fileNameCarRegistrationDocument) {
+        this.carRegistrationDocument = fileNameCarRegistrationDocument;
     }
 
     public Customer getCarCustomer() {
@@ -96,5 +98,11 @@ public class Car {
         this.carAppointment = carAppointment;
     }
 
+    public CarRegistrationDocument getRegistrationDocument() {
+        return registrationDocument;
+    }
 
+    public void setRegistrationDocument(CarRegistrationDocument registrationDocument) {
+        this.registrationDocument = registrationDocument;
+    }
 }

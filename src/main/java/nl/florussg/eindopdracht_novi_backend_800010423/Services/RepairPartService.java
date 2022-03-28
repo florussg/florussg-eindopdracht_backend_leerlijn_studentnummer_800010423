@@ -1,5 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Dto.RepairPartDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Part;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;
@@ -11,6 +12,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairReposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,7 +32,7 @@ public class RepairPartService {
 
     public RepairPartKey addPartToRepair(long repairId, long partId, int amountPart) {
 
-        if (repairRepository.findById(repairId) == null) {
+        if (!repairRepository.findById(repairId).isPresent()) {
             throw new RecordNotFoundException("No repair with this id found");
         }
 
@@ -56,4 +58,60 @@ public class RepairPartService {
 
         return repairParts.getId();
     }
+
+
+    public List<RepairPart> getAllPartsToBeRepairedFromOneRepair (long repairId) {
+
+        Optional<RepairPart> optionalRepair = repairPartRepository.findById(repairId);
+
+        if (optionalRepair.isPresent()) {
+            List<RepairPart> repairPartList = repairPartRepository.findAllRepairPartsByRepair(repairId);
+            if (repairPartList.size() <= 0) {
+                return repairPartList;
+            } else {
+                throw new RecordNotFoundException("No parts have been added yet");
+            }
+
+//            var parts = optionalRepair.get();
+//
+//            parts.getPartToRepair();
+//            return parts;
+
+        } else {
+            throw new RecordNotFoundException("No repair found");
+            }
+    }
 }
+
+
+
+//    public RepairPartKey addPartToRepair(RepairPart repairPart) {
+//
+//        if (!repairRepository.findById(repairPart.getRepair().getId()).isPresent()) {
+//            throw new RecordNotFoundException("No repair with this id found");
+//        }
+//
+//        if (!partRepository.findById(repairPart.getPart().getId()).isPresent()) {
+//            throw new RecordNotFoundException("No part with this id found");
+//        }
+//
+//        var repairParts = new RepairPart();
+//
+//        Repair repair = repairRepository.findById(repairPart.getRepair().getId()).orElse(null);
+//
+//        Part partToAdd = partRepository.findById(repairPart.getPart().getId()).orElse(null);
+//
+//        repairParts.setRepair(repair);
+//        repairParts.setPart(partToAdd);
+//        repairParts.setAmount(repairPart.getAmount());
+//
+//        RepairPartKey newId = new RepairPartKey(repairPart.getRepair().getId(), repairPart.getPart().getId());
+//        repairParts.setId(newId);
+//
+//        //partToAdd.setPartForRepair(partToAdd.getPartForRepair());
+//        repairPartRepository.save(repairParts);
+//
+//        return repairParts.getId();
+//    }
+
+

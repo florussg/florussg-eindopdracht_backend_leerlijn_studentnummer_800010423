@@ -7,11 +7,9 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepositor
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,19 +40,19 @@ public class CarServiceTest {
         carOne.setBrand("Seat");
         carOne.setType("Ibiza");
         carOne.setLicenseplatenumber("GL-33-NN");
-        carOne.setFileNameCarRegistrationDocument("Florus.pdf");
+        carOne.setCarRegistrationDocument("Florus.pdf");
 
         carTwo.setId(2);
         carTwo.setBrand("Toyota");
         carTwo.setType("Yaris");
         carTwo.setLicenseplatenumber("GI-NG-34");
-        carTwo.setFileNameCarRegistrationDocument("Piet.pdf");
+        carTwo.setCarRegistrationDocument("Piet.pdf");
 
         carThree.setId(3);
         carThree.setBrand("Mazda");
         carThree.setType("CX5");
         carThree.setLicenseplatenumber("RI-CH-11");
-        carThree.setFileNameCarRegistrationDocument("Rich.pdf");
+        carThree.setCarRegistrationDocument("Rich.pdf");
 
         carDto.setId(4);
         carDto.setBrand("Ford");

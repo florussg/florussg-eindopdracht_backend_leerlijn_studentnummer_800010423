@@ -9,7 +9,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -69,7 +68,7 @@ class AppointmentServiceTest {
         car.setBrand("Seat");
         car.setType("Leon");
         car.setLicenseplatenumber("31-LZ-XL");
-        car.setFileNameCarRegistrationDocument("kentekenpapieren.pdf");
+        car.setCarRegistrationDocument("kentekenpapieren.pdf");
 
         customer.setId(2L);
         customer.setFirstname("Piet");

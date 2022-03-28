@@ -1,5 +1,9 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +30,7 @@ public class Appointment {
     @Column(name = "appointment_repair")
     private Boolean repair; //if true then the appointment contains a repair
 
-    //TODO If there is time left add a Boolean completed
+    //TODO If there is time left: add a Boolean completed
     //private Boolean completed; if apk and repair False then the appointment is 'completed'. Create autosetter?~~~~~~~~
 
     //TODO veranderen enum net zoals in Repair
@@ -38,6 +42,7 @@ public class Appointment {
 
     //TODO checken of het een OneToOne is of toch oneToMany
     @OneToOne (mappedBy = "repairAppointment")
+    @JsonIgnore
     private Repair appointmentRepair;
 
     @ManyToOne //TODO appointmentOfCustomer veranderen naar CustomerAppointment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -4,13 +4,11 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CarDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +51,7 @@ public class CarService {
             newCar.setBrand(carDto.getBrand());
             newCar.setType(carDto.getType());
             newCar.setLicenseplatenumber(carDto.getLicenseplateNumber());
-            newCar.setFileNameCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
+            newCar.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
 
             Car saveCar = carRepository.save(newCar);
             return saveCar.getId();
@@ -83,7 +81,7 @@ public class CarService {
             }
             carToEdit.setBrand(carDto.getBrand());
             carToEdit.setType(carDto.getType());
-            carToEdit.setFileNameCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
+            carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
 
             carRepository.save(carToEdit);
             return carToEdit;
@@ -114,7 +112,7 @@ public class CarService {
             }
 
             if (carDto.getFileNameCarRegistrationDocument() != null && !carDto.getFileNameCarRegistrationDocument().isEmpty()) {
-                carToEdit.setFileNameCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
+                carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
                 }
 
         carRepository.save(carToEdit);

@@ -25,19 +25,22 @@ public class CarController {
 
     @GetMapping (value = "/cars/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getOneCarById (@PathVariable long id) {
+    public ResponseEntity<Object> getOneCarById (
+            @PathVariable long id) {
         return ResponseEntity.ok(carService.getOneCarById(id));
     }
 
     @GetMapping (value = "cars/licenseplate")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getOneCarByLicenseplateNumber(@RequestParam(name = "number", defaultValue = "") String licenseplatenumber) {
+    public ResponseEntity<Object> getOneCarByLicenseplateNumber(
+            @RequestParam(name = "number", defaultValue = "") String licenseplatenumber) {
         return ResponseEntity.ok(carService.getCarByLicenseplateNumber(licenseplatenumber));
     }
 
     @PostMapping (value = "cars/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> addNewCar(@Valid @RequestBody CarDto carDto) {
+    public ResponseEntity<Object> addNewCar(
+            @Valid @RequestBody CarDto carDto) {
         long newId = carService.addNewCar(carDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newId).toUri();
@@ -47,24 +50,28 @@ public class CarController {
     //Vragen, werkt niet
     @DeleteMapping (value = "/cars/{licenseplateNumber}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Object> deleteCarByLicenseplateNumber (@PathVariable String licenseplateNumber) {
+    public ResponseEntity<Object> deleteCarByLicenseplateNumber (
+            @PathVariable String licenseplateNumber) {
         carService.deleteCarByLicenseplateNumber(licenseplateNumber);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/cars/{licenseplateNumber}" )
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Object> editCar (@PathVariable String licenseplateNumber, @RequestBody CarDto carDto ) {
+    public ResponseEntity<Object> editCar (
+            @PathVariable String licenseplateNumber, @RequestBody CarDto carDto ) {
         carService.editCar(licenseplateNumber, carDto);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping(value = "cars/{licenseplateNumber}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Object> partialEditCar (@PathVariable String licenseplateNumber, @RequestBody CarDto carDto) {
+    public ResponseEntity<Object> partialEditCar (
+            @PathVariable String licenseplateNumber, @RequestBody CarDto carDto) {
         carService.partialEditCar(licenseplateNumber, carDto);
         return ResponseEntity.noContent().build();
     }
 
+    //json
 
 }

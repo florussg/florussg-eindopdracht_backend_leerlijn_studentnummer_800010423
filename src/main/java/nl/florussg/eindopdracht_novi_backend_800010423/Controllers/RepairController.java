@@ -1,5 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Dto.RepairPartDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPart;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPartKey;
@@ -45,7 +46,8 @@ public class RepairController {
 
     @GetMapping(value = "repairs/status")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getAllRepairsBasedOnRepairStatus(@RequestParam(name = "input", defaultValue = "") RepairStatus repairStatus) {
+    public ResponseEntity<Object> getAllRepairsBasedOnRepairStatus(
+            @RequestParam(name = "input", defaultValue = "") RepairStatus repairStatus) {
         return ResponseEntity.ok(repairService.findRepairByRepairStatus(repairStatus));
     }
 
@@ -68,10 +70,31 @@ public class RepairController {
 
         return ResponseEntity.created(location).build();
 
+    }
+
+    //TODO waarom werkt deze query niet?
+    @GetMapping ("repair/parts/{repairId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> getAllPartsToBeRepairedFromOneRepair (
+            @PathVariable("repairId") long repairId) {
+        return ResponseEntity.ok(repairPartService.getAllPartsToBeRepairedFromOneRepair(repairId));
+    }
 
 
 
-
+//    @PostMapping ("repair/parts")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ResponseEntity<Object> addPartToRepair (@RequestBody RepairPartDto repairPartDto) {
+//
+//        RepairPartKey newId = repairPartService.addPartToRepair(repairPartDto.toRepairPart());
+//
+//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+//                .buildAndExpand(newId).toUri();
+//
+//        return ResponseEntity.created(location).body(newId);
+//
+//
+//    }
 
 
 //        RepairPartKey newId = repairPartService.addPartToRepair(repairPart.getRepair().getId(), repairPart.getPart().getId(), repairPart.getAmount());
@@ -82,7 +105,7 @@ public class RepairController {
 
 
 
-    }
+
 
 
 

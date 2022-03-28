@@ -1,5 +1,7 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,6 +21,7 @@ public class Part {
     private String brandTypeYear;
 
     @OneToMany (mappedBy = "part")
+    @JsonIgnore
     private List<RepairPart> partForRepair;
 
     //getters and setters

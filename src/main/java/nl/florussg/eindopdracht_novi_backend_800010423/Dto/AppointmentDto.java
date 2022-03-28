@@ -4,8 +4,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.ApkStatus;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
