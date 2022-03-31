@@ -18,12 +18,20 @@ public class CarRegistrationDocumentService {
     public CarRegistrationDocument uploadAndSaveScannedRegistrationDocument (
             MultipartFile dataFileName) throws IOException {
         String fileName = StringUtils.cleanPath(dataFileName.getOriginalFilename());
+                                                //TODO veranderen?: (Objects.requireNonNull(dataFileName.getOriginalFilename()));
 
         CarRegistrationDocument carRegistrationDocument = new CarRegistrationDocument(fileName, dataFileName.getBytes());
+                                                                                      //TODO dataFileName.getContentType()?
         return carRegistrationDocumentRepository.save(carRegistrationDocument);
     }
 
 
+    public CarRegistrationDocument getFileNameFromUploadedCarRegistrationDocument (String fileName) {
+
+        var fileNameFound = carRegistrationDocumentRepository.findByFileNameEquals(fileName);
+
+        return fileNameFound;
+    }
 
 
 }

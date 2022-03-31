@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-//Welke parameters moet ik hier meegeven? Nog uitzoeken. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 public interface RepairPartRepository extends JpaRepository<RepairPart, Long> {
 
     List<RepairPart> findAllRepairPartsByRepair(long repairId);

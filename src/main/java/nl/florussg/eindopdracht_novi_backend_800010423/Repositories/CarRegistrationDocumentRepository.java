@@ -4,4 +4,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.CarRegistrationDoc
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CarRegistrationDocumentRepository extends JpaRepository<CarRegistrationDocument, Long> {
+
+    CarRegistrationDocument findByFileNameEquals(String fileName);
+
 }
