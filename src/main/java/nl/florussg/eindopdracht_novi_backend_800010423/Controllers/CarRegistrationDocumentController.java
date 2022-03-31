@@ -6,9 +6,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Services.CarRegistrationD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -17,7 +15,7 @@ public class CarRegistrationDocumentController {
     @Autowired
     private CarRegistrationDocumentService carRegistrationDocumentService;
 
-    @PostMapping (value = "/upload/carregistrationdocument")
+    @PostMapping (value = "/upload/car_registration_document")
     public ResponseEntity<ResponseMessage> uploadCarRegistrationDocument(@RequestParam("file") MultipartFile dataFileName)  {
 
         String message = "";
@@ -39,10 +37,16 @@ public class CarRegistrationDocumentController {
         }
     }
 
-    public CarRegistrationDocument downloadRegistrationDocument(){
-        return null;
+    //TODO JOHAN Hoe kan ik nu de .png downloaden?
+    @GetMapping (value = "/download/car_registration_document/{id}")
+    public CarRegistrationDocument downloadCarRegistrationDocument(@PathVariable long id){
+        return carRegistrationDocumentService.downloadRegistrationDocument(id);
     }
 
+    @PatchMapping (value = "/car_registration_document/car")
+    public void setCarToUploadedRegistrationDocument (long carId) {
+
+    }
 
 
 
