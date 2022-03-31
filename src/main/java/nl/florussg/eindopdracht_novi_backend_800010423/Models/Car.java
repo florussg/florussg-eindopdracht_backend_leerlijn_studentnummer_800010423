@@ -27,7 +27,7 @@ public class Car {
     @Column(name= "registration_document")
     private String carRegistrationDocument;
 
-    @OneToOne
+    @OneToOne (mappedBy = "carRegistrationDocument")
     private CarRegistrationDocument registrationDocument;
 
     @ManyToOne

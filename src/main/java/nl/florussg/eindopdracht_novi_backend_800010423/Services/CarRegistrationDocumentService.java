@@ -20,7 +20,8 @@ public class CarRegistrationDocumentService {
         String fileName = StringUtils.cleanPath(dataFileName.getOriginalFilename());
                                                 //TODO veranderen?: (Objects.requireNonNull(dataFileName.getOriginalFilename()));
 
-        CarRegistrationDocument carRegistrationDocument = new CarRegistrationDocument(fileName, dataFileName.getBytes());
+        CarRegistrationDocument carRegistrationDocument = new CarRegistrationDocument(
+                fileName, dataFileName.getBytes());
                                                                                       //TODO dataFileName.getContentType()?
         return carRegistrationDocumentRepository.save(carRegistrationDocument);
     }

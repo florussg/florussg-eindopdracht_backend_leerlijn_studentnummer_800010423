@@ -15,7 +15,7 @@ public class CarRegistrationDocument {
     //@Type(type = "org.hibernate.type.ImageType")
     byte[] dataFileName;
 
-    @OneToOne(mappedBy = "registrationDocument")
+    @OneToOne
     Car carRegistrationDocument;
 
     //constructor
