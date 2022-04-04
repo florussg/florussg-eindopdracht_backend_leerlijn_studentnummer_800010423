@@ -51,7 +51,7 @@ public class CarService {
             newCar.setBrand(carDto.getBrand());
             newCar.setType(carDto.getType());
             newCar.setLicenseplatenumber(carDto.getLicenseplateNumber());
-            newCar.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
+            //newCar.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
 
             Car saveCar = carRepository.save(newCar);
             return saveCar.getId();
@@ -81,7 +81,7 @@ public class CarService {
             }
             carToEdit.setBrand(carDto.getBrand());
             carToEdit.setType(carDto.getType());
-            carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
+            //carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
 
             carRepository.save(carToEdit);
             return carToEdit;
@@ -111,9 +111,9 @@ public class CarService {
                 carToEdit.setType(carDto.getType());
             }
 
-            if (carDto.getFileNameCarRegistrationDocument() != null && !carDto.getFileNameCarRegistrationDocument().isEmpty()) {
-                carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
-                }
+//            if (carDto.getFileNameCarRegistrationDocument() != null && !carDto.getFileNameCarRegistrationDocument().isEmpty()) {
+//                carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
+//                }
 
         carRepository.save(carToEdit);
 

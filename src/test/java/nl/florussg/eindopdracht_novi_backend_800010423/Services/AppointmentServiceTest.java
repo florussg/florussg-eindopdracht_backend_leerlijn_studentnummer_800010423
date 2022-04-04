@@ -68,7 +68,7 @@ class AppointmentServiceTest {
         car.setBrand("Seat");
         car.setType("Leon");
         car.setLicenseplatenumber("31-LZ-XL");
-        car.setCarRegistrationDocument("kentekenpapieren.pdf");
+        //car.setCarRegistrationDocument("kentekenpapieren.pdf");
 
         customer.setId(2L);
         customer.setFirstname("Piet");

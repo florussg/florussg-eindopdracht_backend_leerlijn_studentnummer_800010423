@@ -1,8 +1,10 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
+import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.CarRegistrationDocument;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRegistrationDocumentRepository;
+import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
@@ -28,6 +30,9 @@ public class CarRegistrationDocumentService {
 
     @Autowired
     private CarRegistrationDocumentRepository carRegistrationDocumentRepository;
+
+    @Autowired
+    private CarRepository carRepository;
 
     @Value("${my.upload_location}")
     private Path storagePath;
@@ -57,6 +62,10 @@ public class CarRegistrationDocumentService {
 
             try {
                 Files.copy(dataFileName.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                saveUploadedCarRegistrationDocumentToDatabase(
+                        fileName, String.valueOf(filePath));
+
             } catch (IOException e) {
                 throw new RuntimeException("Error in saving the file");
             }
@@ -102,40 +111,45 @@ public class CarRegistrationDocumentService {
     }
 
 
-//    public CarRegistrationDocument uploadAndSaveScannedRegistrationDocument (
-//            MultipartFile dataFileName) throws IOException {
-//        String fileName = StringUtils.cleanPath(dataFileName.getOriginalFilename());
-//                                                //TODO veranderen?: (Objects.requireNonNull(dataFileName.getOriginalFilename()));
-//
-//        CarRegistrationDocument carRegistrationDocument = new CarRegistrationDocument(
-//                fileName, dataFileName.getBytes());
-//                                                                                      //TODO dataFileName.getContentType()?
-//        return carRegistrationDocumentRepository.save(carRegistrationDocument);
-//    }
+    public void saveUploadedCarRegistrationDocumentToDatabase (String fileName, String pathSaved) {
 
+        CarRegistrationDocument saveToDatabase = new CarRegistrationDocument();
+        saveToDatabase.setFileName(fileName);
+        saveToDatabase.setPathSaved(pathSaved);
 
-//    public CarRegistrationDocument getFileNameFromUploadedCarRegistrationDocument (String fileName) {
-//
-//        var fileNameFound = carRegistrationDocumentRepository.findByFileNameEquals(fileName);
-//
-//        return fileNameFound;
-//    }
-//
-//    public CarRegistrationDocument downloadRegistrationDocument (long registrationDocumentId) {
-//        Optional<CarRegistrationDocument> optionalCarRegistrationDocument =
-//                carRegistrationDocumentRepository.findById(registrationDocumentId);
-//        if (optionalCarRegistrationDocument.isPresent()) {
-//            var foundDocument = optionalCarRegistrationDocument.get();
-//            return foundDocument;
-//        } else {
-//            throw new RecordNotFoundException("No document found with this id");
-//        }
-//    }
+        Optional<CarRegistrationDocument> exists =  Optional.ofNullable(
+                carRegistrationDocumentRepository.findByFileNameEquals(fileName));
 
-    //TODO FLORUS verder gaan / afmaken!
-    public long setCarToUploadedRegistrationDocument (long carId) {
-        return carId;
+        if (exists.isPresent()) {
+            throw new RuntimeException("There is already a file with the same name!");
+        } else {
+            carRegistrationDocumentRepository.save(saveToDatabase);
+        }
     }
 
+    public long addCarToUploadedRegistrationDocument (String fileName, String licenseplateNumber) {
+        Optional<CarRegistrationDocument> optionalCarRegistrationDocument =
+                Optional.ofNullable(carRegistrationDocumentRepository.findByFileNameEquals(fileName));
 
+        Optional<Car> optionalCar =
+                carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
+
+        if (!optionalCarRegistrationDocument.isPresent() && optionalCarRegistrationDocument.isEmpty()) {
+            throw new RecordNotFoundException("No car registration document with this filename found!");
+        }
+        if (!optionalCar.isPresent() && optionalCar.isEmpty()) {
+            throw new RecordNotFoundException("No car with this licenseplate number found!");
+        }
+
+        CarRegistrationDocument carRegistrationDocumentToEdit =
+                optionalCarRegistrationDocument.get();
+        Car carToAdd = optionalCar.get();
+
+        carRegistrationDocumentToEdit.setCar(carToAdd);
+
+        carRegistrationDocumentRepository.save(carRegistrationDocumentToEdit);
+
+        return carToAdd.getId();
+
+    }
 }

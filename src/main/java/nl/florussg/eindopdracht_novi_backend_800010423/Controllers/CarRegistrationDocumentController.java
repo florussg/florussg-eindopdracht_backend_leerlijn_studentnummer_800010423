@@ -1,7 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Message.ResponseMessage;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.CarRegistrationDocument;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.UploadResponse;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.CarRegistrationDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
@@ -26,33 +23,6 @@ public class CarRegistrationDocumentController {
     @Autowired
     private CarRegistrationDocumentService carRegistrationDocumentService;
 
-//    @PostMapping (value = "/upload/car_registration_document")
-//    public ResponseEntity<ResponseMessage> uploadCarRegistrationDocument(@RequestParam("file") MultipartFile dataFileName)  {
-//
-//        String message = "";
-//
-//        try {
-//
-//            carRegistrationDocumentService.uploadAndSaveScannedRegistrationDocument(dataFileName);
-//
-//            var fileName = carRegistrationDocumentService.getFileNameFromUploadedCarRegistrationDocument(
-//                    dataFileName.getOriginalFilename()).getFileName();
-//
-//            message = "" + fileName + " has succesfully been uploaded.";
-//            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-//
-//        } catch (Exception e) {
-//
-//            message = "could not upload the car registration document: " + dataFileName.getOriginalFilename() + ".";
-//            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-//        }
-//    }
-//
-//    //TODO JOHAN Hoe kan ik nu de .png downloaden?
-//    @GetMapping (value = "/download/car_registration_document/{id}")
-//    public CarRegistrationDocument downloadCarRegistrationDocument(@PathVariable long id){
-//        return carRegistrationDocumentService.downloadRegistrationDocument(id);
-//    }
 
     @PostMapping (value = "upload/car_registration_document")
     UploadResponse singleUpload(@RequestParam("file") MultipartFile dataFileName) {
@@ -90,16 +60,12 @@ public class CarRegistrationDocumentController {
 
     }
 
-
-
-
-
-
-
-
-    @PatchMapping (value = "/car_registration_document/car")
-    public void setCarToUploadedRegistrationDocument (long carId) {
-
+    @PatchMapping (value = "/car_registration_document/car/{licenseplateNumber}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> setCarToUploadedRegistrationDocument (
+            @PathVariable String licenseplateNumber, @RequestBody String fileName) {
+        carRegistrationDocumentService.addCarToUploadedRegistrationDocument(fileName, licenseplateNumber);
+        return ResponseEntity.noContent().build();
     }
 
 

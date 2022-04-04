@@ -11,21 +11,23 @@ public class CarRegistrationDocument {
 
     private String fileName;
 
-    @Lob
-    //@Type(type = "org.hibernate.type.ImageType")
-    byte[] dataFileName;
+    private String pathSaved;
+
+//    @Lob
+//    //@Type(type = "org.hibernate.type.ImageType")
+//    byte[] dataFileName;
 
     @OneToOne
-    Car carRegistrationDocument;
+    Car car;
 
     //constructor
     public CarRegistrationDocument() {
     }
 
-    public CarRegistrationDocument(String fileName, byte[] dataFileName) {
-        this.fileName = fileName;
-        this.dataFileName = dataFileName;
-    }
+//    public CarRegistrationDocument(String fileName, byte[] dataFileName) {
+//        this.fileName = fileName;
+//        this.dataFileName = dataFileName;
+//    }
 
     //getters and setters
     public long getId() {
@@ -44,19 +46,29 @@ public class CarRegistrationDocument {
         this.fileName = fileName;
     }
 
-    public byte[] getDataFileName() {
-        return dataFileName;
+//    public byte[] getDataFileName() {
+//        return dataFileName;
+//    }
+//
+//    public void setDataFileName(byte[] dataFileName) {
+//        this.dataFileName = dataFileName;
+//    }
+
+    public String getPathSaved() {
+        return pathSaved;
     }
 
-    public void setDataFileName(byte[] dataFileName) {
-        this.dataFileName = dataFileName;
+    public void setPathSaved(String pathSaved) {
+        this.pathSaved = pathSaved;
     }
 
-    public Car getCarRegistrationDocument() {
-        return carRegistrationDocument;
+    public Car getCar() {
+        return car;
     }
 
-    public void setCarRegistrationDocument(Car carRegistrationDocument) {
-        this.carRegistrationDocument = carRegistrationDocument;
+    public void setCar(Car carRegistrationDocument) {
+        this.car = carRegistrationDocument;
     }
+
+
 }

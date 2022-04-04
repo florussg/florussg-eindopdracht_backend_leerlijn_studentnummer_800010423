@@ -23,11 +23,7 @@ public class Car {
     @Column(name= "licenseplate_number")
     private String licenseplateNumber;
 
-    //TODO Deze uiteindelijk verwijderen zodra CarRegistrationDocument registrationDocument werkt
-    @Column(name= "registration_document")
-    private String carRegistrationDocument;
-
-    @OneToOne (mappedBy = "carRegistrationDocument")
+    @OneToOne (mappedBy = "car")
     private CarRegistrationDocument registrationDocument;
 
     @ManyToOne
@@ -72,14 +68,6 @@ public class Car {
 
     public void setLicenseplatenumber(String licenseplatenumber) {
         this.licenseplateNumber = licenseplatenumber;
-    }
-
-    public String getCarRegistrationDocument() {
-        return carRegistrationDocument;
-    }
-
-    public void setCarRegistrationDocument(String fileNameCarRegistrationDocument) {
-        this.carRegistrationDocument = fileNameCarRegistrationDocument;
     }
 
     public Customer getCarCustomer() {
