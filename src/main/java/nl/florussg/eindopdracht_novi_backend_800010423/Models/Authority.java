@@ -1,18 +1,40 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Authority {
+@IdClass(AuthorityKey.class)
+public class Authority implements Serializable {
 
     //attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private String username;
 
-    //Nog af te maken~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    @Id
+    private String authority;
 
+    public Authority() {
+            }
+
+
+
+    //getters and setters
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
 }
