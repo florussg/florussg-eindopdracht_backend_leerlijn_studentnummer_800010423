@@ -15,6 +15,11 @@ public interface PartRepository extends JpaRepository<Part, Long> {
 
     Optional<Part> findPartByDescription (String description);
 
+    //List<Part> findByIdContains (long id);
+
+    //@Query(value= "select * from part where id is ':repairId'", nativeQuery = true)
+    //List<Part> findAllByIdReturnList (long repaidId);
+
     //contains containing
 
 }

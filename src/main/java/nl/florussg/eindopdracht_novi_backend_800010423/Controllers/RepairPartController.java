@@ -31,7 +31,7 @@ public class RepairPartController {
     }
 
     //TODO waarom werkt deze query niet?
-    @GetMapping("repair/parts/{repairId}")
+    @GetMapping("repair/{repairId}/parts/")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllPartsToBeRepairedFromOneRepair (
             @PathVariable("repairId") long repairId) {

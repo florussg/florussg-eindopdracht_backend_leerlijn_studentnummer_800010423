@@ -12,6 +12,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairReposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,22 +61,16 @@ public class RepairPartService {
     }
 
 
-    public List<RepairPart> getAllPartsToBeRepairedFromOneRepair (long repairId) {
+    public List<Part> getAllPartsToBeRepairedFromOneRepair (long repairId) {
 
-        Optional<RepairPart> optionalRepair = repairPartRepository.findById(repairId);
+        List<RepairPart> repairPartList = repairPartRepository.findAllByRepairId(repairId);
 
-        if (optionalRepair.isPresent()) {
-            List<RepairPart> repairPartList = repairPartRepository.findAllRepairPartsByRepair(repairId);
-            if (repairPartList.size() <= 0) {
-                return repairPartList;
-            } else {
-                throw new RecordNotFoundException("No parts have been added yet");
+        if (repairPartList.size() >= 0) {
+            List<Part> parts = new ArrayList<>();
+            for (RepairPart rp : repairPartList) {
+                parts.add(rp.getPart());
             }
-
-//            var parts = optionalRepair.get();
-//
-//            parts.getPartToRepair();
-//            return parts;
+            return parts;
 
         } else {
             throw new RecordNotFoundException("No repair found");
