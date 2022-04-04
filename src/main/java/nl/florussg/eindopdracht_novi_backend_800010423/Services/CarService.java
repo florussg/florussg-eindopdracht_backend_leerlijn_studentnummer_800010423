@@ -17,7 +17,7 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
-    @Autowired
+    @Autowired //TODO: verwijderen of toch nog nodig?
     private CustomerRepository customerRepository;
 
     public Iterable<Car> getAllCars() {
@@ -51,7 +51,6 @@ public class CarService {
             newCar.setBrand(carDto.getBrand());
             newCar.setType(carDto.getType());
             newCar.setLicenseplatenumber(carDto.getLicenseplateNumber());
-            //newCar.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
 
             Car saveCar = carRepository.save(newCar);
             return saveCar.getId();
@@ -81,7 +80,6 @@ public class CarService {
             }
             carToEdit.setBrand(carDto.getBrand());
             carToEdit.setType(carDto.getType());
-            //carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
 
             carRepository.save(carToEdit);
             return carToEdit;
@@ -110,10 +108,6 @@ public class CarService {
             if (carDto.getType() != null && !carDto.getType().isEmpty()) {
                 carToEdit.setType(carDto.getType());
             }
-
-//            if (carDto.getFileNameCarRegistrationDocument() != null && !carDto.getFileNameCarRegistrationDocument().isEmpty()) {
-//                carToEdit.setCarRegistrationDocument(carDto.getFileNameCarRegistrationDocument());
-//                }
 
         carRepository.save(carToEdit);
 

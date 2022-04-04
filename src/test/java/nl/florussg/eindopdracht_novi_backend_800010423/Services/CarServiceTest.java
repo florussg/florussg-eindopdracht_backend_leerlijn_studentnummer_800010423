@@ -40,25 +40,21 @@ public class CarServiceTest {
         carOne.setBrand("Seat");
         carOne.setType("Ibiza");
         carOne.setLicenseplatenumber("GL-33-NN");
-        //carOne.setCarRegistrationDocument("Florus.pdf");
 
         carTwo.setId(2);
         carTwo.setBrand("Toyota");
         carTwo.setType("Yaris");
         carTwo.setLicenseplatenumber("GI-NG-34");
-        //carTwo.setCarRegistrationDocument("Piet.pdf");
 
         carThree.setId(3);
         carThree.setBrand("Mazda");
         carThree.setType("CX5");
         carThree.setLicenseplatenumber("RI-CH-11");
-        //carThree.setCarRegistrationDocument("Rich.pdf");
 
         carDto.setId(4);
         carDto.setBrand("Ford");
         carDto.setType("Ka");
         carDto.setLicenseplatenumber("TR-UU-55");
-        //carDto.setFileNameCarRegistrationDocument("Truus.pdf");
 
         cars.add(carOne);
         cars.add(carTwo);

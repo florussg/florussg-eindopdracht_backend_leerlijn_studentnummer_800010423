@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class CarRegistrationDocument {
 
+    //attributes
     @Id
     @GeneratedValue
     private long id;
@@ -13,21 +14,14 @@ public class CarRegistrationDocument {
 
     private String pathSaved;
 
-//    @Lob
-//    //@Type(type = "org.hibernate.type.ImageType")
-//    byte[] dataFileName;
-
     @OneToOne
     Car car;
+
 
     //constructor
     public CarRegistrationDocument() {
     }
 
-//    public CarRegistrationDocument(String fileName, byte[] dataFileName) {
-//        this.fileName = fileName;
-//        this.dataFileName = dataFileName;
-//    }
 
     //getters and setters
     public long getId() {
@@ -45,14 +39,6 @@ public class CarRegistrationDocument {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
-
-//    public byte[] getDataFileName() {
-//        return dataFileName;
-//    }
-//
-//    public void setDataFileName(byte[] dataFileName) {
-//        this.dataFileName = dataFileName;
-//    }
 
     public String getPathSaved() {
         return pathSaved;

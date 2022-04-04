@@ -21,9 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-//@SpringBootTest
-//@ContextConfiguration(classes={EindopdrachtNoviBackend800010423Application.class})
-//@EnableConfigurationProperties
 public class CustomerServiceTest {
 
     @InjectMocks
@@ -107,7 +104,6 @@ public class CustomerServiceTest {
 
     @Test
     void getOneCustomerByIdException() {
-//Vraag Johan. De Else wordt uitgevoerd en getest, omdat in dit stukje code 1L niet bestaat? ~~~~~~~~~~~~~~~~~~~~~~~~~~~
         assertThrows(RecordNotFoundException.class, () -> customerService.getOneCustomerById(1L));
     }
 
@@ -127,7 +123,6 @@ public class CustomerServiceTest {
 
     @Test
     void getCustomerByBsnnumberException() {
-//Vraag Johan. De Else wordt uitgevoerd en getest, omdat in dit stukje code bsn niet bestaat? ~~~~~~~~~~~~~~~~~~~~~~~~~
         assertThrows(RecordNotFoundException.class, () -> customerService.getCustomerByBsnnumber(123456789));
     }
 
@@ -148,7 +143,7 @@ public class CustomerServiceTest {
 
     @Test
     void addCustomerException() {
-//Vraag Johan: Hoe moet ik deze inrichten i.c.m. een bestaande bsn?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//TODO Johan: Hoe moet ik deze inrichten i.c.m. een bestaande bsn?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //        assertThrows(BadRequestException.class, () -> customerService.addCustomer(customerDto));
 //
     }
@@ -199,36 +194,5 @@ public class CustomerServiceTest {
         Boolean customerToCheck = customerService.checkIfCustomerExistsInDatabaseBasedOnBsnnumber(customerDto);
 
         assertThat(customerToCheck).isTrue();
-        //Vraag: Klopt de huidige opzet van de test?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
-
-
-
-
-
-
-
-    //        //assertthrows? junit checken
-//        when(customerRepository.findById(42L)).thenReturn(Optional.of(customerOne));
-//
-//        Customer oneCustomerById = customerService.getOneCustomerById(42L);
-//        verify(customerRepository,times(1)).findById(42L);
-//
-//        assertNotNull(oneCustomerById);
-
-
-
-//    @Test
-//    void getOneCustomerById() {
-//        when(customerRepository.findById(.getId())).thenReturn(Optional.ofNullable());
-//
-//        Optional<Customer> optionalCustomer = Optional.ofNullable(customerService.getOneCustomerById(1L));
-//
-//        verify(customerRepository,times(1)).findById(1L);
-//        assertEquals(,optionalCustomer);
-//    }
-
-
-
-
 }

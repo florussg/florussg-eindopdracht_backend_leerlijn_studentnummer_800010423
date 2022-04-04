@@ -18,7 +18,6 @@ public class CarDto {
     @Size(max=10)
     private String licenseplateNumber;
 
-    //private String fileNameCarRegistrationDocument;
 
     //getters and setters
     public long getId() {
@@ -53,11 +52,5 @@ public class CarDto {
         this.licenseplateNumber = licenseplatenumber;
     }
 
-//    public String getFileNameCarRegistrationDocument() {
-//        return fileNameCarRegistrationDocument;
-//    }
-//
-//    public void setFileNameCarRegistrationDocument(String fileNameCarRegistrationDocument) {
-//        this.fileNameCarRegistrationDocument = fileNameCarRegistrationDocument;
-//    }
+
 }

@@ -1,10 +1,8 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CarDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
@@ -13,7 +11,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +23,7 @@ public class CustomerService {
     @Autowired
     private CarRepository carRepository;
 
-    @Autowired
+    @Autowired //TODO: Controleren of deze nog nodig is?
     private AppointmentRepository appointmentRepository;
 
     public Iterable<Customer> getAllCustomers(String lastname) {

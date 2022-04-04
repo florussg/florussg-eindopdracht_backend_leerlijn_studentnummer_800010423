@@ -7,6 +7,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//TODO: Controleren of deze nog nodig is?
 public class AppointmentDto {
 
     private long id;
