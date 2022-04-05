@@ -9,14 +9,15 @@ public class Authority implements Serializable {
 
     //attributes
     @Id
+    @Column(nullable = false)
     private String username;
 
     @Id
+    @Column(nullable = false)
     private String authority;
 
     public Authority() {
             }
-
 
 
     //getters and setters

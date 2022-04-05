@@ -37,7 +37,7 @@ public class RepairController {
     //Possible parameters are:
     // "REPAIR_not_approved_by_customer", "REPAIR_started",
     // "REPAIR_pass", "REPAIR_fail", "REPAIR_cancelled"
-    @PatchMapping(value = "/repair/{id}/status")
+    @PatchMapping(value = "/repairs/{id}/status")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> setRepairStatus (@PathVariable long id, @RequestBody Repair repairStatus) {
         repairService.setRepairStatus(id, repairStatus);
