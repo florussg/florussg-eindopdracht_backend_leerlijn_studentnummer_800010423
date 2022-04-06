@@ -38,11 +38,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-                auth.jdbcAuthentication().dataSource(dataSource)
-                        .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
-                        .authoritiesByUsernameQuery("SELECT username, authority FROM authorities AS a WHERE username=?");
+                auth.inMemoryAuthentication()
+                        .withUser("glenn").password("password").roles("ASSISTANT");
 
         }
+
+//                auth.jdbcAuthentication().dataSource(dataSource)
+//                        .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
+//                        .authoritiesByUsernameQuery("SELECT username, authority FROM authorities AS a WHERE username=?");
+
+        //}
 
         // Encrypt the password
         @Bean
@@ -84,46 +89,43 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.PUT, "customers/**").hasAnyRole( "ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/customers/**").hasAnyRole( "ASSISTANT", "ADMIN")
 
-                        .antMatchers(HttpMethod.GET,"/cars/**").hasAnyRole(  "ASSISTANT", "ADMIN", "MONTEUR")
+                        .antMatchers(HttpMethod.GET,"/cars/**").hasAnyRole(  "ASSISTANT", "ADMIN", "MECHANIC")
                         .antMatchers(HttpMethod.POST,"/cars/**").hasAnyRole( "ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/cars/**").hasAnyRole( "ADMIN")
                         .antMatchers(HttpMethod.PUT, "/cars/**").hasAnyRole(  "ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/cars/**").hasAnyRole( "ASSISTANT", "ADMIN")
 
-                        .antMatchers(HttpMethod.GET,"/appointments/**").hasAnyRole(   "ASSISTANT","ADMIN", "MONTEUR")
-                        .antMatchers(HttpMethod.POST,"/appointments/**").hasAnyRole( "ASSISTANT", "ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "/appointments/**").hasAnyRole( "ADMIN")
-                        .antMatchers(HttpMethod.PUT, "/appointments/**").hasAnyRole( "ASSISTANT","ADMIN", "MONTEUR")
-                        .antMatchers(HttpMethod.PATCH, "/appointments/**").hasAnyRole( "ASSISTANT", "ADMIN", "MONTEUR")
+                        .antMatchers(HttpMethod.GET,"/appointments/**").hasAnyRole(   "ASSISTANT","ADMIN", "MECHANIC")
+                        .antMatchers(HttpMethod.POST,"/appointments/new").hasAnyRole( "ASSISTANT", "ADMIN") //add appointment
+                        .antMatchers(HttpMethod.POST,"/appointments/**/repair").hasAnyRole( "ADMIN", "MECHANIC") //add repair to appointment
 
-                        .antMatchers(HttpMethod.GET,"/parts/**").hasAnyRole(   "ASSISTANT","ADMIN", "MONTEUR")
-                        .antMatchers(HttpMethod.POST,"/parts/**").hasAnyRole( "ASSISTANT", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/appointments/**").hasAnyRole( "ADMIN")
+                        .antMatchers(HttpMethod.PUT, "/appointments/**").hasAnyRole( "ASSISTANT","ADMIN", "MECHANIC")
+                        .antMatchers(HttpMethod.PATCH, "/appointments/**").hasAnyRole( "ASSISTANT", "ADMIN", "MECHANIC")
+
+                        .antMatchers(HttpMethod.GET,"/parts/**").hasAnyRole(   "ASSISTANT","ADMIN", "MECHANIC")
+                        .antMatchers(HttpMethod.POST,"/parts/new").hasAnyRole( "ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/parts/**").hasAnyRole( "ADMIN")
                         .antMatchers(HttpMethod.PUT, "/parts/**").hasAnyRole( "ASSISTANT","ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/parts/**").hasAnyRole( "ASSISTANT", "ADMIN")
 
                         //TODO: Verder gaan bij repairs! Gestopt op 5-4-2022
-                        .antMatchers(HttpMethod.GET,"/repairs/**").hasAnyRole(   "ASSISTANT","ADMIN", "MONTEUR")
+                        .antMatchers(HttpMethod.GET,"/repairs/**").hasAnyRole(   "ASSISTANT","ADMIN", "MECHANIC")
                         .antMatchers(HttpMethod.POST,"/repairs/**").hasAnyRole( "ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/repairs/**").hasAnyRole( "ADMIN")
-                        .antMatchers(HttpMethod.PUT, "/repairs/**").hasAnyRole( "ASSISTANT","ADMIN", "MONTEUR")
-                        .antMatchers(HttpMethod.PATCH, "/repairs/**").hasAnyRole( "ASSISTANT", "ADMIN", "MONTEUR")
+                        .antMatchers(HttpMethod.PUT, "/repairs/**").hasAnyRole( "ASSISTANT","ADMIN", "MECHANIC")
+                        .antMatchers(HttpMethod.PATCH, "/repairs/**").hasAnyRole( "ASSISTANT", "ADMIN", "MECHANIC")
 
+                        .antMatchers("/repair/**").hasAnyRole("MECHANIC", "ADMIN")
 
-                        .antMatchers("/repairs/**").hasAnyRole("MONTEUR", "ADMIN")
-                        .antMatchers("/repairs/**").hasAnyRole("MONTEUR", "ADMIN")
-
-                        .antMatchers("/repair/**").hasAnyRole("MONTEUR", "ADMIN")
-
-                        .antMatchers("/upload/**").hasAnyRole("MONTEUR", "ADMIN")
-                        .antMatchers("/upload/car_registration_document**").hasAnyRole("MONTEUR", "ADMIN")
-
-                        .antMatchers("/download/**").hasAnyRole("MONTEUR", "ADMIN")
+                        .antMatchers(HttpMethod.POST,"/upload/**").hasAnyRole("ASSISTANT", "ADMIN")
+                        .antMatchers(HttpMethod.GET,"/download/**").hasAnyRole("MECHANIC", "ADMIN", "MECHANIC")
 
                         .anyRequest().denyAll()
                         .and()
-                        .sessionManagement()
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                        .sessionManagement() //TODO: Wat is dit?
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //TODO: Wat is dit?
+
                 http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         }
