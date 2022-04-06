@@ -38,21 +38,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-                auth.inMemoryAuthentication()
-                        .withUser("glenn").password("password").roles("ASSISTANT");
+//                auth.inMemoryAuthentication() //TODO: Verwijderen als auth.jdbc werkt
+//                        .withUser("glenn").password("password").roles("ASSISTANT");
+//
+//        }
+
+                auth.jdbcAuthentication().dataSource(dataSource)
+                        .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
+                        .authoritiesByUsernameQuery("SELECT username, authority FROM authorities AS a WHERE username=?");
 
         }
-
-//                auth.jdbcAuthentication().dataSource(dataSource)
-//                        .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
-//                        .authoritiesByUsernameQuery("SELECT username, authority FROM authorities AS a WHERE username=?");
-
-        //}
 
         // Encrypt the password
         @Bean
         public PasswordEncoder passwordEncoder() {
-                return new BCryptPasswordEncoder();
+                return new BCryptPasswordEncoder(10);
         }
 
         @Bean
@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //JWT token authentication met de users 'ADMIN' en 'MONTEUR'
                 http
+
                         .httpBasic() //TODO: Is deze nodig?
                         .and()       //TODO: Is deze nodig?
                         .csrf().disable()
@@ -109,7 +110,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.PUT, "/parts/**").hasAnyRole( "ASSISTANT","ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/parts/**").hasAnyRole( "ASSISTANT", "ADMIN")
 
-                        //TODO: Verder gaan bij repairs! Gestopt op 5-4-2022
                         .antMatchers(HttpMethod.GET,"/repairs/**").hasAnyRole(   "ASSISTANT","ADMIN", "MECHANIC")
                         .antMatchers(HttpMethod.POST,"/repairs/**").hasAnyRole( "ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/repairs/**").hasAnyRole( "ADMIN")

@@ -26,6 +26,22 @@ INSERT INTO repair (finding, repair_status, repair_appointment_id)
 VALUES ('APK failed want remschijven voorzijde onder de minimale eis', 2, 2),
        ('APK failed want band links achter onder de minimale eis', 1,4);
 
+INSERT INTO users (username, password, enabled)
+VALUES
+('florus', '$2a$12$YCOiTLJPJk/KqXDmqHTHm.I4/PusxFFsXrpYtKU59700BDRh0wguu', TRUE),
+('peter', '$2a$12$YCOiTLJPJk/KqXDmqHTHm.I4/PusxFFsXrpYtKU59700BDRh0wguu', TRUE),
+('fred', '$2a$12$YCOiTLJPJk/KqXDmqHTHm.I4/PusxFFsXrpYtKU59700BDRh0wguu', TRUE);
+
+INSERT INTO authorities (username, authority)
+VALUES
+('florus', 'ROLE_ADMIN'),
+('florus', 'ROLE_USER'),
+('peter', 'ROLE_USER'),
+('peter', 'ROLE_ASSISTANT'),
+('fred', 'ROLE_USER'),
+('fred', 'ROLE_MECHANIC');
+
+
 
 
 

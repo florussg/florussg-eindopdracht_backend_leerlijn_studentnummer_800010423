@@ -9,13 +9,16 @@ import java.util.Set;
 public class User {
 
     //attributes
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
 
+    @Id
+    @Column (nullable = false)
     private String username;
 
+    @Column (nullable = false)
     private String password;
+
+    @Column (nullable = false)
+    private boolean enabled = true;
 
 //TODO: Nog verder af te maken
     //    @OneToMany(targetEntity = Authority.class, mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -26,15 +29,6 @@ public class User {
     public User() {}
 
     //setters and getters
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getUsername() {
         return username;
     }
