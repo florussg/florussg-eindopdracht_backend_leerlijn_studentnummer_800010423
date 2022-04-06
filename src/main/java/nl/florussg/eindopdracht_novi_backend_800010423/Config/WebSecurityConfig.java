@@ -121,6 +121,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.POST,"/upload/**").hasAnyRole("ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.GET,"/download/**").hasAnyRole("MECHANIC", "ADMIN", "MECHANIC")
 
+                        .antMatchers(HttpMethod.POST,"/users/**").hasAnyRole("ADMIN")
+
                         .anyRequest().denyAll()
                         .and()
                         .sessionManagement() //TODO: Wat is dit?
