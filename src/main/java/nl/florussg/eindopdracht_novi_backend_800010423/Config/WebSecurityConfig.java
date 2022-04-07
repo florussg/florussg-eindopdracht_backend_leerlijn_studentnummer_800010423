@@ -24,8 +24,11 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-        private DataSource dataSource;
-        private JwtRequestFilter jwtRequestFilter;
+        @Autowired
+        public DataSource dataSource;
+
+        @Autowired
+        public JwtRequestFilter jwtRequestFilter;
 
         @Autowired
         void WebSecurityConfiguration(@Lazy DataSource dataSource, @Lazy JwtRequestFilter jwtRequestFilter) {
@@ -122,6 +125,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.GET,"/download/**").hasAnyRole("MECHANIC", "ADMIN", "MECHANIC")
 
                         .antMatchers(HttpMethod.POST,"/users/**").hasAnyRole("ADMIN")
+                        .antMatchers(HttpMethod.POST, "users/new").hasAnyRole("ADMIN")
 
                         .anyRequest().denyAll()
                         .and()

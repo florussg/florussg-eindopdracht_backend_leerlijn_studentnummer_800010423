@@ -9,9 +9,11 @@ import java.util.Set;
 public class User {
 
     //attributes
-
     @Id
-    @Column (nullable = false)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column (nullable = false, unique = true)
     private String username;
 
     @Column (nullable = false)
@@ -20,15 +22,27 @@ public class User {
     @Column (nullable = false)
     private boolean enabled = true;
 
-//TODO: Nog verder af te maken
-    //    @OneToMany(targetEntity = Authority.class, mappedBy = "username", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    //    private Set<Authority> authorities = new HashSet<>();
+    @OneToMany(targetEntity =
+            Authority.class,
+            mappedBy = "username",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<Authority> authorities = new HashSet();
 
 
     //constructor
     public User() {}
 
     //setters and getters
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -44,4 +58,37 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void addAuthority(Authority authority) {
+        this.authorities.add(authority);
+    }
+
+    public void addAuthority (String authority) {
+        this.authorities.add(new Authority(this.username, authority));
+    }
+
+    public void removeAuthority(Authority authority) {
+        this.authorities.remove(authority);
+    }
+
+    public void removeAuthority (String authorityS) {
+        this.authorities.removeIf(authority -> authority.getAuthority().equalsIgnoreCase(authorityS));
+    }
+
 }
