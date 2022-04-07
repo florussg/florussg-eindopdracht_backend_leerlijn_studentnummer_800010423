@@ -1,11 +1,9 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.UserDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Authority;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPart;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.User;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +74,7 @@ public class UserService {
             throw new BadRequestException("Error in creating user!");
         }
     }
+
 
     public void addAuthority(String username, String authority) {
 
@@ -155,7 +154,6 @@ public class UserService {
 
         for (Authority a : check) {
             String admin = a.getAuthority();
-            System.out.println(admin);
             if (admin.equals("ROLE_ADMIN")) {
                 list.add("Admin found!");
             }
@@ -166,9 +164,6 @@ public class UserService {
             return false;
         }
     }
-
-
-
 
     private boolean isValidPassword(String password) {
         final int MIN_LENGTH = 8;
@@ -195,8 +190,6 @@ public class UserService {
 
         return validPassword;
     }
-
-
 
 
 
