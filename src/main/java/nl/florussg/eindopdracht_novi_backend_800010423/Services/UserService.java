@@ -1,9 +1,9 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.UserDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Authority;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.User;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,11 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -25,10 +27,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     public Iterable<User> getUsers() {
         return userRepository.findAll();
     }
-
 
     public User getUser(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
@@ -59,32 +61,18 @@ public class UserService {
                 User saveUser = userRepository.save(user);
                 return saveUser.getUsername();
 
-
-//                newUser.setUsername(userDto.getUsername());
-//                newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//                newUser.isEnabled(); //TODO: Is dit nodig?
-//
-//                //newUser.getAuthorities().clear();
-//                newUser.addAuthority(new Authority(userDto.getUsername(), "ROLE_USER"));
-//
-//                var banaan = newUser.getId();
-//
-//                userRepository.save(newUser);
-//                return newUser.getId();
-
             } catch (Exception ex) {
                 throw new BadRequestException("Error in creating user!");
                 }
-
     }
 
 
 
     public void addAuthority(String username, String authority) {
 
-        if (!userRepository.findByUsername(username).isPresent()) throw new BadRequestException("Username already exists!");
+        if (!userRepository.findByUsername(username).isPresent()) throw new BadRequestException("Username does not exist!");
 
-            User saveUser = new User();
+            User saveUser = userRepository.findByUsername(username).get();
             saveUser.addAuthority(authority);
             userRepository.save(saveUser);
         }

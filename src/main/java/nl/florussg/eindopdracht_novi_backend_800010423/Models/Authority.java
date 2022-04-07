@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class Authority implements Serializable {
 
     //attributes
+
     @Id
     @Column(nullable = false)
     private String username;

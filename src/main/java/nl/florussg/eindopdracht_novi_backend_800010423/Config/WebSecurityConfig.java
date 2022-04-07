@@ -126,6 +126,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         .antMatchers(HttpMethod.POST,"/users/**").hasAnyRole("ADMIN")
                         .antMatchers(HttpMethod.POST, "users/new").hasAnyRole("ADMIN")
+                        .antMatchers(HttpMethod.POST, "users/**/authorities").hasAnyRole("ADMIN")
 
                         .anyRequest().denyAll()
                         .and()
