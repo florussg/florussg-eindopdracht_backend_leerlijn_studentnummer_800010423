@@ -53,14 +53,21 @@ public class UserController {
             @RequestBody Map<String, Object> fields) {
 
         try {
-            String authorityName = (String) fields.get("authority");
-            //String authorityName = String.valueOf(fields.get("authority"));
+            String authorityName = String.valueOf(fields.get("authority"));
             userService.addAuthority(username, authorityName);
             return ResponseEntity.noContent().build();
         }
         catch (Exception ex) {
             throw new BadRequestException("Error in adding an authority");
             }
+    }
+
+    @PatchMapping (value = "/users/{username}/change_password")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> userPasswordChange
+            (@PathVariable String username, @RequestBody String password) {
+        userService.userPasswordChange(username, password);
+        return ResponseEntity.noContent().build();
     }
 
 }
