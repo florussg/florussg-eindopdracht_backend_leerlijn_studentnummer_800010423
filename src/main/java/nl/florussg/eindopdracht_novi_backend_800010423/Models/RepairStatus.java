@@ -7,22 +7,14 @@ import javax.persistence.Enumerated;
 
 public enum RepairStatus {
 
-        PENDINGAPPROVAL,
-        NOTAPPROVED,
+        PENDING_APPROVAL,
+        NOT_APPROVED,
+        APPROVED,
         STARTED,
         PASS,
         FAIL,
         CANCELLED
 
-
-//        REPAIR_pending_on_approval_customer,
-//        REPAIR_not_approved_by_customer,
-//
-//        @JsonProperty("started")
-//        REPAIR_started,
-//        REPAIR_pass,
-//        REPAIR_fail,
-//        REPAIR_cancelled
     }
 
 

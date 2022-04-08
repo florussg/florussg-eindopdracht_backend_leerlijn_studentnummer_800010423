@@ -114,7 +114,7 @@ public class RepairService {
         if (optionalRepair.isPresent()) {
             Repair repairToSetStatus = optionalRepair.get();
             if (repairToSetStatus.getRepairStatus() == null || repairToSetStatus.getRepairStatus().toString().isEmpty()) {
-                repairToSetStatus.setRepairStatus(RepairStatus.PENDINGAPPROVAL);
+                repairToSetStatus.setRepairStatus(RepairStatus.PENDING_APPROVAL);
 
                 repairRepository.save(repairToSetStatus);
             }

@@ -1,7 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class Customer {
     @OneToMany(mappedBy = "carCustomer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Car> ownedCars;
 
-    @OneToMany(mappedBy = "appointmentOfCustomer")
+    @OneToMany(mappedBy = "customerAppointment")
     private List<Appointment> customerAppointments;
 
     //Default constructor

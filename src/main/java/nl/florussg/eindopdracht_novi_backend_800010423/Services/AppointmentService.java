@@ -146,7 +146,7 @@ public class AppointmentService {
             Appointment appointmentToEdit = optionalAppointment.get();
             Customer customerToAdd = optionalCustomer.get();
 
-            appointmentToEdit.setAppointmentOfCustomer(customerToAdd);
+            appointmentToEdit.setCustomerAppointment(customerToAdd);
 
             appointmentRepository.save(appointmentToEdit);
 

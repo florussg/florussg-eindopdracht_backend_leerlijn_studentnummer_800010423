@@ -123,6 +123,20 @@ public class UserService {
     }
 
 
+    public void removeAuthority(String username, String authorityString) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isEmpty()) {
+            throw new RecordNotFoundException("Username does not exist!");
+        } else {
+            User user = userOptional.get();
+            user.removeAuthority(authorityString);
+            userRepository.save(user);
+        }
+    }
+
+
+
+
     private String getCurrentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ((UserDetails) authentication.getPrincipal()).getUsername();
@@ -206,17 +220,7 @@ public class UserService {
 
 
 
-//
-//    public void removeAuthority(String username, String authorityString) {
-//        Optional<User> userOptional = userRepository.findById(username);
-//        if (userOptional.isEmpty()) {
-//            throw new UserNotFoundException(username);
-//        } else {
-//            User user = userOptional.get();
-//            user.removeAuthority(authorityString);
-//            userRepository.save(user);
-//        }
-//    }
+
 
 
 

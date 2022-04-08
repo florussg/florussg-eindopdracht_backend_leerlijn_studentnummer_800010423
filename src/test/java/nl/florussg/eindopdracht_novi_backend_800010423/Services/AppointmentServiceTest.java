@@ -81,28 +81,28 @@ class AppointmentServiceTest {
         appointmentOne.setApk(true);
         appointmentOne.setRepair(false);
         appointmentOne.setCarAppointment(car);
-        appointmentOne.setAppointmentOfCustomer(customer);
+        appointmentOne.setCustomerAppointment(customer);
 
         appointmentTwo.setId(2L);
         appointmentTwo.setDateTimeAppointment(datetime2);
         appointmentTwo.setApk(false);
         appointmentTwo.setRepair(true);
         appointmentTwo.setCarAppointment(car);
-        appointmentTwo.setAppointmentOfCustomer(customer);
+        appointmentTwo.setCustomerAppointment(customer);
 
         appointmentThree.setId(3L);
         appointmentThree.setDateTimeAppointment(datetime3);
         appointmentThree.setApk(true);
         appointmentThree.setRepair(false);
         appointmentThree.setCarAppointment(car);
-        appointmentThree.setAppointmentOfCustomer(customer);
+        appointmentThree.setCustomerAppointment(customer);
 
         appointmentFour.setId(4L);
         appointmentFour.setDateTimeAppointment(datetime4);
         appointmentFour.setApk(true);
         appointmentFour.setRepair(true);
         appointmentFour.setCarAppointment(car);
-        appointmentFour.setAppointmentOfCustomer(customer);
+        appointmentFour.setCustomerAppointment(customer);
 
         appointmentSetApk.setApkStatus(ApkStatus.APK_pass);
 
@@ -304,7 +304,7 @@ class AppointmentServiceTest {
         verify(appointmentRepository, times(1)).findById(appointmentOne.getId());
         verify(appointmentRepository, times(1)).save(appointmentOne);
 
-        assertThat(customerAdded.getAppointmentOfCustomer()).isEqualTo(appointmentOne.getAppointmentOfCustomer());
+        assertThat(customerAdded.getCustomerAppointment()).isEqualTo(appointmentOne.getCustomerAppointment());
     }
 
     @Test

@@ -1,16 +1,9 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="appointment")
@@ -40,13 +33,12 @@ public class Appointment {
     @ManyToOne
     private Car carAppointment;
 
-    //TODO checken of het een OneToOne is of toch oneToMany
     @OneToOne (mappedBy = "repairAppointment")
     @JsonIgnore
     private Repair appointmentRepair;
 
-    @ManyToOne //TODO appointmentOfCustomer veranderen naar CustomerAppointment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    private Customer appointmentOfCustomer;
+    @ManyToOne
+    private Customer customerAppointment;
 
     //getters and setters
 
@@ -98,12 +90,12 @@ public class Appointment {
         this.carAppointment = carAppointment;
     }
 
-    public Customer getAppointmentOfCustomer() {
-        return appointmentOfCustomer;
+    public Customer getCustomerAppointment() {
+        return customerAppointment;
     }
 
-    public void setAppointmentOfCustomer(Customer appointmentOfCustomer) {
-        this.appointmentOfCustomer = appointmentOfCustomer;
+    public void setCustomerAppointment(Customer appointmentOfCustomer) {
+        this.customerAppointment = appointmentOfCustomer;
     }
 
     public Repair getAppointmentRepair() {

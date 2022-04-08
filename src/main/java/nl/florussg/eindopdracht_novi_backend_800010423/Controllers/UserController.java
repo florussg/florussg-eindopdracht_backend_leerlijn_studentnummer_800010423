@@ -70,4 +70,13 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping (value = "/users/{username}/authority/{authority}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Object> removeAuthority (
+            @PathVariable String username, @PathVariable String authority) {
+        userService.removeAuthority(username, authority);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

@@ -11,13 +11,12 @@ public class Repair {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    //Deze relatie nog werkend krijgen met de tussenklasse ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @OneToMany (mappedBy = "repair")
     private List<RepairPart> partToRepair;
 
     private String finding;
 
-    //@Enumerated(EnumType.STRING) // moet hier @Enumerated staan? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     private RepairStatus repairStatus;
 
     @OneToOne //(mappedBy = "appointmentRepair")
