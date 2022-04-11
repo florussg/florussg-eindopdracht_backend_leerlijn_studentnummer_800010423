@@ -71,6 +71,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
 
 
+
+//        @Override
+//        public void configure(HttpSecurity htppSecurty) throws
+//                Exception {
+//                htppSecurty
+//                        .httpBasic()
+//                        .and()
+//                        .authorizeRequests()
+//...
+//                htppSecurty.addFilterBefore(jwtRequestFilter,
+//                        UsernamePasswordAuthenticationFilter.class);
+//        }
+
         //Secure endpoints with HTTP authentication
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -128,6 +141,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.POST, "users/new").hasAnyRole("ADMIN")
                         .antMatchers(HttpMethod.POST, "users/**/authorities").hasAnyRole("ADMIN")
                         .antMatchers(HttpMethod.PATCH, "users/**/change_password").hasAnyRole("ADMIN", "USER", "ASSISTANT", "MECHANIC")
+
+                        .antMatchers("/login").hasAnyRole("ADMIN", "USER", "ASSISTANT", "MECHANIC")
 
                         .anyRequest().denyAll()
                         .and()
