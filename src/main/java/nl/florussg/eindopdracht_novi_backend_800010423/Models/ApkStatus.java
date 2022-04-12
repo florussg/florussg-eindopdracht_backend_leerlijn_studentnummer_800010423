@@ -4,13 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum ApkStatus {
 
-        @JsonProperty("started")
-        APK_inspection_started,
-        @JsonProperty("pass")
-        APK_pass,
-        @JsonProperty("fail")
-        APK_fail,
-        @JsonProperty("cancelled")
-        APK_inspection_cancelled;
+        STARTED,
+        PASS,
+        FAIL,
+        APK_INSPECTION_CANCELLED;
     }
 

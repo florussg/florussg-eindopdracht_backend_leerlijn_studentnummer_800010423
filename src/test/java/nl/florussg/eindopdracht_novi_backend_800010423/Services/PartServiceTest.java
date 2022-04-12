@@ -19,7 +19,6 @@ class PartServiceTest {
     @Mock
     private PartRepository partRepository;
 
-    //TODO Maken alle testen in PartServiceTest
     Part partOne = new Part();
     Part partTwo = new Part();
 

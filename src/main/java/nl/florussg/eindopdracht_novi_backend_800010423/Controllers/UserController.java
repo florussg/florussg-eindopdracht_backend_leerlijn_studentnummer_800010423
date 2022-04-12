@@ -33,7 +33,6 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(username));
     }
 
-    //TODO: UserDto verder inrichten!
     @PostMapping (value = "users/new")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> addNewUser (@RequestBody UserDto user ) {

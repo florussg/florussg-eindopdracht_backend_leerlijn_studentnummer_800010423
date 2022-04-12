@@ -121,7 +121,4 @@ public class RepairService {
         }
     }
 
-
-    //TODO testen nog te maken!
-
 }

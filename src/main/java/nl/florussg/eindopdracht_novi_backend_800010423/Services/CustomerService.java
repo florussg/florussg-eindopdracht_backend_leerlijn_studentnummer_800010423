@@ -23,9 +23,6 @@ public class CustomerService {
     @Autowired
     private CarRepository carRepository;
 
-    @Autowired //TODO: Controleren of deze nog nodig is?
-    private AppointmentRepository appointmentRepository;
-
     public Iterable<Customer> getAllCustomers(String lastname) {
         if (lastname.isEmpty()) {
             List<Customer> all = customerRepository.findAll();

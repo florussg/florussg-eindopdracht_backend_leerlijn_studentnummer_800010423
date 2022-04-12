@@ -16,7 +16,6 @@ public class Repair {
 
     private String finding;
 
-
     private RepairStatus repairStatus;
 
     @OneToOne //(mappedBy = "appointmentRepair")

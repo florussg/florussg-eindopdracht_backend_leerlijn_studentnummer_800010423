@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class RepairPart {
 
     //attributes
-   //nog te veranderen naar een embeddedId d.m.v. KEY Klasse?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     @EmbeddedId
     RepairPartKey id;
 

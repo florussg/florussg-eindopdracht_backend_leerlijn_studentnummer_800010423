@@ -27,43 +27,14 @@ public class RepairPartController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
 
         return ResponseEntity.created(location).body(newId);
-
     }
 
-    //TODO waarom werkt deze query niet?
+    //TODO: Waarom werkt deze end-point niet? Ik krijg alleen een 'not found' terug. Debug is empty.
     @GetMapping("repair/{repairId}/parts/")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllPartsToBeRepairedFromOneRepair (
             @PathVariable("repairId") long repairId) {
         return ResponseEntity.ok(repairPartService.getAllPartsToBeRepairedFromOneRepair(repairId));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    //    @PostMapping ("repair/parts/{repairId}/{partId}/{amount}")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ResponseEntity<Object> addPartToRepair (@PathVariable("repairId") long repairId,
-//                                                   @PathVariable( "partId") long partId,
-//                                                   @PathVariable int amount) {
-//
-//        RepairPartKey newId = repairPartService.addPartToRepair(repairId, partId, amount);
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//                .buildAndExpand(newId).toUri();
-//
-//        return ResponseEntity.created(location).build();
-//    }
-
-
-
 
 }

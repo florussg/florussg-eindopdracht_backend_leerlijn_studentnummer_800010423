@@ -24,10 +24,8 @@ public class Appointment {
     private Boolean repair; //if true then the appointment contains a repair
 
     //TODO If there is time left: add a Boolean completed
-    //private Boolean completed; if apk and repair False then the appointment is 'completed'. Create autosetter?~~~~~~~~
+    //private Boolean completed;
 
-    //TODO veranderen enum net zoals in Repair
-    @Enumerated(EnumType.STRING)
     private ApkStatus apkStatus;
 
     @ManyToOne

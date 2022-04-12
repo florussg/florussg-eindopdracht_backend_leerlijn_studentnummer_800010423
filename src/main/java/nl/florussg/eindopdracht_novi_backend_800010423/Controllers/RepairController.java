@@ -56,6 +56,4 @@ public class RepairController {
     public ResponseEntity<Object> getAllRepairs() {
         return ResponseEntity.ok(repairService.getAllRepairs());
     }
-
-
 }

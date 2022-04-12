@@ -104,7 +104,7 @@ class AppointmentServiceTest {
         appointmentFour.setCarAppointment(car);
         appointmentFour.setCustomerAppointment(customer);
 
-        appointmentSetApk.setApkStatus(ApkStatus.APK_pass);
+        appointmentSetApk.setApkStatus(ApkStatus.PASS);
 
         appointments.add(appointmentOne);
         appointments.add(appointmentTwo);
@@ -322,7 +322,6 @@ class AppointmentServiceTest {
         assertThat(carAdded.getCarAppointment()).isEqualTo(appointmentOne.getCarAppointment());
     }
 
-    //TODO Nog te maken
     @Test
     void checkIfAppointmentsPerDayIsNotHigherThenThree() {
         }

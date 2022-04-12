@@ -17,8 +17,9 @@ public class CarService {
 
     @Autowired
     private CarRepository carRepository;
-    @Autowired //TODO: verwijderen of toch nog nodig?
-    private CustomerRepository customerRepository;
+
+    //   @Autowired //TODO: verwijderen of toch nog nodig?
+//    private CustomerRepository customerRepository;
 
     public Iterable<Car> getAllCars() {
         List<Car> all = carRepository.findAll();

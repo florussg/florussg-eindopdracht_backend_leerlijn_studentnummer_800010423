@@ -54,7 +54,6 @@ public class RepairPartService {
         RepairPartKey newId = new RepairPartKey(repairId, partId);
         repairParts.setId(newId);
 
-        //partToAdd.setPartForRepair(partToAdd.getPartForRepair());
         repairPartRepository.save(repairParts);
 
         return repairParts.getId();
@@ -80,33 +79,6 @@ public class RepairPartService {
 
 
 
-//    public RepairPartKey addPartToRepair(RepairPart repairPart) {
-//
-//        if (!repairRepository.findById(repairPart.getRepair().getId()).isPresent()) {
-//            throw new RecordNotFoundException("No repair with this id found");
-//        }
-//
-//        if (!partRepository.findById(repairPart.getPart().getId()).isPresent()) {
-//            throw new RecordNotFoundException("No part with this id found");
-//        }
-//
-//        var repairParts = new RepairPart();
-//
-//        Repair repair = repairRepository.findById(repairPart.getRepair().getId()).orElse(null);
-//
-//        Part partToAdd = partRepository.findById(repairPart.getPart().getId()).orElse(null);
-//
-//        repairParts.setRepair(repair);
-//        repairParts.setPart(partToAdd);
-//        repairParts.setAmount(repairPart.getAmount());
-//
-//        RepairPartKey newId = new RepairPartKey(repairPart.getRepair().getId(), repairPart.getPart().getId());
-//        repairParts.setId(newId);
-//
-//        //partToAdd.setPartForRepair(partToAdd.getPartForRepair());
-//        repairPartRepository.save(repairParts);
-//
-//        return repairParts.getId();
-//    }
+
 
 

@@ -143,9 +143,6 @@ public class CustomerServiceTest {
 
     @Test
     void addCustomerException() {
-//TODO Johan: Hoe moet ik deze inrichten i.c.m. een bestaande bsn?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//        assertThrows(BadRequestException.class, () -> customerService.addCustomer(customerDto));
-//
     }
 
     @Test

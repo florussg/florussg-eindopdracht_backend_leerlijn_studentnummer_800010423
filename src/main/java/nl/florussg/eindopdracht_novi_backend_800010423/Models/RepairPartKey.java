@@ -5,7 +5,6 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-//Nog geen idee hoe ik de tussenklasse moet gaan inrichten~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @Embeddable
 public class RepairPartKey implements Serializable {
 
@@ -45,10 +44,8 @@ public class RepairPartKey implements Serializable {
             return true;
         if (!(o instanceof RepairPartKey))
             return false;
-        //final nodig?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         final RepairPartKey other = (RepairPartKey) o;
 
-        //Is dit allemaal nodig?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if (!other.canEqual((Object) this))
             return false;
         final Object this$repairId = this.getRepairId();

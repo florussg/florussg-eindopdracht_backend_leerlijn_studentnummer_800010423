@@ -9,10 +9,6 @@ import java.util.Set;
 public class User {
 
     //attributes
-//    @Id //TODO: Bespreken met docent?
-//    @GeneratedValue (strategy = GenerationType.IDENTITY)
-//    private long id;
-
     @Id
     @Column (nullable = false, unique = true)
     private String username;
@@ -35,15 +31,7 @@ public class User {
     //constructor
     public User() {}
 
-    //setters and getters
-//    public long getId() { //TODO: Checken
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
-
+    //getters and setters
     public String getUsername() {
         return username;
     }
