@@ -30,7 +30,7 @@ public class RepairPartController {
     }
 
     //TODO: Waarom werkt deze end-point niet? Ik krijg alleen een 'not found' terug. Debug is empty.
-    @GetMapping("repair/{repairId}/parts/")
+    @GetMapping("repair/{repairId}/parts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllPartsToBeRepairedFromOneRepair (
             @PathVariable("repairId") long repairId) {
