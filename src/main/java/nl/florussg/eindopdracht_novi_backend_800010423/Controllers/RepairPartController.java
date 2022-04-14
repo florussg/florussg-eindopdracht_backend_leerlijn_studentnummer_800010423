@@ -29,7 +29,6 @@ public class RepairPartController {
         return ResponseEntity.created(location).body(newId);
     }
 
-    //TODO: Waarom werkt deze end-point niet? Ik krijg alleen een 'not found' terug. Debug is empty.
     @GetMapping("repair/{repairId}/parts")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllPartsToBeRepairedFromOneRepair (
