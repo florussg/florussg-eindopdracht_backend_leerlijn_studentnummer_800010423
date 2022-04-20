@@ -24,7 +24,7 @@ public class Customer {
     @Column(name = "phone_number")
     private int phonenumber;
 
-    @OneToMany(mappedBy = "carCustomer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "carCustomer", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Car> ownedCars;
 
     @OneToMany(mappedBy = "customerAppointment")

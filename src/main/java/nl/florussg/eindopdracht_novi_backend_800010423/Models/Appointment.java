@@ -21,7 +21,7 @@ public class Appointment {
     private Boolean apk; //if true then the appointment contains an APK inspection
 
     @Column(name = "appointment_repair")
-    private Boolean repair; //if true then the appointment contains a repair
+    private Boolean repair; //if true then the appointment contains an repair (or repair and APK) inspection
 
     //TODO If there is time left: add a Boolean completed
     //private Boolean completed;
@@ -105,8 +105,7 @@ public class Appointment {
     }
 
     //methods
-
-    //Add method calculateTotalCostAppointment() here?~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //Add method calculateTotalCostAppointment()
     //price APK = 40,-
     //price part
     //price per hour to repair part = 25,-

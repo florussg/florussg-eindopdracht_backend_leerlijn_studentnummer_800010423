@@ -42,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 auth.jdbcAuthentication().dataSource(dataSource)
                         .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
                         .authoritiesByUsernameQuery("SELECT username, authority FROM authorities AS a WHERE username=?");
-
         }
 
         @Bean
@@ -76,7 +75,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                         .antMatchers(HttpMethod.GET, "/customers/**").hasAnyRole("ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.POST, "/customers/**").hasAnyRole("ASSISTANT", "ADMIN")
-
                         .antMatchers(HttpMethod.DELETE, "/customers/**").hasRole("ADMIN")
                         .antMatchers(HttpMethod.PUT, "customers/**").hasAnyRole("ASSISTANT", "ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/customers/**").hasAnyRole("ASSISTANT", "ADMIN")
@@ -88,9 +86,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.PATCH, "/cars/**").hasAnyRole("ASSISTANT", "ADMIN")
 
                         .antMatchers(HttpMethod.GET, "/appointments/**").hasAnyRole("ASSISTANT", "ADMIN", "MECHANIC")
-                        .antMatchers(HttpMethod.POST, "/appointments/new").hasAnyRole("ASSISTANT", "ADMIN") //add appointment
-                        .antMatchers(HttpMethod.POST, "/appointments/**/repair").hasAnyRole("ADMIN", "MECHANIC") //add repair to appointment
-
+                        .antMatchers(HttpMethod.POST, "/appointments/new").hasAnyRole("ASSISTANT", "ADMIN")
+                        .antMatchers(HttpMethod.POST, "/appointments/**/repair").hasAnyRole("ADMIN", "MECHANIC")
                         .antMatchers(HttpMethod.DELETE, "/appointments/**").hasRole("ADMIN")
                         .antMatchers(HttpMethod.PUT, "/appointments/**").hasAnyRole("ASSISTANT", "ADMIN", "MECHANIC")
                         .antMatchers(HttpMethod.PATCH, "/appointments/**").hasAnyRole("ASSISTANT", "ADMIN", "MECHANIC")

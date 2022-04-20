@@ -146,6 +146,22 @@ public class CustomerService {
         }
     }
 
+    public void addExistingCarToCustomer(long id, String licenseplatenumber) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+        Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplatenumber);
+
+        if (optionalCustomer.isPresent() && optionalCar.isPresent()) {
+            Customer customer = optionalCustomer.get();
+            Car car = optionalCar.get();
+
+            car.setCarCustomer(customer);
+            carRepository.save(car);
+
+        } else {
+            throw new RecordNotFoundException("Customer or Car does not exist!");
+        }
+    }
+
         //methods
         public boolean checkIfCustomerExistsInDatabaseBasedOnBsnnumber (CustomerDto customerDto) {
             int bsnnumberInput = customerDto.getBsnnumber();

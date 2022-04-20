@@ -21,7 +21,8 @@ public class CustomerController {
     //Get all customers with an option to filter on the lastname
     @GetMapping (value = "/customers")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getAllCustomers(@RequestParam(name="lastname", defaultValue = "") String lastname) {
+    public ResponseEntity<Object> getAllCustomers(
+            @RequestParam(name="lastname", defaultValue = "") String lastname) {
         return ResponseEntity.ok(customerService.getAllCustomers(lastname));
     }
 
@@ -35,14 +36,17 @@ public class CustomerController {
     //Get customer by BSN
     @GetMapping (value = "/customers/bsn")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getCustomerByBsnnumber(@RequestParam(name="number", defaultValue = "") int bsnnumber) {
+    public ResponseEntity<Object> getCustomerByBsnnumber(
+            @RequestParam(name="number", defaultValue = "") int bsnnumber) {
+
         return ResponseEntity.ok(customerService.getCustomerByBsnnumber(bsnnumber));
     }
 
     //Add customer
     @PostMapping(value = "/customers/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> addCustomer(@Valid @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Object> addCustomer(
+            @Valid @RequestBody CustomerDto customerDto) {
 
         long newId = customerService.addNewCustomer(customerDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -54,6 +58,7 @@ public class CustomerController {
     @DeleteMapping(value = "/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> deleteCustomer(@PathVariable long id) {
+
         customerService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
     }
@@ -61,7 +66,9 @@ public class CustomerController {
     //Total change of one customer
     @PutMapping(value = "/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Object> editCustomer(@PathVariable long id, @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Object> editCustomer(
+            @PathVariable long id, @RequestBody CustomerDto customerDto) {
+
         customerService.editCustomer(id, customerDto);
         return ResponseEntity.noContent().build();
     }
@@ -69,22 +76,28 @@ public class CustomerController {
     //partial change of one customer
     @PatchMapping(value = "/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<Object> partialEditCustomer(@PathVariable long id, @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<Object> partialEditCustomer(
+            @PathVariable long id, @RequestBody CustomerDto customerDto) {
+
         customerService.partialEditCustomer(id, customerDto);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value= "/customers/{id}/cars")
-    public ResponseEntity<Object> addNewCarToCustomer(@PathVariable long id, @RequestBody Car car) {
+    @PostMapping(value = "/customers/{id}/cars")
+    public ResponseEntity<Object> addNewCarToCustomer(
+            @PathVariable long id, @RequestBody Car car) {
+
         customerService.addNewCarToCustomer(id, car);
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping(value= "/customers/{id}/cars{id}")
-//    public ResponseEntity<Object> addNewCarToCustomer(@PathVariable long idCustomer, @PathVariable long id) {
-//        customerService.addNewCarToCustomer(id, car);
-//        return ResponseEntity.ok().build();
-//    }
+    @PostMapping(value = "customers/{id}/cars/{licenseplatenumber}")
+    public ResponseEntity<Object> addExistingCarToCustomer(
+            @PathVariable long id, @PathVariable String licenseplatenumber) {
+
+        customerService.addExistingCarToCustomer(id, licenseplatenumber);
+        return ResponseEntity.ok().build();
+    }
 
 
 }

@@ -41,7 +41,7 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         if (optionalUser.isPresent()) {
             User userFound = optionalUser.get();
-            ;
+
             return userFound;
         } else {
             throw new RecordNotFoundException("User does not exist!");

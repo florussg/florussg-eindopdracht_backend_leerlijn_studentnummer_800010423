@@ -11,14 +11,14 @@ public class Repair {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    private String finding;
+
     @OneToMany (mappedBy = "repair")
     private List<RepairPart> partToRepair;
 
-    private String finding;
-
     private RepairStatus repairStatus;
 
-    @OneToOne //(mappedBy = "appointmentRepair")
+    @OneToOne
     private Appointment repairAppointment;
 
     //getters and setters
@@ -65,14 +65,6 @@ public class Repair {
     public void setRepairAppointmentById(Long repairAppointmentId) {
         this.repairAppointment = repairAppointment;
     }
-
-
-
-
-
-
-
-
 
 }
 

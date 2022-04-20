@@ -18,9 +18,6 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
 
-    //   @Autowired //TODO: verwijderen of toch nog nodig?
-//    private CustomerRepository customerRepository;
-
     public Iterable<Car> getAllCars() {
         List<Car> all = carRepository.findAll();
         return all;
@@ -128,7 +125,7 @@ public class CarService {
         }
     }
 
-
+    //TODO
     //    public void addExcistingCustomerToCar(long id, Customer customer) {
 //        Optional<Car> optionalCar = carRepository.findById(id);
 //
