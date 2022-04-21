@@ -5,7 +5,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestExce
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
-import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.AppointmentRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +101,7 @@ public class CustomerService {
 
     }
 
-    public void partialEditCustomer (long id, CustomerDto customerDto) {
+    public Customer partialEditCustomer (long id, CustomerDto customerDto) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
 
         if (optionalCustomer.isPresent()) {
@@ -123,9 +122,12 @@ public class CustomerService {
 
             customerRepository.save(customerToEdit);
 
+            return customerToEdit;
+
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }
+
     }
 
     public void addNewCarToCustomer(long id, Car car) {
@@ -146,7 +148,7 @@ public class CustomerService {
         }
     }
 
-    public void addExistingCarToCustomer(long id, String licenseplatenumber) {
+    public Customer addExistingCarToCustomer(long id, String licenseplatenumber) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
         Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplatenumber);
 
@@ -157,9 +159,12 @@ public class CustomerService {
             car.setCarCustomer(customer);
             carRepository.save(car);
 
+            return customer;
+
         } else {
             throw new RecordNotFoundException("Customer or Car does not exist!");
         }
+
     }
 
         //methods

@@ -95,8 +95,6 @@ public class CustomerServiceTest2 {
     @Test
     public void getCustomerByBsnnumber() {
         when(customerRepository.findCustomerByBsnnumber(customerOne.getBsnnumber())).thenReturn(Optional.ofNullable(customerOne));
-
-
     }
 
 

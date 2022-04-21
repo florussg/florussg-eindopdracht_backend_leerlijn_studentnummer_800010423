@@ -5,7 +5,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestExce
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
-import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,7 +85,7 @@ public class CarService {
         }
     }
 
-    public void partialEditCar (String licenseplateNumber, CarDto carDto ) {
+    public Car partialEditCar (String licenseplateNumber, CarDto carDto ) {
         Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
 
         if (optionalCar.isPresent()) {
@@ -109,11 +108,13 @@ public class CarService {
 
         carRepository.save(carToEdit);
 
+            return carToEdit;
+
         } else {
             throw new RecordNotFoundException("A car with this licenseplate number does not exist");
         }
-    }
 
+    }
 
     public boolean checkIfCarExistsInDatabaseBasedOnLicenseplateNumber(CarDto carDto) {
         String licenseplateNumberInput = carDto.getLicenseplateNumber();

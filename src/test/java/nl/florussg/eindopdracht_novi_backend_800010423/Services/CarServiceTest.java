@@ -1,13 +1,14 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CarDto;
+import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
+import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -35,6 +36,8 @@ public class CarServiceTest {
     Car carThree = new Car();
     List<Car> cars = new ArrayList<>();
     CarDto carDto = new CarDto();
+    CarDto carDtoTwo = new CarDto();
+    CarDto carDtoThree = new CarDto();
 
     @BeforeEach
     public void setUp() {
@@ -57,6 +60,16 @@ public class CarServiceTest {
         carDto.setBrand("Seat");
         carDto.setType("Ibiza");
         carDto.setLicenseplatenumber("GL-33-NN");
+
+        carDtoTwo.setId(100);
+        carDtoTwo.setBrand("Seat");
+        carDtoTwo.setType("Leon");
+        carDtoTwo.setLicenseplatenumber("SO-00-FF");
+
+        carDtoThree.setBrand("Honda");
+        carDtoThree.setType("Civic");
+        carDtoThree.setLicenseplatenumber("NE-WW-11");
+
 
         cars.add(carOne);
         cars.add(carTwo);
@@ -104,6 +117,22 @@ public class CarServiceTest {
     }
 
     @Test
+    void getCarByLicenseplateNumberException() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("NO-NO-11")).thenReturn(Optional.ofNullable(null));
+
+    Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+        carService.getCarByLicenseplateNumber("NO-NO-11");
+    });
+
+    String expectedMessage = "A car with this licenseplate number is not found";
+    String actualMessage = exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
+    @Test
     void addNewCar() {
 
         when(carRepository.save(ArgumentMatchers.any(Car.class))).thenReturn(carOne);
@@ -112,6 +141,22 @@ public class CarServiceTest {
         long carId = carService.addNewCar(carDto);
 
         assertThat(carId).isSameAs(carToAdd.getId());
+    }
+
+    //TODO: Checken waarom de optional een null geeft!?
+    @Test
+    void addNewCarException() {
+
+        when(carRepository.save(ArgumentMatchers.any(Car.class))).thenReturn(carOne); //is hier iets fouts?
+
+        Exception exception = assertThrows(BadRequestException.class, () -> {
+            carService.addNewCar(carDto);
+        });
+
+        String expectedMessage = "Car already exists based on input-licenseplatenumber";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
@@ -130,5 +175,110 @@ public class CarServiceTest {
         boolean test = carService.checkIfCarExistsInDatabaseBasedOnLicenseplateNumber(carDto);
         assertTrue(test);
     }
+
+    @Test
+    void editCar() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("GL-33-NN")).thenReturn(Optional.ofNullable(carOne));
+        when(carRepository.save(carOne)).thenReturn(carOne);
+
+        Car carToEdit = carService.editCar("GL-33-NN", carDtoTwo);
+
+        verify(carRepository, times(1)).findCarByLicenseplateNumberContainingIgnoreCase("GL-33-NN");
+        verify(carRepository, times(1)).save(carOne);
+
+        assertThat(carToEdit.getId()).isEqualTo(carOne.getId());
+    }
+
+    @Test
+    void EditCarExceptionOne() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("GL-33-NN")).thenReturn(Optional.ofNullable(carOne));
+
+        Exception exception = assertThrows(BadRequestException.class, () -> {
+            carService.editCar("GL-33-NN", carDto);
+        });
+
+        String expectedMessage = "Car already exists based on input-licenseplate number";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void EditCarExceptionTwo() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("ER-RO-11")).thenReturn(Optional.ofNullable(null));
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+            carService.editCar("ER-RO-11", carDto);
+        });
+
+        String expectedMessage = "A car with this licenseplate number does not exist";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void partialEditCar() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("GL-33-NN")).thenReturn(Optional.of(carOne));
+        when(carRepository.save(carOne)).thenReturn(carOne);
+
+        Car carToEdit = carService.partialEditCar("GL-33-NN", carDtoThree);
+
+        verify(carRepository, times(1)).findCarByLicenseplateNumberContainingIgnoreCase("GL-33-NN");
+        verify(carRepository, times(1)).save(carOne);
+
+        assertThat(carToEdit).isEqualTo(carOne);
+    }
+
+    @Test
+    void partialEditCarExceptionOne() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("NO-NO-11")).thenReturn(Optional.ofNullable(null));
+
+            Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+        carService.partialEditCar("NO-NO-11", carDto);
+    });
+
+            String expectedMessage = "A car with this licenseplate number does not exist";
+    String actualMessage = exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void partialEditCarExceptionTwo() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("GL-33-NN")).thenReturn(Optional.ofNullable(carOne));
+
+        Exception exception = assertThrows(BadRequestException.class, () -> {
+            carService.partialEditCar("GL-33-NN", carDto);
+        });
+
+        String expectedMessage = "Car already exists based on input-licenseplate number";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void deleteCarException() {
+
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("NO-NO-11")).thenReturn(Optional.ofNullable(null));
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+            carService.deleteCarByLicenseplateNumber("NO-NO-11");
+        });
+
+        String expectedMessage = "A car with this licenseplate number does not exist";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
 
 }

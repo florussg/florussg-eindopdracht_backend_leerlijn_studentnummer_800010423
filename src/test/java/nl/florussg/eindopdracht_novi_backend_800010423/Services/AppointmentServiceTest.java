@@ -326,81 +326,8 @@ class AppointmentServiceTest {
     void checkIfAppointmentsPerDayIsNotHigherThenThree() {
         }
 
-
-
-
-//    @Test ~~~~~~~~~ WERKT ~~~~~~~~~~
-//    public void whenExceptionThrown_thenAssertionSucceeds() {
-//        Exception exception = assertThrows(NumberFormatException.class, () -> {
-//            Integer.parseInt("1a");
-//        });
-//
-//        String expectedMessage = "For input string";
-//        String actualMessage = exception.getMessage();
-//
-//        assertTrue(actualMessage.contains(expectedMessage));
-//    }
-
-
-
-    @Test //WERKT NIET~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    @Test
     void addNewAppointmentException() {
-
-
-        //    Appointment appointmentApkStatusNoAppointmentFound = new Appointment();
-//        appointmentApkStatusNoAppointmentFound.setId(10L);
-//
-//    when(appointmentRepository.findById(10L)).thenReturn(Optional.empty());
-//
-//    Exception exception = assertThrows(RecordNotFoundException.class, () -> {
-//        appointmentService.setApkStatus(10L, appointmentOne);
-//    });
-//
-//    String expectedMessage = "There is no appointment with this id";
-//    String actualMessage = exception.getMessage();
-//
-//    assertTrue(actualMessage.contains(expectedMessage));
-
-
-
-//        when(appointmentRepository.save(appointmentOne)).thenReturn(appointmentOne);
-//        when(appointmentRepository.save(appointmentTwo)).thenReturn(appointmentTwo);
-//        when(appointmentRepository.save(appointmentThree)).thenReturn(appointmentThree);
-//        when(appointmentRepository.save(appointmentFour)).thenReturn(appointmentFour);
-
-        //when(appointmentRepository.findAppointmentByDate(String.valueOf(appointmentOne.getDateTimeAppointment()))).thenReturn(appointments);
-        //List foundAppointment = appointmentRepository.findAppointmentByDate(date);
-
-        //long appointmentWithException = appointmentService.addNewAppointment(appointmentFour);
-
-//        verify(appointmentRepository, times(1)).save(appointmentOne);
-//        verify(appointmentRepository, times(1)).save(appointmentTwo);
-//        verify(appointmentRepository, times(1)).save(appointmentThree);
-        //verify(appointmentRepository, times(1)).save(appointmentFour);
-
-        //assertThrows(BadRequestException.class, () -> appointmentService.addNewAppointment(appointmentFour));
-
-
-        //when(appointmentRepository.save(ArgumentMatchers.any(Appointment.class))).thenReturn(appointmentOne);
-        //when(appointmentRepository.save(ArgumentMatchers.any(Appointment.class))).thenReturn(appointmentTwo);
-
-        //when(appointmentService.checkIfAppointmentsPerDayIsNotHigherThenThree(appointmentFour.getDateTimeAppointment())).thenReturn(false);
-        //when(appointmentRepository.findAppointmentByDate(String.valueOf(appointmentOne.getDateTimeAppointment()))).thenReturn(appointments);
-        //when(appointmentService.checkIfAppointmentsPerDayIsNotHigherThenThree(any())).thenReturn(false);
-        //when(appointmentService.checkIfAppointmentsPerDayIsNotHigherThenThree(appointmentThree.getDateTimeAppointment())).thenReturn(true);
-
-        //assertThrows(BadRequestException.class, () -> appointmentService.addNewAppointment(appointmentFour));
-
-        //when(appointmentRepository.save(ArgumentMatchers.any(Appointment.class))).thenReturn(appointmentOne);
-
-//        Appointment firstAppointmentAdded = appointmentRepository.save(appointmentOne);
-//        Appointment secondAppointmentAdded = appointmentRepository.save(appointmentTwo);
-//        Appointment thirdAppointmentAdded = appointmentRepository.save(appointmentThree);
-//        Appointment fourthAppointmentAdded = appointmentRepository.save(appointmentFour);
-
-        //boolean toManyAppointments = appointmentService.checkIfAppointmentsPerDayIsNotHigherThenThree(datetime4);
-
-        //assertThrows(RecordNotFoundException.class, () -> appointmentService.addNewAppointment(null));
     }
 
 

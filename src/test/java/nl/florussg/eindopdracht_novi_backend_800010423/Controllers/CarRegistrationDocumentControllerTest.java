@@ -57,12 +57,10 @@ class CarRegistrationDocumentControllerTest {
         carRegistrationDocumentController.showAllCarRegistrationDocumentSavedToFileSystem(request);
 
         verify(carRegistrationDocumentService, times(1)).showAllDownloadableCarRegistrationDocuments();
-
     }
 
     @Test
     void singleUpload() {
-
     }
 
 
