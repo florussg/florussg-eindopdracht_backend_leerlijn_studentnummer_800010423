@@ -342,8 +342,26 @@ class AppointmentServiceTest {
 //    }
 
 
+
     @Test //WERKT NIET~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     void addNewAppointmentException() {
+
+
+        //    Appointment appointmentApkStatusNoAppointmentFound = new Appointment();
+//        appointmentApkStatusNoAppointmentFound.setId(10L);
+//
+//    when(appointmentRepository.findById(10L)).thenReturn(Optional.empty());
+//
+//    Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+//        appointmentService.setApkStatus(10L, appointmentOne);
+//    });
+//
+//    String expectedMessage = "There is no appointment with this id";
+//    String actualMessage = exception.getMessage();
+//
+//    assertTrue(actualMessage.contains(expectedMessage));
+
+
 
 //        when(appointmentRepository.save(appointmentOne)).thenReturn(appointmentOne);
 //        when(appointmentRepository.save(appointmentTwo)).thenReturn(appointmentTwo);
