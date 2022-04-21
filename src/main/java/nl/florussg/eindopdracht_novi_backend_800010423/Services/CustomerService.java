@@ -130,7 +130,7 @@ public class CustomerService {
 
     }
 
-    public void addNewCarToCustomer(long id, Car car) {
+    public Car addNewCarToCustomer(long id, Car car) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
 
         if (optionalCustomer.isPresent()) {
@@ -139,13 +139,16 @@ public class CustomerService {
             car.setCarCustomer(customer);
 
             carRepository.save(car);
-            customer.addOwnedCars(car);
+            //customer.addOwnedCars(car);
 
-            customerRepository.save(customer);
+            //customerRepository.save(customer);
+
+            return car;
 
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }
+
     }
 
     public Customer addExistingCarToCustomer(long id, String licenseplatenumber) {

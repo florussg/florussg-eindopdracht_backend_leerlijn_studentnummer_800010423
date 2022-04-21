@@ -264,7 +264,25 @@ public class CustomerServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    //TODO: Werkt nog niet! Waarom?
     @Test
     void addNewCarToCustomer() {
-    }
+
+//            when(customerRepository.findById(1L)).thenReturn(Optional.of(customerOne));
+//            //when(customerRepository.save(customerOne)).thenReturn(customerOne);
+//
+//            Car carToAdd = customerService.addNewCarToCustomer(1L, car);
+//
+//            verify(customerRepository, times(1)).findById(1L);
+//           verify(carRepository, times(1)).save(customerOne);
+//
+//            assertThat(carAdded.getId()).isEqualTo(customerOne.getId());
+        }
+
+
 }
+
+
+
+
+
