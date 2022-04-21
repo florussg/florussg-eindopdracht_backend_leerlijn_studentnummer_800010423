@@ -34,6 +34,7 @@ public class CarRegistrationDocumentService {
     @Autowired
     private CarRepository carRepository;
 
+    //It is mandatory to change the value-path to your own system preferences in the application.properties
     @Value("${my.upload_location}")
     private Path storagePath;
     private String storageLocation;

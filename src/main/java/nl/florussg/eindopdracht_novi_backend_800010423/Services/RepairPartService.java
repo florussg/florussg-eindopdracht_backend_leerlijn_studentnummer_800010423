@@ -29,8 +29,6 @@ public class RepairPartService {
     private PartRepository partRepository;
 
 
-    //add parts to repair
-
     public RepairPartKey addPartToRepair(long repairId, long partId, int amountPart) {
 
         if (!repairRepository.findById(repairId).isPresent()) {

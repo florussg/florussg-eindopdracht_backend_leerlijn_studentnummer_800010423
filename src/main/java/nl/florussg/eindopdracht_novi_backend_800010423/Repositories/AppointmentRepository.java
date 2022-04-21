@@ -12,8 +12,6 @@ import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    Iterator<Appointment> findAppointmentByDateTimeAppointment(LocalDateTime localDateTime);
-
     @Query(value= "select * from appointment where cast (appointment_date_time as text) like ':stringDate'", nativeQuery = true)
     List<Appointment> findAppointmentByDate(@Param("stringDate") String stringDate);
 

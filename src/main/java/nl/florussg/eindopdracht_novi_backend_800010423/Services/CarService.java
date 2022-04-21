@@ -125,27 +125,6 @@ public class CarService {
         }
     }
 
-    //TODO
-    //    public void addExcistingCustomerToCar(long id, Customer customer) {
-//        Optional<Car> optionalCar = carRepository.findById(id);
-//
-//        if (optionalCar.isPresent()) {
-//            Car car = optionalCar.get();
-//            List<Customer> customerOwnsCars = (List<Customer>) car.getCarCustomer();
-//
-//            customerOwnsCars.add(customer);
-//            customer.setOwnedCars((List<Car>) car);
-//            carRepository.save(car);
-//            customerRepository.save(customer);
-//        } else {
-//            throw new RecordNotFoundException("A car with this id does not exist");
-//        }
-//    }
-
-
-
-
-
 }
 
 
