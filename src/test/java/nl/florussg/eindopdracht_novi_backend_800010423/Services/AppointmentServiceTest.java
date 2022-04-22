@@ -305,11 +305,6 @@ class AppointmentServiceTest {
     @Test
     void setApkStatusNoAppointmentFound() {
 
-        Appointment appointmentApkStatusNoAppointmentFound = new Appointment();
-        appointmentApkStatusNoAppointmentFound.setId(10L);
-
-        when(appointmentRepository.findById(10L)).thenReturn(Optional.empty());
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> {
             appointmentService.setApkStatus(10L, appointmentOne);
         });
