@@ -223,7 +223,6 @@ public class CustomerServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
 
     @Test

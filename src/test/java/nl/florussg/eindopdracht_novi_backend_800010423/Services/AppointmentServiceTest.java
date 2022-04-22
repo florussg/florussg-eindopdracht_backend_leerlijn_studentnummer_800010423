@@ -168,6 +168,7 @@ class AppointmentServiceTest {
        assertThat(AppointmentCreatedId).isSameAs(appointmentAdded.getId());
     }
 
+
     @Test
     void deleteAppointment() {
         when(appointmentRepository.findById(appointmentOne.getId())).thenReturn(Optional.of(appointmentOne));
@@ -196,6 +197,20 @@ class AppointmentServiceTest {
     }
 
     @Test
+    void editAppointmentException() {
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> appointmentService.editAppointment(1000L, appointmentOne));
+
+        String expectedMessage = "There is no appointment with this id";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+
+    }
+
+
+    @Test
     void partialEditAppointment() {
         when(appointmentRepository.findById(1L)).thenReturn(Optional.ofNullable(appointmentOne));
         when(appointmentRepository.save(appointmentOne)).thenReturn(appointmentOne);
@@ -207,6 +222,19 @@ class AppointmentServiceTest {
 
         assertThat(appointmentPartialEdit.getId()).isEqualTo(appointmentOne.getId());
     }
+
+    @Test
+    void partialEditAppointmentException() {
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> appointmentService.partialEditAppointment(1000L, appointmentOne));
+
+        String expectedMessage = "There is no appointment with this id";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
 
     @Test
     void partialEditAppointmentRepair() {
@@ -308,6 +336,18 @@ class AppointmentServiceTest {
     }
 
     @Test
+    void addCustomerToAppointmentException() {
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> appointmentService.addCustomerToAppointment(1000L, 111111111));
+
+        String expectedMessage = "There is no appointment with this id or the customer with this BSN does not exist";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+
+    @Test
     void addCarToAppointment() {
 
         when(appointmentRepository.findById(1L)).thenReturn(Optional.of(appointmentOne));
@@ -323,12 +363,34 @@ class AppointmentServiceTest {
     }
 
     @Test
+    void addCarToAppointmentException() {
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> appointmentService.addCarToAppointment(1000L, "GL-33-NN"));
+
+        String expectedMessage = "There is no appointment with this id";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void addCarToAppointmentExceptionTwo() {
+
+        when(appointmentRepository.findById(1L)).thenReturn(Optional.of(appointmentOne));
+        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("NO-NO-99")).thenReturn(Optional.ofNullable(null));
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> appointmentService.addCarToAppointment(1L, "NO-NO-99"));
+
+        String expectedMessage = "There is no car with this licenseplate number";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
     void checkIfAppointmentsPerDayIsNotHigherThenThree() {
         }
 
-    @Test
-    void addNewAppointmentException() {
-    }
 
 
 
