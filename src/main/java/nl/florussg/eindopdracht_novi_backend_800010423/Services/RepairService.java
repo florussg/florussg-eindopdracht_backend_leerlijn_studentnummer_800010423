@@ -103,6 +103,7 @@ public class RepairService {
 
             repairRepository.save(repairToEdit);
             return repairToEdit.getId();
+
         } else {
             throw new RecordNotFoundException("Repair or appointment does not exist");
         }

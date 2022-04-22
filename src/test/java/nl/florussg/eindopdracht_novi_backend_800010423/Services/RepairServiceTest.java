@@ -36,6 +36,7 @@ class RepairServiceTest {
 
     Repair repairOne = new Repair();
     Repair repairTwo = new Repair();
+    Repair repairThree = new Repair();
     Repair repairWithStatusStarted = new Repair();
 
     List<Repair> repairs = new ArrayList<>();
@@ -53,6 +54,9 @@ class RepairServiceTest {
         repairOne.setRepairStatus(RepairStatus.STARTED);
 
         repairTwo.setRepairStatus(RepairStatus.PASS);
+        repairThree.setId(3L);
+        repairThree.setFinding("All is bad");
+
         repairWithStatusStarted.setRepairStatus(RepairStatus.STARTED);
 
         appointmentOne.setId(1L);
@@ -64,6 +68,8 @@ class RepairServiceTest {
         appointmentTwo.setDateTimeAppointment(datetime2);
         appointmentTwo.setApk(true);
         appointmentTwo.setRepair(false);
+
+
 
         repairs.add(repairOne);
 
@@ -166,13 +172,19 @@ class RepairServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    //TODO: werkt niet
     @Test
     void autoSetStartingRepairStatus() {
 
-        when(repairRepository.findById(1L)).thenReturn(Optional.ofNullable(repairOne));
+        when(repairRepository.findById(3L)).thenReturn(Optional.ofNullable(repairThree));
+        when(repairRepository.save(repairThree)).thenReturn(repairThree);
 
-        
+        boolean check = repairService.checkIfAppointmentHasRepairBooleanTrue(3L);
 
+        verify(repairRepository, times(1)).findById(3L);
+        verify(repairRepository, times(1)).save(repairThree);
+
+        assertThat(check).isEqualTo(repairThree);
     }
 
 //    public void autoSetStartingRepairStatus(long repairId) {
