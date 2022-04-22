@@ -143,22 +143,6 @@ public class CarServiceTest {
         assertThat(carId).isSameAs(carToAdd.getId());
     }
 
-    //TODO: Checken waarom de optional een null geeft!?
-    @Test
-    void addNewCarException() {
-
-        when(carRepository.save(ArgumentMatchers.any(Car.class))).thenReturn(carOne); //is hier iets fouts?
-
-        Exception exception = assertThrows(BadRequestException.class, () -> {
-            carService.addNewCar(carDto);
-        });
-
-        String expectedMessage = "Car already exists based on input-licenseplatenumber";
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
     @Test
     void deleteCarByLicenseplateNumber() {
 

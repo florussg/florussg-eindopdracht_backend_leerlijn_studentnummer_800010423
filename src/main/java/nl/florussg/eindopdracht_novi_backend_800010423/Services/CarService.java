@@ -113,7 +113,6 @@ public class CarService {
         } else {
             throw new RecordNotFoundException("A car with this licenseplate number does not exist");
         }
-
     }
 
     public boolean checkIfCarExistsInDatabaseBasedOnLicenseplateNumber(CarDto carDto) {
