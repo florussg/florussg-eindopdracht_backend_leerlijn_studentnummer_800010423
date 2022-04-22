@@ -160,7 +160,7 @@ class AppointmentServiceTest {
     @Test
     void addNewAppointment() {
 
-        when(appointmentRepository.save(ArgumentMatchers.any(Appointment.class))).thenReturn(appointmentOne);
+       when(appointmentRepository.save(ArgumentMatchers.any(Appointment.class))).thenReturn(appointmentOne);
 
        Appointment appointmentAdded = appointmentRepository.save(appointmentOne);
        long AppointmentCreatedId = appointmentService.addNewAppointment(appointmentOne);
@@ -174,6 +174,7 @@ class AppointmentServiceTest {
         when(appointmentRepository.findById(appointmentOne.getId())).thenReturn(Optional.of(appointmentOne));
 
         appointmentService.deleteAppointment(appointmentOne.getId());
+
         verify(appointmentRepository).deleteById(appointmentOne.getId());
     }
 
@@ -205,7 +206,6 @@ class AppointmentServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
 
     }
 
