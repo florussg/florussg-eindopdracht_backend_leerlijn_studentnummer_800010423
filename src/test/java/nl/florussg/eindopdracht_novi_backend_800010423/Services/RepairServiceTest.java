@@ -1,5 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
+import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;
@@ -63,6 +64,9 @@ class RepairServiceTest {
         appointmentOne.setDateTimeAppointment(datetime1);
         appointmentOne.setApk(true);
         appointmentOne.setRepair(true);
+
+        repairOne.setRepairAppointment(appointmentOne);
+
 
         appointmentTwo.setId(2L);
         appointmentTwo.setDateTimeAppointment(datetime2);
@@ -142,9 +146,6 @@ class RepairServiceTest {
         assertThat(foundRepairs).isEqualTo(repairs);
     }
 
-    @Test
-    void checkIfAppointmentHasRepairBooleanTrue() {
-    }
 
     @Test
     void linkRepairToAppointment() {
@@ -187,19 +188,46 @@ class RepairServiceTest {
         assertThat(repair.getRepairStatus()).isEqualTo(repairThree.getRepairStatus());
     }
 
-//    public void autoSetStartingRepairStatus(long repairId) {
-//        Optional<Repair> optionalRepair = repairRepository.findById(repairId);
-//
-//        if (optionalRepair.isPresent()) {
-//            Repair repairToSetStatus = optionalRepair.get();
-//            if (repairToSetStatus.getRepairStatus() == null || repairToSetStatus.getRepairStatus().toString().isEmpty()) {
-//                repairToSetStatus.setRepairStatus(RepairStatus.PENDING_APPROVAL);
-//
-//                repairRepository.save(repairToSetStatus);
-//            }
-//        }
-//    }
+    @Test
+    void checkIfAppointmentHasRepairBooleanTrue() {
+        when(appointmentRepository.findById(1L)).thenReturn(Optional.ofNullable(appointmentOne));
 
+        boolean appointment = repairService.checkIfAppointmentHasRepairBooleanTrue(1L);
+
+        assertThat(appointment).isEqualTo(appointmentOne.getRepair());
+
+    }
+
+    @Test
+    void checkIfAppointmentHasRepairBooleanTrueTwo() {
+        when(appointmentRepository.findById(2L)).thenReturn(Optional.ofNullable(appointmentTwo));
+
+        boolean appointment = repairService.checkIfAppointmentHasRepairBooleanTrue(2L);
+
+        assertThat(appointment).isEqualTo(appointmentTwo.getRepair());
+    }
+
+    @Test
+    void checkIfAppointmentHasRepairBooleanTrueException() {
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> repairService.checkIfAppointmentHasRepairBooleanTrue(1000L));
+
+        String expectedMessage = "There is no appointment with this id";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void createRepairAndLinkItToTheAppointmentException() {
+
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> repairService.createRepairAndLinkItToTheAppointment(repairTwo, 1000L));
+
+        String expectedMessage = "There is no appointment with this id!";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
 
 }

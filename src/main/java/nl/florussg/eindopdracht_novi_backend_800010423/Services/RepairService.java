@@ -119,9 +119,6 @@ public class RepairService {
 
                 repairRepository.save(repairToSetStatus);
                 return repairToSetStatus;
-
-            } else {
-                throw new RecordNotFoundException("Repair with this id does not exist");
             }
         }
         return null;
