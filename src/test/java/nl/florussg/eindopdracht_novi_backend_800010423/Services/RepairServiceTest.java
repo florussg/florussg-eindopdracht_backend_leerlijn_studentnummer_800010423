@@ -179,12 +179,12 @@ class RepairServiceTest {
         when(repairRepository.findById(3L)).thenReturn(Optional.ofNullable(repairThree));
         when(repairRepository.save(repairThree)).thenReturn(repairThree);
 
-        boolean check = repairService.checkIfAppointmentHasRepairBooleanTrue(3L);
+       Repair repair = repairService.autoSetStartingRepairStatus(3L);
 
         verify(repairRepository, times(1)).findById(3L);
         verify(repairRepository, times(1)).save(repairThree);
 
-        assertThat(check).isEqualTo(repairThree);
+        assertThat(repair.getRepairStatus()).isEqualTo(repairThree.getRepairStatus());
     }
 
 //    public void autoSetStartingRepairStatus(long repairId) {

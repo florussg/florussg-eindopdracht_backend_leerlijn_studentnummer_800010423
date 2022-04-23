@@ -27,9 +27,9 @@ public class RepairService {
     private RepairPartRepository repairPartRepository;
 
 
-       public long createRepairAndLinkItToTheAppointment (Repair repair, long appointmentId) {
+    public long createRepairAndLinkItToTheAppointment(Repair repair, long appointmentId) {
 
-        if (appointmentRepository.findById(appointmentId).isPresent()){
+        if (appointmentRepository.findById(appointmentId).isPresent()) {
             if (checkIfAppointmentHasRepairBooleanTrue(appointmentId) == false) {
                 throw new BadRequestException("You cant add a repair while the appointment doesnt have a repair-value on true!");
 
@@ -46,7 +46,7 @@ public class RepairService {
         }
     }
 
-    public Repair setRepairStatus (long idRepair, Repair inputStatus) {
+    public Repair setRepairStatus(long idRepair, Repair inputStatus) {
 
         Optional<Repair> optionalRepair = repairRepository.findById(idRepair);
 
@@ -61,7 +61,7 @@ public class RepairService {
         }
     }
 
-    public List<Repair> findRepairByRepairStatus (RepairStatus repairStatus) {
+    public List<Repair> findRepairByRepairStatus(RepairStatus repairStatus) {
         List<Repair> allRepairs = repairRepository.findRepairByRepairStatusEquals(repairStatus);
         if (allRepairs.size() > 0) {
             return allRepairs;
@@ -71,12 +71,12 @@ public class RepairService {
     }
 
     public List<Repair> getAllRepairs() {
-           List<Repair> all = repairRepository.findAll();
-           return all;
+        List<Repair> all = repairRepository.findAll();
+        return all;
     }
 
     // methods
-    public boolean checkIfAppointmentHasRepairBooleanTrue (long appointmentId) {
+    public boolean checkIfAppointmentHasRepairBooleanTrue(long appointmentId) {
 
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
         if (optionalAppointment.isPresent()) {
@@ -91,7 +91,7 @@ public class RepairService {
         }
     }
 
-    public long linkRepairToAppointment (long repairId, long appointmentId) {
+    public long linkRepairToAppointment(long repairId, long appointmentId) {
         Optional<Repair> optionalRepair = repairRepository.findById(repairId);
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
 
@@ -109,7 +109,7 @@ public class RepairService {
         }
     }
 
-    public void autoSetStartingRepairStatus(long repairId) {
+    public Repair autoSetStartingRepairStatus(long repairId) {
         Optional<Repair> optionalRepair = repairRepository.findById(repairId);
 
         if (optionalRepair.isPresent()) {
@@ -118,8 +118,15 @@ public class RepairService {
                 repairToSetStatus.setRepairStatus(RepairStatus.PENDING_APPROVAL);
 
                 repairRepository.save(repairToSetStatus);
+                return repairToSetStatus;
+
+            } else {
+                throw new RecordNotFoundException("Repair with this id does not exist");
             }
         }
+        return null;
+        //TODO: Waarom moet ik hier een null teruggeven?
     }
-
 }
+
+
