@@ -42,8 +42,4 @@ public class UserAuthenticationService {
         return new AuthenticationResponse(jwt);
     }
 
-
-
-
-
 }

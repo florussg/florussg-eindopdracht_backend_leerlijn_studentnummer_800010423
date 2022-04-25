@@ -89,13 +89,15 @@ public class UserService {
     }
 
 
-    public void userPasswordChange(String username, String password) {
+    public User userPasswordChange(String username, String password) {
         if (loggedInUsernameIsTheSameAsUsernameInput(username) == true) {
             if (isValidPassword(password) == true) {
 
                 User userToSetNewPassword = userRepository.findByUsername(username).get();
                 userToSetNewPassword.setPassword(passwordEncoder.encode(password));
                 userRepository.save(userToSetNewPassword);
+
+                return userToSetNewPassword;
 
             } else {
                 throw new BadRequestException(
@@ -122,6 +124,7 @@ public class UserService {
             throw new BadRequestException(
                     "You are not allowed to change the password of another user!");
         }
+        return null;
     }
 
 
@@ -205,8 +208,6 @@ public class UserService {
 
         return validPassword;
     }
-
-
 
 }
 
