@@ -60,6 +60,7 @@ public class UserService {
             User user = new User();
 
             user.setUsername(userDto.getUsername());
+
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user.isEnabled();
             user.addAuthority("ROLE_USER");
@@ -76,7 +77,7 @@ public class UserService {
     }
 
 
-    public void addAuthority(String username, String authority) {
+    public User addAuthority(String username, String authority) {
 
         if (!userRepository.findByUsername(username).isPresent())
             throw new BadRequestException("Username does not exist!");
@@ -84,6 +85,7 @@ public class UserService {
         User saveUser = userRepository.findByUsername(username).get();
         saveUser.addAuthority(authority);
         userRepository.save(saveUser);
+        return saveUser;
     }
 
 
@@ -123,7 +125,7 @@ public class UserService {
     }
 
 
-    public void removeAuthority(String username, String authorityString) {
+    public User removeAuthority(String username, String authorityString) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty()) {
             throw new RecordNotFoundException("Username does not exist!");
@@ -131,10 +133,9 @@ public class UserService {
             User user = userOptional.get();
             user.removeAuthority(authorityString);
             userRepository.save(user);
+            return user;
         }
     }
-
-
 
 
     private String getCurrentUserName() {

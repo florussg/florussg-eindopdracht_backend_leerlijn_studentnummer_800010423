@@ -119,16 +119,15 @@ public class CarServiceTest {
     @Test
     void getCarByLicenseplateNumberException() {
 
-        when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("NO-NO-11")).thenReturn(Optional.ofNullable(null));
 
-    Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> {
         carService.getCarByLicenseplateNumber("NO-NO-11");
-    });
+        });
 
-    String expectedMessage = "A car with this licenseplate number is not found";
-    String actualMessage = exception.getMessage();
+        String expectedMessage = "A car with this licenseplate number is not found";
+        String actualMessage = exception.getMessage();
 
-    assertTrue(actualMessage.contains(expectedMessage));
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 

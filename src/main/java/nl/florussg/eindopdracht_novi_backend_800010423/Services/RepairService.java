@@ -114,6 +114,7 @@ public class RepairService {
 
         if (optionalRepair.isPresent()) {
             Repair repairToSetStatus = optionalRepair.get();
+
             if (repairToSetStatus.getRepairStatus() == null || repairToSetStatus.getRepairStatus().toString().isEmpty()) {
                 repairToSetStatus.setRepairStatus(RepairStatus.PENDING_APPROVAL);
 
@@ -123,6 +124,7 @@ public class RepairService {
         }
         return null;
         //TODO: Waarom moet ik hier een null teruggeven?
+
     }
 }
 
