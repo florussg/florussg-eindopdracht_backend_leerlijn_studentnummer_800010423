@@ -1,13 +1,8 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Dto;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Authority;
-
-import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 public class UserDto {
-
 
     private long id;
 
