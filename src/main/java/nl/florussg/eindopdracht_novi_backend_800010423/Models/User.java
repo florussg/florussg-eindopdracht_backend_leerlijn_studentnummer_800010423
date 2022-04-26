@@ -27,7 +27,6 @@ public class User {
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet();
 
-
     //constructor
     public User() {}
 
@@ -79,5 +78,4 @@ public class User {
     public void removeAuthority (String authorityS) {
         this.authorities.removeIf(authority -> authority.getAuthority().equalsIgnoreCase(authorityS));
     }
-
 }
