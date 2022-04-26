@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 
 @RestController
@@ -22,6 +21,7 @@ public class PartController {
         return ResponseEntity.ok(partservice.getAllParts());
     }
 
+    //Find all the parts, based on the brand, Type or Year
     @GetMapping (value= "parts/brandtypeyear")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllPartsByBrandTypeYear(@RequestBody String brandTypeYear) {
