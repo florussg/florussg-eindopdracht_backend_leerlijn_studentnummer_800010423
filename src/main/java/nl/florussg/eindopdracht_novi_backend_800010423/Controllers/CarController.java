@@ -1,5 +1,4 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
-
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CarDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -70,5 +68,4 @@ public class CarController {
         carService.partialEditCar(licenseplateNumber, carDto);
         return ResponseEntity.noContent().build();
     }
-
 }
