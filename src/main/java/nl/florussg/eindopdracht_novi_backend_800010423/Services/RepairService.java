@@ -10,7 +10,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairPartRe
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +22,7 @@ public class RepairService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    @Autowired
-    private RepairPartRepository repairPartRepository;
-
-
     public long createRepairAndLinkItToTheAppointment(Repair repair, long appointmentId) {
-
         if (appointmentRepository.findById(appointmentId).isPresent()) {
             if (checkIfAppointmentHasRepairBooleanTrue(appointmentId) == false) {
                 throw new BadRequestException("You cant add a repair while the appointment doesnt have a repair-value on true!");
@@ -47,7 +41,6 @@ public class RepairService {
     }
 
     public Repair setRepairStatus(long idRepair, Repair inputStatus) {
-
         Optional<Repair> optionalRepair = repairRepository.findById(idRepair);
 
         if (optionalRepair.isPresent()) {
@@ -77,7 +70,6 @@ public class RepairService {
 
     // methods
     public boolean checkIfAppointmentHasRepairBooleanTrue(long appointmentId) {
-
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
         if (optionalAppointment.isPresent()) {
             Appointment appointmentToCheck = optionalAppointment.get();
@@ -103,7 +95,6 @@ public class RepairService {
 
             repairRepository.save(repairToEdit);
             return repairToEdit.getId();
-
         } else {
             throw new RecordNotFoundException("Repair or appointment does not exist");
         }
@@ -123,7 +114,6 @@ public class RepairService {
             }
         }
         return null;
-
     }
 }
 
