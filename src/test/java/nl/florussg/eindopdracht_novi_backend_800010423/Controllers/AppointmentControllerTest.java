@@ -3,25 +3,18 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.ApkStatus;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
-import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.AppointmentService;
-import nl.florussg.eindopdracht_novi_backend_800010423.Services.CarService;
-import org.apache.catalina.connector.Response;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
@@ -33,8 +26,8 @@ class AppointmentControllerTest {
     @Mock
     AppointmentService appointmentService;
 
-    @Mock
-    ApkStatus apkStatus;
+    //@Mock TODO: Verwijderen of debuggen waarom dit niet werkt!
+    //ApkStatus apkStatus;
 
     Appointment appointmentOne = new Appointment();
     Appointment appointmentTwo = new Appointment();
@@ -70,10 +63,8 @@ class AppointmentControllerTest {
         car.setType("Leon");
         car.setLicenseplatenumber("31-LZ-XL");
 
-        apkStatusAppointment.setApkStatus(apkStatus.STARTED);
-
-
-
+        //TODO: Verwijderen of debuggen waarom dit niet werkt!
+        //apkStatusAppointment.setApkStatus(apkStatus.STARTED);
     }
 
     @Test
@@ -84,7 +75,6 @@ class AppointmentControllerTest {
         appointmentController.getAllAppointments();
 
         verify(appointmentService, times(1)).getAllAppointments();
-
     }
 
     @Test
@@ -95,7 +85,6 @@ class AppointmentControllerTest {
         appointmentController.getAllApkAppointments();
 
         verify(appointmentService, times(1)).getAllApkAppointments();
-
     }
 
     @Test
@@ -118,7 +107,6 @@ class AppointmentControllerTest {
 
         appointmentController.deleteAppointment(1L);
         verify(appointmentService, times(1)).deleteAppointment(1L);
-
     }
 
     @Test

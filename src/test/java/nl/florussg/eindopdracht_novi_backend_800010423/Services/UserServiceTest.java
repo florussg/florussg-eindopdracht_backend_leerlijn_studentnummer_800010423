@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 
 import java.util.*;
 
@@ -181,6 +182,7 @@ class UserServiceTest {
 
     @Test
     @WithMockUser(username = "florus", roles = { "ROLE_ADMIN" })
+    @WithUserDetails
     void userPasswordChange() {
 
         //WERKT NIET!!!!~~~~~~~~~~~~~~~~~~~~~~~~~~
