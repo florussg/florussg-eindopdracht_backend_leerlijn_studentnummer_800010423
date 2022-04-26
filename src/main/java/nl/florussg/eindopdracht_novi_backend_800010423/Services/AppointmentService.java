@@ -183,6 +183,14 @@ public class AppointmentService {
         }
     }
 
+    //methods
+    public String getDateFromDateTimeAppointment (LocalDateTime dateTimeAppointment){
+        String date = String.valueOf(dateTimeAppointment);
+        LocalDateTime ldt = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
+
+        return ldt.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
+    }
+
         public boolean checkIfAppointmentsPerDayIsNotHigherThenThree (LocalDateTime dateTimeAppointment){
             List foundAppointment = appointmentRepository.findByDate(LocalDate.from(dateTimeAppointment));
 
