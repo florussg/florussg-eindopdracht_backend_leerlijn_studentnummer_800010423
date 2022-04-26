@@ -68,9 +68,4 @@ class UserControllerTest {
         verify(userService, times(1)).removeAuthority("florus", "ROLE_ASSISTANT");
     }
 
-    @Test
-    void addUserAuthority() {
-
-    }
-
 }
