@@ -120,6 +120,18 @@ class UserServiceTest {
     }
 
     @Test
+    void addNewUserExceptionTwo() {
+        when(userRepository.findByUsername("florus")).thenReturn(Optional.ofNullable(userOne));
+
+        Exception exception = assertThrows(BadRequestException.class, () -> userService.addNewUser(userDto));
+
+        String expectedMessage = "Username already exists, please choose another username";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
     void addAuthority() {
 
         when(userRepository.findByUsername("peter")).thenReturn(Optional.ofNullable(userTwo));

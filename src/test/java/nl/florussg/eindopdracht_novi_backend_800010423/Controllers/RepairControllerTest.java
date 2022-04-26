@@ -26,7 +26,6 @@ class RepairControllerTest {
     @Mock
     RepairService repairService;
 
-    @Mock
     RepairStatus repairStatus;
 
     @Mock
@@ -37,27 +36,40 @@ class RepairControllerTest {
     Repair repairTwo = new Repair();
 
     Appointment appointment = new Appointment();
+    Appointment appointmentTwo = new Appointment();
 
     RepairPart partZ = new RepairPart();
     List<RepairPart> parts = new ArrayList<>();
 
     List<Repair> repairs = new ArrayList<>();
+    List<Repair> repairsTwo = new ArrayList<>();
+
+    //RepairStatus newRepairStatus;
 
     @BeforeEach
     public void setUp() {
 
         appointment.setId(1L);
+        appointmentTwo.setId(2L);
+
         //partZ.setId(1L);
         parts.add(partZ);
 
         repairOne.setId(1L);
         repairOne.setRepairAppointment(appointment);
-        repairOne.setRepairStatus(repairStatus.STARTED);
+        //repairOne.setRepairStatus(repairStatus.STARTED);
         repairOne.setPartToRepair(parts);
         repairOne.setFinding("APK failed");
 
         repairs.add(repairOne);
 
+        repairTwo.setId(2L);
+        repairTwo.setRepairAppointment(appointmentTwo);
+        repairTwo.setRepairStatus(repairStatus.STARTED);
+        repairTwo.setPartToRepair(parts);
+        repairTwo.setFinding("Bad brakes");
+
+        repairsTwo.add(repairTwo);
     }
 
     @Test
@@ -71,10 +83,21 @@ class RepairControllerTest {
     @Test
     void getAllRepairsBasedOnRepairStatus() {
 
+        when(repairService.findRepairByRepairStatus(repairStatus.STARTED)).thenReturn(repairsTwo);
+
+        repairController.getAllRepairsBasedOnRepairStatus(repairStatus.STARTED);
+
+        verify(repairService, times(1)).findRepairByRepairStatus(repairStatus.STARTED);
     }
 
     @Test
     void getAllRepairs() {
+
+        when(repairService.getAllRepairs()).thenReturn(repairs);
+
+        repairController.getAllRepairs();
+
+        verify(repairService, times(1)).getAllRepairs();
 
     }
 }
