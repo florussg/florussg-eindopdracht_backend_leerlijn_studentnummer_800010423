@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
-
     UserAuthenticationService userAuthenticationService;
 
     @Autowired
@@ -20,7 +19,7 @@ public class AuthenticationController {
         this.userAuthenticationService = userAuthenticationService;
     }
 
-    //creation of a JWT token
+    //creation of the mandatory JWT token
     @PostMapping(value = "/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
 
@@ -28,7 +27,6 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(authenticationResponse);
     }
-
 }
 
 
