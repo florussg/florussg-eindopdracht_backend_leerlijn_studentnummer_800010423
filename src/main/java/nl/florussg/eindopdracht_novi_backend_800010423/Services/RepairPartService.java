@@ -62,7 +62,7 @@ public class RepairPartService {
 
         List<RepairPart> repairPartList = repairPartRepository.findAllByRepairId(repairId);
 
-        if (repairPartList.size() >= 0) {
+        if (repairPartList.size() > 0) {
             List<Part> parts = new ArrayList<>();
             for (RepairPart rp : repairPartList) {
                 parts.add(rp.getPart());

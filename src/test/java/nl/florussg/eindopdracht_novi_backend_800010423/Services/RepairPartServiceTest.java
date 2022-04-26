@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RepairPartServiceTest {
@@ -53,6 +53,7 @@ class RepairPartServiceTest {
     Part part = new Part();
 
     List<RepairPart> repairParts = new ArrayList<>();
+    List<Part> parts = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
@@ -70,13 +71,13 @@ class RepairPartServiceTest {
         repairOne.setId(1L);
         repairOne.setFinding("Bad wheel");
         repairOne.setRepairAppointment(appointment);
-        //repairOne.setPartToRepair(part);
 
         repairPartOne.setPart(part);
         repairPartOne.setRepair(repairOne);
         repairPartOne.setAmount(1);
 
         repairParts.add(repairPartOne);
+        parts.add(part);
 
     }
 
@@ -111,9 +112,22 @@ class RepairPartServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-
-
     @Test
     void getAllPartsToBeRepairedFromOneRepair() {
+        when(repairPartRepository.findAllByRepairId(1L)).thenReturn(repairParts);
+
+        List<Part> foundParts = repairPartService.getAllPartsToBeRepairedFromOneRepair(1L);
+        verify(repairPartRepository, times(1)).findAllByRepairId(1L);
+
+        assertThat(foundParts).isEqualTo(parts);
     }
+
+    @Test
+    void getAllPartsToBeRepairedFromOneRepairException() {
+        //when(repairRepository.findById(1000L)).thenReturn(null);
+
+        assertThrows(RecordNotFoundException.class, () -> repairPartService.getAllPartsToBeRepairedFromOneRepair(1000L));
+    }
+
+
 }
