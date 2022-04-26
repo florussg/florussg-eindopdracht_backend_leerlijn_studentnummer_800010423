@@ -28,10 +28,6 @@ public class CustomerDto {
     @Size(min=9, max=9)
     private int bsnnumber;
 
-    private List<Car> ownedCar;
-
-    private List<Appointment> customerAppointment;
-
     //getters and setters
     public long getId() {
         return id;
