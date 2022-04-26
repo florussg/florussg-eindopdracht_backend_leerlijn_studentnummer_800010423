@@ -9,6 +9,7 @@ public class UploadResponse {
 
     private String url;
 
+    //constructor
     public UploadResponse (String fileName, String contentType, String url) {
         this.fileName = fileName;
         this.contentType = contentType;
