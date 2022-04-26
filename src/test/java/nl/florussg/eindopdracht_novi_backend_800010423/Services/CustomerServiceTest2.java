@@ -6,16 +6,13 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
@@ -23,10 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @ContextConfiguration(classes={EindopdrachtNoviBackend800010423Application.class})
 @EnableConfigurationProperties
@@ -74,15 +69,10 @@ public class CustomerServiceTest2 {
         customers.add(customerOne);
         customers.add(customerTwo);
         customers.add(customerThree);
-
-        Customer customer;
     }
-
-
 
     @Test
     public void getOneCustomerById() {
-
         when(customerRepository.existsById(1L)).thenReturn(true);
         Mockito
                 .doReturn(Optional.of(customerOne)).when(customerRepository).findById(1L);
@@ -96,11 +86,5 @@ public class CustomerServiceTest2 {
     public void getCustomerByBsnnumber() {
         when(customerRepository.findCustomerByBsnnumber(customerOne.getBsnnumber())).thenReturn(Optional.ofNullable(customerOne));
     }
-
-
-
-
-
-
 
 }
