@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
     @Query(value = "SELECT * FROM appointment u WHERE DATE(appointment_date_time) =?1", nativeQuery = true)
