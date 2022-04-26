@@ -10,7 +10,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepositor
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -81,7 +80,6 @@ public class AppointmentService {
             appointmentToEdit.setRepair(appointment.getRepair());
 
             appointmentRepository.save(appointmentToEdit);
-            //
 
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
@@ -106,7 +104,6 @@ public class AppointmentService {
             }
 
             appointmentRepository.save(appointmentToEdit);
-
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
         }
@@ -122,16 +119,15 @@ public class AppointmentService {
                 if (status.getApkStatus() != null && !status.getApkStatus().toString().isEmpty()) {
                     appointmentToEdit.setApkStatus(status.getApkStatus());
                 } else {
-                    throw new BadRequestException("You can not change the APK status because the input field is null");
+                    throw new BadRequestException(
+                            "You can not change the APK status because the input field is null");
                 }
             } else {
                 throw new BadRequestException("This is not an APK appointment");
             }
 
             appointmentRepository.save(appointmentToEdit);
-
             return appointmentToEdit;
-
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
         }
@@ -149,17 +145,17 @@ public class AppointmentService {
             appointmentToEdit.setCustomerAppointment(customerToAdd);
 
             appointmentRepository.save(appointmentToEdit);
-
             return appointmentToEdit;
-
         } else {
-            throw new RecordNotFoundException("There is no appointment with this id or the customer with this BSN does not exist");
+            throw new RecordNotFoundException(
+                    "There is no appointment with this id or the customer with this BSN does not exist");
         }
     }
 
     public Appointment addCarToAppointment(long appointmentId, String licenseplateNumber) {
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
-        Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
+        Optional<Car> optionalCar = carRepository
+                .findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
 
         if (optionalAppointment.isPresent()) {
             System.out.println("appointment found");
@@ -193,7 +189,6 @@ public class AppointmentService {
         }
 
         public boolean checkIfAppointmentsPerDayIsNotHigherThenThree (LocalDateTime dateTimeAppointment){
-
             String date = getDateFromDateTimeAppointment(dateTimeAppointment);
 
             List foundAppointment = appointmentRepository.findAppointmentByDate(date);
