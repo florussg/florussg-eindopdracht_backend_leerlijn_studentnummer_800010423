@@ -4,7 +4,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.CustomerService;
-import org.aspectj.lang.annotation.Before;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
@@ -26,9 +25,6 @@ class CustomerControllerTest {
 
     @Mock
     CustomerService customerService;
-
-    @Mock
-    private CustomerRepository customerRepository;
 
     Customer customerOne = new Customer();
     Customer customerTwo = new Customer();
@@ -59,7 +55,6 @@ class CustomerControllerTest {
 
         customers.add(customerOne);
         customers.add(customerTwo);
-
     }
 
 
@@ -70,7 +65,6 @@ class CustomerControllerTest {
         customerController.getAllCustomers("Janssen");
 
         verify(customerService, times(1)).getAllCustomers("Janssen");
-
     }
 
     @Test
@@ -80,7 +74,6 @@ class CustomerControllerTest {
         customerController.getOneCustomerById(2L);
 
         verify(customerService, times(1)).getOneCustomerById(2L);
-
     }
 
     @Test
@@ -93,29 +86,10 @@ class CustomerControllerTest {
     }
 
     @Test
-    void addCustomer() {
-//        when(customerService.addNewCustomer(customerDto)).thenReturn(4L);
-//
-//        customerController.addCustomer(customerDto);
-//
-//        verify(customerService, times(1)).addNewCustomer(customerDto);
-//        var checkDto = customerDto.getId();
-//        assertEquals(customerDto.getId(), checkDto);
-
-    }
-
-    @Test
     void deleteCustomer() {
 
         customerController.deleteCustomer(2L);
         verify(customerService, times(1)).deleteCustomer(2L);
     }
 
-    @Test
-    void editCustomer() {
-    }
-
-    @Test
-    void partialEditCustomer() {
-    }
 }
