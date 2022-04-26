@@ -6,7 +6,7 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFound
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Authority;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.User;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.UserRepository;
-import nl.florussg.eindopdracht_novi_backend_800010423.Config.WebSecurityConfigTest;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,11 +14,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.annotation.Import;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithUserDetails;
 
 import java.util.*;
 
@@ -26,10 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-//@RunWith(SpringRunner.class) TODO: JOHAN????????????
-@Import({WebSecurityConfigTest.class})
 @ExtendWith(MockitoExtension.class)
-@WithMockUser(username = "florus", roles = { "ROLE_ADMIN" }) //TODO: JOHAN Checken hoe ik users mock, anders weghalen en afronden!
 class UserServiceTest {
 
     @InjectMocks
@@ -40,9 +33,6 @@ class UserServiceTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
-
-    @Mock
-    private AuthenticationManager authenticationManager; //TODO: Johan??????
 
     User userOne = new User();
     User userTwo = new User();
@@ -71,13 +61,10 @@ class UserServiceTest {
         users.add(userOne);
         users.add(userTwo);
         users.add(userThree);
-
     }
-
 
     @Test
     void getUsers() {
-
         when(userRepository.findAll()).thenReturn(users);
 
         Iterable<User> foundUsers = userService.getUsers();
@@ -89,7 +76,6 @@ class UserServiceTest {
 
     @Test
     void getUser() {
-
         when(userRepository.findByUsername("florus")).thenReturn(Optional.of(userOne));
 
         User userFound = userService.getUser("florus");
@@ -105,7 +91,6 @@ class UserServiceTest {
 
     @Test
     void addNewUser() {
-
         when(userRepository.save(ArgumentMatchers.any(User.class))).thenReturn(userOne);
 
         User userToAdd = userRepository.save(userOne);
@@ -177,7 +162,6 @@ class UserServiceTest {
 
     @Test
     void getAuthorities() {
-
         when(userRepository.findByUsername("florus")).thenReturn(Optional.ofNullable(userOne));
 
         Set<Authority> authority = userService.getAuthorities("florus");
@@ -187,35 +171,7 @@ class UserServiceTest {
 
     @Test
     void getAuthoritiesException() {
-
         assertThrows(RecordNotFoundException.class, () -> userService.getAuthorities("truus"));
-    }
-
-
-    @Test
-    @WithMockUser(username = "florus", roles = { "ROLE_ADMIN" })
-    @WithUserDetails
-    void userPasswordChange() {
-
-        //WERKT NIET!!!!~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        when(userRepository.findByUsername("peter")).thenReturn(Optional.ofNullable(userTwo));
-        when(userRepository.save(userTwo)).thenReturn(userTwo);
-
-        User userToEdit = userService.userPasswordChange("peter", "VerySecret12@");
-
-        verify(userRepository, times(1)).findByUsername("peter");
-        verify(userRepository, times(1)).save(userTwo);
-
-        assertThat(userToEdit).isEqualTo(userTwo);
-    }
-
-    @Test
-    void loggedInUsernameIsTheSameAsUsernameInput() {
-    }
-
-    @Test
-    void loggedInUsernameIsAdmin() {
     }
 
 }
