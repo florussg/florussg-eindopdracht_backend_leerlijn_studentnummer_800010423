@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 
 @RestController
@@ -35,5 +34,4 @@ public class RepairPartController {
             @PathVariable("repairId") long repairId) {
         return ResponseEntity.ok(repairPartService.getAllPartsToBeRepairedFromOneRepair(repairId));
     }
-
 }
