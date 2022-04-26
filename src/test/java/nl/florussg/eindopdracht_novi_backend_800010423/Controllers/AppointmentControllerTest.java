@@ -1,6 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.ApkStatus;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.AppointmentService;
@@ -26,12 +25,8 @@ class AppointmentControllerTest {
     @Mock
     AppointmentService appointmentService;
 
-    //@Mock TODO: Verwijderen of debuggen waarom dit niet werkt!
-    //ApkStatus apkStatus;
-
     Appointment appointmentOne = new Appointment();
     Appointment appointmentTwo = new Appointment();
-    Appointment apkStatusAppointment = new Appointment();
     Car car = new Car();
 
     List<Appointment> appointments = new ArrayList<>();
@@ -62,9 +57,6 @@ class AppointmentControllerTest {
         car.setBrand("Seat");
         car.setType("Leon");
         car.setLicenseplatenumber("31-LZ-XL");
-
-        //TODO: Verwijderen of debuggen waarom dit niet werkt!
-        //apkStatusAppointment.setApkStatus(apkStatus.STARTED);
     }
 
     @Test
@@ -99,36 +91,10 @@ class AppointmentControllerTest {
     }
 
     @Test
-    void addNewAppointment() {
-    }
-
-    @Test
     void deleteAppointment() {
 
         appointmentController.deleteAppointment(1L);
         verify(appointmentService, times(1)).deleteAppointment(1L);
     }
 
-    @Test
-    void editAppointment() {
-    }
-
-    @Test
-    void partialEditAppointment() {
-    }
-
-    @Test
-    void setApkStatus() {
-
-    }
-
-    @Test
-    void addCustomerToAppointment() {
-
-    }
-
-    @Test
-    void addCarToAppointment() {
-
-    }
 }
