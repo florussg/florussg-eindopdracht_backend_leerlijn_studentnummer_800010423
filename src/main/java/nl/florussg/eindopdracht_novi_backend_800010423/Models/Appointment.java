@@ -31,6 +31,7 @@ public class Appointment {
     @JsonIgnore
     private Repair appointmentRepair;
 
+    @JsonIgnore
     @ManyToOne
     private Customer customerAppointment;
 
