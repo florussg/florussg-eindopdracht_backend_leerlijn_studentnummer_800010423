@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class Authority implements Serializable {
 
     //attributes
-
     @Id
     @Column(nullable = false)
     private String username;
@@ -26,7 +25,6 @@ public class Authority implements Serializable {
         this.username = username;
         this.authority = authority;
     }
-
 
     //getters and setters
     public String getUsername() {
