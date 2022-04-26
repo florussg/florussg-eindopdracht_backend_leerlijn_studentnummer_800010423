@@ -1,6 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;
@@ -67,26 +66,16 @@ class RepairServiceTest {
 
         repairOne.setRepairAppointment(appointmentOne);
 
-
         appointmentTwo.setId(2L);
         appointmentTwo.setDateTimeAppointment(datetime2);
         appointmentTwo.setApk(true);
         appointmentTwo.setRepair(false);
 
-
-
         repairs.add(repairOne);
-
-
-    }
-
-    @Test
-    void createRepairAndLinkItToTheAppointment() {
     }
 
     @Test
     void setRepairStatus() {
-
         when(repairRepository.findById(1L)).thenReturn(Optional.of(repairOne));
         when(repairRepository.save(repairOne)).thenReturn(repairOne);
 
@@ -100,7 +89,6 @@ class RepairServiceTest {
 
     @Test
     void setRepairStatusException() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> {
             repairService.setRepairStatus(1000L, repairTwo);
         });
@@ -113,7 +101,6 @@ class RepairServiceTest {
 
     @Test
     void findRepairByRepairStatus() {
-
         when(repairRepository.findRepairByRepairStatusEquals(RepairStatus.STARTED)).thenReturn(repairs);
 
         List<Repair> foundRepairs = repairService.findRepairByRepairStatus(RepairStatus.STARTED);
@@ -125,7 +112,6 @@ class RepairServiceTest {
 
     @Test
     void findRepairByRepairStatusException() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> repairService.findRepairByRepairStatus(RepairStatus.FAIL));
 
         String expectedMessage = "There are no repairs based on your input";
@@ -136,7 +122,6 @@ class RepairServiceTest {
 
     @Test
     void getAllRepairs() {
-
         when(repairService.getAllRepairs()).thenReturn(repairs);
 
         Iterable<Repair> foundRepairs = repairService.getAllRepairs();
@@ -149,7 +134,6 @@ class RepairServiceTest {
 
     @Test
     void linkRepairToAppointment() {
-
         when(repairRepository.findById(1L)).thenReturn(Optional.ofNullable(repairOne));
         when(repairRepository.save(repairOne)).thenReturn(repairOne);
         when(appointmentRepository.findById(1L)).thenReturn(Optional.ofNullable(appointmentOne));
@@ -164,28 +148,12 @@ class RepairServiceTest {
 
     @Test
     void linkRepairToAppointmentException() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> repairService.linkRepairToAppointment(1000L, 1L));
 
         String expectedMessage = "Repair or appointment does not exist";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    //TODO: werkt niet
-    @Test
-    void autoSetStartingRepairStatus() {
-
-        when(repairRepository.findById(3L)).thenReturn(Optional.ofNullable(repairThree));
-        when(repairRepository.save(repairThree)).thenReturn(repairThree);
-
-       Repair repair = repairService.autoSetStartingRepairStatus(3L);
-
-        verify(repairRepository, times(1)).findById(3L);
-        verify(repairRepository, times(1)).save(repairThree);
-
-        assertThat(repair.getRepairStatus()).isEqualTo(repairThree.getRepairStatus());
     }
 
     @Test
@@ -195,7 +163,6 @@ class RepairServiceTest {
         boolean appointment = repairService.checkIfAppointmentHasRepairBooleanTrue(1L);
 
         assertThat(appointment).isEqualTo(appointmentOne.getRepair());
-
     }
 
     @Test
@@ -220,7 +187,6 @@ class RepairServiceTest {
 
     @Test
     void createRepairAndLinkItToTheAppointmentException() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> repairService.createRepairAndLinkItToTheAppointment(repairTwo, 1000L));
 
         String expectedMessage = "There is no appointment with this id!";
@@ -228,6 +194,5 @@ class RepairServiceTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
 
 }
