@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-
 @Service
 public class JwtUtil {
 
@@ -59,5 +58,4 @@ public class JwtUtil {
         final String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
-
 }
