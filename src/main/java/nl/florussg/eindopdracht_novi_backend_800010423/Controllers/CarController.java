@@ -47,7 +47,6 @@ public class CarController {
         return ResponseEntity.created(location).build();
     }
 
-    //Vragen, werkt niet
     @DeleteMapping (value = "/cars/{licenseplateNumber}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> deleteCarByLicenseplateNumber (
