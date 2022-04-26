@@ -2,15 +2,12 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.UserDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.User;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.Map;
 
@@ -76,6 +73,4 @@ public class UserController {
         userService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();
     }
-
-
 }
