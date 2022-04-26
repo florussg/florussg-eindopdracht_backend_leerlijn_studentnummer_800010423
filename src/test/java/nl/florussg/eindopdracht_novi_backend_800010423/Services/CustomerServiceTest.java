@@ -147,8 +147,6 @@ public class CustomerServiceTest {
         assertThat(customerCreatedId).isSameAs(customerCreated.getId());
     }
 
-
-
     @Test
     void deleteCustomer() {
         when(customerRepository.findById(customerOne.getId())).thenReturn(Optional.of(customerOne));
@@ -211,15 +209,6 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void checkIfCustomerExistsInDatabaseBasedOnBsnnumber() {
-        when(customerRepository.findCustomerByBsnnumber(123456789)).thenReturn(Optional.ofNullable(customerOne));
-
-        Boolean customerToCheck = customerService.checkIfCustomerExistsInDatabaseBasedOnBsnnumber(customerDto);
-
-        assertThat(customerToCheck).isTrue();
-    }
-
-    @Test
     void addExistingCarToCustomer() {
 
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customerOne));
@@ -252,7 +241,6 @@ public class CustomerServiceTest {
     void addNewCarToCustomerException() {
         assertThrows(RecordNotFoundException.class, () -> customerService.addNewCarToCustomer(1000L, car));
     }
-
 }
 
 
