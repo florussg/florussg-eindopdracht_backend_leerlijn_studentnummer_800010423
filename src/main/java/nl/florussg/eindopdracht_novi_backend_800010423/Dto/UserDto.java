@@ -1,7 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Dto;
 
-import java.util.Set;
-
 public class UserDto {
 
     private long id;
@@ -11,8 +9,6 @@ public class UserDto {
     private String password;
 
     private boolean enabled = true;
-
-    private Set<String> authorities;
 
     //getters and setters
     public long getId() {
@@ -37,21 +33,5 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Set<String> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<String> authorities) {
-        this.authorities = authorities;
     }
 }
