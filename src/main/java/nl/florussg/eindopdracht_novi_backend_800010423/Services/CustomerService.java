@@ -9,7 +9,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepositor
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +31,7 @@ public class CustomerService {
         }
     }
 
-    public Customer getOneCustomerById (long id) {
+    public Customer getOneCustomerById(long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         if(customer.isPresent()) {
             return customer.get();
@@ -41,7 +40,7 @@ public class CustomerService {
         }
       }
 
-      public Customer getCustomerByBsnnumber (int bsnnumber) {
+      public Customer getCustomerByBsnnumber(int bsnnumber) {
           Optional<Customer> optionalCustomer = customerRepository.findCustomerByBsnnumber(bsnnumber);
           if (optionalCustomer.isPresent()) {
               return optionalCustomer.get();
@@ -51,7 +50,6 @@ public class CustomerService {
       }
 
     public long addNewCustomer(CustomerDto customerDto) {
-
         if(checkIfCustomerExistsInDatabaseBasedOnBsnnumber(customerDto) == true) {
             throw new BadRequestException("Customer already exists based on input-bsnnumber");
         } else {
@@ -76,7 +74,7 @@ public class CustomerService {
         }
     }
 
-    public Customer editCustomer (long id, CustomerDto customerDto) {
+    public Customer editCustomer(long id, CustomerDto customerDto) {
         Optional <Customer> optionalCustomer = customerRepository.findById(id);
 
         if(optionalCustomer.isPresent()) {
@@ -92,16 +90,13 @@ public class CustomerService {
             customerToEdit.setPhonenumber(customerDto.getPhonenumber());
 
             customerRepository.save(customerToEdit);
-
             return customerToEdit;
-
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }
-
     }
 
-    public Customer partialEditCustomer (long id, CustomerDto customerDto) {
+    public Customer partialEditCustomer(long id, CustomerDto customerDto) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
 
         if (optionalCustomer.isPresent()) {
@@ -121,13 +116,10 @@ public class CustomerService {
             }
 
             customerRepository.save(customerToEdit);
-
             return customerToEdit;
-
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }
-
     }
 
     public Car addNewCarToCustomer(long id, Car car) {
@@ -139,13 +131,10 @@ public class CustomerService {
             car.setCarCustomer(customer);
 
             carRepository.save(car);
-
             return car;
-
         } else {
             throw new RecordNotFoundException("A customer with this id does not exist");
         }
-
     }
 
     public Customer addExistingCarToCustomer(long id, String licenseplatenumber) {
@@ -157,18 +146,16 @@ public class CustomerService {
             Car car = optionalCar.get();
 
             car.setCarCustomer(customer);
+
             carRepository.save(car);
-
             return customer;
-
         } else {
             throw new RecordNotFoundException("Customer or Car does not exist!");
         }
-
     }
 
         //methods
-        public boolean checkIfCustomerExistsInDatabaseBasedOnBsnnumber (CustomerDto customerDto) {
+        public boolean checkIfCustomerExistsInDatabaseBasedOnBsnnumber(CustomerDto customerDto) {
             int bsnnumberInput = customerDto.getBsnnumber();
             Optional<Customer> optionalCustomer = customerRepository.findCustomerByBsnnumber(bsnnumberInput);
             if (optionalCustomer.isPresent()) {
