@@ -70,27 +70,7 @@ public class Car {
         this.licenseplateNumber = licenseplatenumber;
     }
 
-    public Customer getCarCustomer() {
-        return carCustomer;
-    }
-
     public void setCarCustomer(Customer carCustomer) {
         this.carCustomer = carCustomer;
-    }
-
-    public List<Appointment> getCarAppointment() {
-        return carAppointment;
-    }
-
-    public void setCarAppointment(List<Appointment> carAppointment) {
-        this.carAppointment = carAppointment;
-    }
-
-    public CarRegistrationDocument getRegistrationDocument() {
-        return registrationDocument;
-    }
-
-    public void setRegistrationDocument(CarRegistrationDocument registrationDocument) {
-        this.registrationDocument = registrationDocument;
     }
 }
