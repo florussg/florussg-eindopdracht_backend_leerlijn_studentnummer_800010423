@@ -1,18 +1,13 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Dto.RepairPartDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPart;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairPartKey;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.RepairStatus;
-import nl.florussg.eindopdracht_novi_backend_800010423.Services.RepairPartService;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 
 @RestController
@@ -20,9 +15,6 @@ public class RepairController {
 
     @Autowired
     private RepairService repairService;
-
-    @Autowired
-    private RepairPartService repairPartService;
 
     @PostMapping(value = "/appointments/{id}/repair")
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,9 +26,9 @@ public class RepairController {
         return ResponseEntity.created(location).build();
     }
 
-    //Possible parameters are:
-    // "REPAIR_not_approved_by_customer", "REPAIR_started",
-    // "REPAIR_pass", "REPAIR_fail", "REPAIR_cancelled"
+    // Possible parameters are =
+    // "PENDING_APPROVAL", "NOT_APPROVED", "APPROVED",
+    // "STARTED", "PASS", "FAIL" and "CANCELLED".
     @PatchMapping(value = "/repairs/{id}/status")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> setRepairStatus (@PathVariable long id, @RequestBody Repair repairStatus) {
