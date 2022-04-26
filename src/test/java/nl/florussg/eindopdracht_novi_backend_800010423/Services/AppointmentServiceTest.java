@@ -29,7 +29,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class AppointmentServiceTest {
 
-
     @InjectMocks
     private AppointmentService appointmentService;
 
@@ -58,8 +57,6 @@ class AppointmentServiceTest {
     Customer customer = new Customer();
 
     Car car = new Car();
-
-
 
     @BeforeEach
     public void setUp() {
@@ -167,7 +164,6 @@ class AppointmentServiceTest {
        assertThat(AppointmentCreatedId).isSameAs(appointmentAdded.getId());
     }
 
-
     @Test
     void deleteAppointment() {
         when(appointmentRepository.findById(appointmentOne.getId())).thenReturn(Optional.of(appointmentOne));
@@ -205,9 +201,7 @@ class AppointmentServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
-
 
     @Test
     void partialEditAppointment() {
@@ -231,7 +225,6 @@ class AppointmentServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
 
     @Test
@@ -337,7 +330,6 @@ class AppointmentServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
 
     @Test
@@ -379,13 +371,5 @@ class AppointmentServiceTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
-    @Test
-    void checkIfAppointmentsPerDayIsNotHigherThenThree() {
-        }
-
-
-
-
 
 }
