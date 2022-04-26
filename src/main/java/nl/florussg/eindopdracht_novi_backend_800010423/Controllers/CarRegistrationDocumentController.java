@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
@@ -23,13 +22,13 @@ public class CarRegistrationDocumentController {
     @Autowired
     private CarRegistrationDocumentService carRegistrationDocumentService;
 
-
     @PostMapping (value = "upload/car_registration_document")
     UploadResponse singleUpload(@RequestParam("file") MultipartFile dataFileName) {
 
         String fileName = carRegistrationDocumentService.saveCarRegistrationDocument(dataFileName);
 
-        String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(fileName).toUriString();
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/")
+                .path(fileName).toUriString();
 
         String contentType = dataFileName.getContentType();
 
@@ -56,8 +55,9 @@ public class CarRegistrationDocumentController {
             contentType = MediaType.APPLICATION_PDF;
         }
 
-        return ResponseEntity.ok().contentType(contentType).header(HttpHeaders.CONTENT_DISPOSITION, "attachment;fileName=" + resource.getFilename()).body(resource);
-
+        return ResponseEntity.ok().contentType(contentType).header(
+                HttpHeaders.CONTENT_DISPOSITION,
+                "attachment;fileName=" + resource.getFilename()).body(resource);
     }
 
     @PatchMapping (value = "/car_registration_document/car/{licenseplateNumber}")
@@ -67,8 +67,4 @@ public class CarRegistrationDocumentController {
         carRegistrationDocumentService.addCarToUploadedRegistrationDocument(fileName, licenseplateNumber);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
 }
