@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +31,6 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     public Iterable<User> getUsers() {
         return userRepository.findAll();
     }
@@ -49,7 +47,6 @@ public class UserService {
     }
 
     public String addNewUser(UserDto userDto) {
-
         Optional<User> optionalUser = userRepository.findByUsername(userDto.getUsername());
         if (optionalUser.isPresent()) {
             throw new BadRequestException("Username already exists, please choose another username");
@@ -69,25 +66,21 @@ public class UserService {
 
             return saveUser.getUsername();
 
-
-
         } catch (Exception ex) {
             throw new BadRequestException("Error in creating user!");
         }
     }
 
-
     public User addAuthority(String username, String authority) {
-
         if (!userRepository.findByUsername(username).isPresent())
             throw new BadRequestException("Username does not exist!");
 
         User saveUser = userRepository.findByUsername(username).get();
         saveUser.addAuthority(authority);
+
         userRepository.save(saveUser);
         return saveUser;
     }
-
 
     public User userPasswordChange(String username, String password) {
         if (loggedInUsernameIsTheSameAsUsernameInput(username) == true) {
@@ -126,7 +119,6 @@ public class UserService {
         }
         return null;
     }
-
 
     public User removeAuthority(String username, String authorityString) {
         Optional<User> userOptional = userRepository.findByUsername(username);
@@ -208,7 +200,6 @@ public class UserService {
 
         return validPassword;
     }
-
 }
 
 
