@@ -1,6 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
-
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,7 +7,7 @@ import java.util.Objects;
 @Embeddable
 public class RepairPartKey implements Serializable {
 
-    //attributen
+    //attributes
     long partId;
 
     long repairId;
@@ -64,6 +63,4 @@ public class RepairPartKey implements Serializable {
     public int hashCode() {
     return Objects.hash(getRepairId(), getPartId());
     }
-
-
 }
