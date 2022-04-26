@@ -1,13 +1,11 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Part;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.PartRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -55,7 +53,6 @@ class PartServiceTest {
 
     @Test
     void getAllParts() {
-
         when(partService.getAllParts()).thenReturn(parts);
 
         Iterable<Part> foundParts = partService.getAllParts();
@@ -67,7 +64,6 @@ class PartServiceTest {
 
     @Test
     void getAllPartsByBrandTypeYear() {
-
         when(partRepository.findPartByBrandTypeYearContainingIgnoreCase("Seat Leon 2011")).thenReturn(parts);
 
         List<Part> foundParts = partService.getAllPartsByBrandTypeYear("Seat Leon 2011");
@@ -79,19 +75,16 @@ class PartServiceTest {
 
     @Test
     void getAllPartsByBrandTypeYearException() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> partService.getAllPartsByBrandTypeYear("Mercedes"));
 
         String expectedMessage = "No parts found based on your user input";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
 
     @Test
     void addNewPart() {
-
         when(partRepository.save(ArgumentMatchers.any(Part.class))).thenReturn(partOne);
 
         Part partAdded = partRepository.save(partOne);
@@ -100,10 +93,8 @@ class PartServiceTest {
         assertThat(partCreatedId).isSameAs(partAdded.getId());
     }
 
-
     @Test
     void deletePart() {
-
         when(partRepository.findById(1L)).thenReturn(Optional.of(partOne));
 
         partService.deletePart(1L);
@@ -118,7 +109,6 @@ class PartServiceTest {
 
     @Test
     void editPart() {
-
         when(partRepository.findById(1L)).thenReturn(Optional.ofNullable(partOne));
         when(partRepository.save(partOne)).thenReturn(partOne);
 
@@ -132,7 +122,6 @@ class PartServiceTest {
 
     @Test
     void editPartException() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> partService.editPart(1000L, partOne));
 
         String expectedMessage = "There is no part with this id";
