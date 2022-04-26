@@ -64,7 +64,7 @@ public class AppointmentController {
         return ResponseEntity.noContent().build();
     }
 
-    //Possible parameters are: "STARTED", "PASS", "FAIL", "APK_INSPECTION_FAILED"
+    //Possible parameters are = "STARTED", "PASS", "FAIL", "APK_INSPECTION_FAILED"
     @PatchMapping(value = "/appointments/{id}/setapkstatus")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> setApkStatus (@PathVariable long id, @RequestBody Appointment appointment) {
