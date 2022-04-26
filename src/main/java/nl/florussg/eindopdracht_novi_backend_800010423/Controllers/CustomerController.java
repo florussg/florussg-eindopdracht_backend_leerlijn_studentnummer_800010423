@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -18,7 +17,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    //Get all customers with an option to filter on the lastname
+    //Get all customers -with an option to filter on the lastname
     @GetMapping (value = "/customers")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllCustomers(
@@ -26,14 +25,12 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getAllCustomers(lastname));
     }
 
-    //Get one customer
     @GetMapping (value = "/customers/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getOneCustomerById(@PathVariable long id) {
         return ResponseEntity.ok(customerService.getOneCustomerById(id));
     }
 
-    //Get customer by BSN
     @GetMapping (value = "/customers/bsn")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getCustomerByBsnnumber(
@@ -42,7 +39,6 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getCustomerByBsnnumber(bsnnumber));
     }
 
-    //Add customer
     @PostMapping(value = "/customers/add")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> addCustomer(
@@ -54,7 +50,6 @@ public class CustomerController {
         return ResponseEntity.created(location).build();
     }
 
-    //Delete one customer
     @DeleteMapping(value = "/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> deleteCustomer(@PathVariable long id) {
@@ -73,7 +68,6 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
     }
 
-    //partial change of one customer
     @PatchMapping(value = "/customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> partialEditCustomer(
@@ -98,6 +92,4 @@ public class CustomerController {
         customerService.addExistingCarToCustomer(id, licenseplatenumber);
         return ResponseEntity.ok().build();
     }
-
-
 }
