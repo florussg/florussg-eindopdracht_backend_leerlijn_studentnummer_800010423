@@ -91,25 +91,21 @@ public class CustomerServiceTest {
         verify(customerRepository,times(1)).findAll();
 
         assertThat(foundCustomers).isEqualTo(customers);
-        }
+    }
 
     @Test
     public void getAllCustomersWithLastname() {
-        //arrange -gedrag in programmeren
         when(customerRepository.findAllByLastnameContainingIgnoreCase("Janssen")).thenReturn(customers);
 
-        //act -uitvoeren wat er getest wordt
         Iterable<Customer> foundCustomers = customerService.getAllCustomers("Janssen");
 
-        //assert -vergelijking
         verify(customerRepository,times(1)).findAllByLastnameContainingIgnoreCase("Janssen");
-        //assertThat(foundCustomers).isEqualTo(customers);
+
         assertEquals(customers,foundCustomers);
     }
 
     @Test
     void getOneCustomerById() {
-
         when(customerRepository.findById(42L)).thenReturn(Optional.of(customerOne));
 
         Customer oneCustomerById = customerService.getOneCustomerById(42L);
@@ -125,15 +121,11 @@ public class CustomerServiceTest {
 
     @Test
     void getCustomerByBsnnumber() {
-
-        //arrange - gedrag in programmeren.
         when(customerRepository.findCustomerByBsnnumber(123456789)).thenReturn(Optional.of(customerOne));
 
-        //act - uitvoeren wat er getest wordt.
         Customer oneCustomerByBsnnunmber = customerService.getCustomerByBsnnumber(123456789);
         verify(customerRepository, times(1)).findCustomerByBsnnumber(123456789);
 
-        //assert -vergelijking.
         assertNotNull(oneCustomerByBsnnunmber);
     }
 
@@ -144,30 +136,21 @@ public class CustomerServiceTest {
 
     @Test
     void addCustomer() {
-
-        //arrange -gedrag in programmeren.
         when(customerRepository.save(ArgumentMatchers.any(Customer.class))).thenReturn(customerOne);
 
-        //act - uitvoeren wat er getest wordt.
         Customer customerCreated = customerRepository.save(customerOne);
         long customerCreatedId = customerService.addNewCustomer(customerDto);
         verify(customerRepository).save(customerOne);
 
-        //assert - vergelijking.
         assertThat(customerCreatedId).isSameAs(customerCreated.getId());
     }
 
-    @Test
-    void addCustomerException() {
-    }
+
 
     @Test
     void deleteCustomer() {
-
-        //arange - gedrag in programmeren.
         when(customerRepository.findById(customerOne.getId())).thenReturn(Optional.of(customerOne));
 
-        //act - uitvoeren wat er getest wordt.
         customerService.deleteCustomer(customerOne.getId());
         verify(customerRepository).deleteById(customerOne.getId());
     }
@@ -262,22 +245,6 @@ public class CustomerServiceTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
-    //TODO: Werkt nog niet! Waarom?
-    @Test
-    void addNewCarToCustomer() {
-
-//            when(customerRepository.findById(1L)).thenReturn(Optional.of(customerOne));
-//            //when(customerRepository.save(customerOne)).thenReturn(customerOne);
-//
-//            Car carToAdd = customerService.addNewCarToCustomer(1L, car);
-//
-//            verify(customerRepository, times(1)).findById(1L);
-//           verify(carRepository, times(1)).save(customerOne);
-//
-//            assertThat(carAdded.getId()).isEqualTo(customerOne.getId());
-        }
-
 
 }
 
