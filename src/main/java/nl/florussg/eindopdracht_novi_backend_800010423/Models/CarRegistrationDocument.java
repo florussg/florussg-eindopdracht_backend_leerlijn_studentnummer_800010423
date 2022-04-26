@@ -17,11 +17,9 @@ public class CarRegistrationDocument {
     @OneToOne
     Car car;
 
-
     //constructor
     public CarRegistrationDocument() {
     }
-
 
     //getters and setters
     public long getId() {
@@ -40,10 +38,6 @@ public class CarRegistrationDocument {
         this.fileName = fileName;
     }
 
-    public String getPathSaved() {
-        return pathSaved;
-    }
-
     public void setPathSaved(String pathSaved) {
         this.pathSaved = pathSaved;
     }
@@ -55,6 +49,4 @@ public class CarRegistrationDocument {
     public void setCar(Car carRegistrationDocument) {
         this.car = carRegistrationDocument;
     }
-
-
 }
