@@ -8,7 +8,6 @@ public class RepairPartDto {
 
     private int amount;
 
-
     //getters
     public long getRepairId() {
         return repairId;
@@ -21,5 +20,4 @@ public class RepairPartDto {
     public int getAmount() {
         return amount;
     }
-
 }
