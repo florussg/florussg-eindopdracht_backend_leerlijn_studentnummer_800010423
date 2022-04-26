@@ -9,22 +9,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
 
 
-//@WebMvcTest
-//@AutoConfigureMockMvc(addFilters = false)
-
 @ExtendWith({MockitoExtension.class})
 class CarControllerTest {
-
-
-//    @Autowired
-//    MockMvc mockMvc;
 
     @InjectMocks
     CarController carController;
@@ -62,7 +54,6 @@ class CarControllerTest {
         carController.getAllCars();
 
         verify(carService, times(1)).getAllCars();
-
     }
 
     @Test
@@ -91,25 +82,4 @@ class CarControllerTest {
         verify(carService, times(1)).deleteCarByLicenseplateNumber("31-LZ-XL");
     }
 
-    @Test
-    void addNewCar() {
-
-    }
-
-//TODO: Nog kijken naar de mockMvc?
-//    @WithMockUser(username = "florus", authorities = {"ROLE_ADMIN"} )
-    @Test
-    void addNewCarReturnHttpStatusCREATED() throws Exception {
-//        mockMvc.perform(post("cars/add"))
-//                .andExpect(status().isCreated());
-    }
-
-
-    @Test
-    void editCar() {
-    }
-
-    @Test
-    void partialEditCar() {
-    }
 }
