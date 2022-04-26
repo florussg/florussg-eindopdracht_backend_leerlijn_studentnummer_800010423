@@ -25,7 +25,6 @@ public class UserAuthenticationService {
     JwtUtil jwtUtl;
 
     public AuthenticationResponse authenticateUser(AuthenticationRequest authenticationRequest) {
-
         String username = authenticationRequest.getUsername();
         String password = authenticationRequest.getPassword();
 
@@ -41,5 +40,4 @@ public class UserAuthenticationService {
 
         return new AuthenticationResponse(jwt);
     }
-
 }
