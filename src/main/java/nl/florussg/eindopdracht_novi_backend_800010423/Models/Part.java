@@ -60,9 +60,4 @@ public class Part {
     public List<RepairPart> getPartForRepair() {
         return partForRepair;
     }
-
-    public void setPartForRepair(List<RepairPart> partForRepair) {
-        this.partForRepair = partForRepair;
-    }
-
 }
