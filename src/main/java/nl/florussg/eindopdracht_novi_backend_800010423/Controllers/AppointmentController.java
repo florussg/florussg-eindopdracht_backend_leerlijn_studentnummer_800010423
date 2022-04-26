@@ -16,6 +16,7 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
+    //ResponseEntity.ok gives back http status 200 OK
     @GetMapping (value= "/appointments")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAllAppointments() {
@@ -34,6 +35,7 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentService.getAllRepairAppointments());
     }
 
+    //ResponseEntity.created gives back http status 201 Created
     @PostMapping (value = "/appointments/new")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Object> addNewAppointment(@RequestBody Appointment appointment) {
@@ -43,6 +45,7 @@ public class AppointmentController {
         return ResponseEntity.created(location).build();
     }
 
+    //ResponseEntity.noContent gives back http status 204 No Content
     @DeleteMapping (value = "/appointments/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> deleteAppointment (@PathVariable long id) {
