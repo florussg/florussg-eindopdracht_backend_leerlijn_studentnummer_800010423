@@ -12,13 +12,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "bsn_number")
+    @Column(name = "bsn_number") //Even though this is not clean code, the @Column gives you more control over the data.sql input
     private int bsnnumber;
 
     @Column(name = "phone_number")
@@ -79,20 +77,8 @@ public class Customer {
         return ownedCars;
     }
 
-    public void setOwnedCars(List<Car> ownedCar) {
-        this.ownedCars = ownedCar;
-    }
-
     public List<Appointment> getCustomerAppointments() {
         return customerAppointments;
-    }
-
-    public void setCustomerAppointments(List<Appointment> customerAppointment) {
-        this.customerAppointments = customerAppointment;
-    }
-
-    public void addOwnedCars(Car car) {
-        ownedCars.add(car);
     }
 }
 
