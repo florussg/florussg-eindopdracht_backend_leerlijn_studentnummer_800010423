@@ -1,11 +1,8 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Dto;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 public class CustomerDto {
 
