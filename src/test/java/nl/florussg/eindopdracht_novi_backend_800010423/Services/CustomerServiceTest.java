@@ -1,6 +1,7 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Dto.CustomerDto;
+import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Customer;
@@ -70,6 +71,7 @@ public class CustomerServiceTest {
 
         customerDtoTwo.setLastname("Schuiten");
         customerDtoTwo.setFirstname("Dirk-Jan");
+        customerDto.setBsnnumber(125689234);
         customerDtoTwo.setPhonenumber(0611111211);
 
         car.setId(1L);
@@ -244,6 +246,11 @@ public class CustomerServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void addNewCarToCustomerException() {
+        assertThrows(RecordNotFoundException.class, () -> customerService.addNewCarToCustomer(1000L, car));
     }
 
 }

@@ -138,7 +138,6 @@ class AppointmentServiceTest {
 
     @Test
     void getAllRepairAppointments() {
-
         when(appointmentRepository.findAppointmentByRepairIsTrue()).thenReturn(appointments);
 
         Iterable<Appointment> foundRepairAppointments = appointmentService.getAllRepairAppointments();
@@ -155,7 +154,6 @@ class AppointmentServiceTest {
 
     @Test
     void addNewAppointment() {
-
        when(appointmentRepository.save(ArgumentMatchers.any(Appointment.class))).thenReturn(appointmentOne);
 
        Appointment appointmentAdded = appointmentRepository.save(appointmentOne);
@@ -295,7 +293,6 @@ class AppointmentServiceTest {
 
     @Test
     void setApkStatusNoAppointmentFound() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> {
             appointmentService.setApkStatus(10L, appointmentOne);
         });
@@ -334,7 +331,6 @@ class AppointmentServiceTest {
 
     @Test
     void addCarToAppointment() {
-
         when(appointmentRepository.findById(1L)).thenReturn(Optional.of(appointmentOne));
         when(appointmentRepository.save(appointmentOne)).thenReturn(appointmentOne);
         when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("31-LZ-XL")).thenReturn(Optional.of(car));
@@ -349,7 +345,6 @@ class AppointmentServiceTest {
 
     @Test
     void addCarToAppointmentException() {
-
         Exception exception = assertThrows(RecordNotFoundException.class, () -> appointmentService.addCarToAppointment(1000L, "GL-33-NN"));
 
         String expectedMessage = "There is no appointment with this id";
@@ -360,7 +355,6 @@ class AppointmentServiceTest {
 
     @Test
     void addCarToAppointmentExceptionTwo() {
-
         when(appointmentRepository.findById(1L)).thenReturn(Optional.of(appointmentOne));
         when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("NO-NO-99")).thenReturn(Optional.ofNullable(null));
 
@@ -371,5 +365,6 @@ class AppointmentServiceTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
 
 }

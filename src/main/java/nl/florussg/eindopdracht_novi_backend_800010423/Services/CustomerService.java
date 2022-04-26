@@ -139,9 +139,6 @@ public class CustomerService {
             car.setCarCustomer(customer);
 
             carRepository.save(car);
-            //customer.addOwnedCars(car);
-
-            //customerRepository.save(customer);
 
             return car;
 

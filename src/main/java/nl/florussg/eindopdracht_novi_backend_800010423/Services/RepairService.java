@@ -123,7 +123,6 @@ public class RepairService {
             }
         }
         return null;
-        //TODO: Waarom moet ik hier een null teruggeven?
 
     }
 }

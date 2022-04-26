@@ -166,6 +166,20 @@ class RepairServiceTest {
     }
 
     @Test
+    void autoSetStartingRepairStatus() {
+
+        when(repairRepository.findById(3L)).thenReturn(Optional.ofNullable(repairThree));
+        when(repairRepository.save(repairThree)).thenReturn(repairThree);
+
+        Repair repair = repairService.autoSetStartingRepairStatus(3L);
+
+        verify(repairRepository, times(1)).findById(3L);
+        verify(repairRepository, times(1)).save(repairThree);
+
+        assertThat(repair.getRepairStatus()).isEqualTo(repairThree.getRepairStatus());
+    }
+
+    @Test
     void checkIfAppointmentHasRepairBooleanTrueTwo() {
         when(appointmentRepository.findById(2L)).thenReturn(Optional.ofNullable(appointmentTwo));
 
