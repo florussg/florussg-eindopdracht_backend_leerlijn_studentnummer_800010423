@@ -1,8 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Part;
-import nl.florussg.eindopdracht_novi_backend_800010423.Services.CarService;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.PartService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
@@ -49,7 +46,6 @@ class PartControllerTest {
         parts.add(partTwo);
     }
 
-
     @Test
     void getAllParts() {
 
@@ -71,17 +67,10 @@ class PartControllerTest {
     }
 
     @Test
-    void addNewPart() {
-    }
-
-    @Test
     void deletePart() {
 
         partController.deletePart(1L);
         verify(partService, times(1)).deletePart(1L);
     }
 
-    @Test
-    void editPart() {
-    }
 }
