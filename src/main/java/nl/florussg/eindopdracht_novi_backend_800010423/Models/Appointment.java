@@ -1,7 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -14,7 +13,7 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name= "appointment_date_time")
+    @Column(name= "appointment_date_time") //Even though this is not clean code, the @Column gives you more control over the data.sql input
     private LocalDateTime dateTimeAppointment;
 
     @Column(name= "appointment_apk")
@@ -22,9 +21,6 @@ public class Appointment {
 
     @Column(name = "appointment_repair")
     private Boolean repair; //if true then the appointment contains an repair (or repair and APK) inspection
-
-    //TODO If there is time left: add a Boolean completed
-    //private Boolean completed;
 
     private ApkStatus apkStatus;
 
@@ -39,7 +35,6 @@ public class Appointment {
     private Customer customerAppointment;
 
     //getters and setters
-
     public long getId() {
         return id;
     }
@@ -95,22 +90,4 @@ public class Appointment {
     public void setCustomerAppointment(Customer appointmentOfCustomer) {
         this.customerAppointment = appointmentOfCustomer;
     }
-
-    public Repair getAppointmentRepair() {
-        return appointmentRepair;
-    }
-
-    public void setAppointmentRepair(Repair appointmentRepair) {
-        this.appointmentRepair = appointmentRepair;
-    }
-
-    //methods
-    //Add method calculateTotalCostAppointment()
-    //price APK = 40,-
-    //price part
-    //price per hour to repair part = 25,-
-
-
-
-
 }
