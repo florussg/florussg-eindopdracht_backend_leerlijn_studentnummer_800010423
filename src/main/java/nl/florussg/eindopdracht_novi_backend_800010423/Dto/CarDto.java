@@ -1,12 +1,11 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Dto;
 
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class CarDto {
 
-    //attributen
+    //attributes
     private long id;
 
     @NotBlank
@@ -17,7 +16,6 @@ public class CarDto {
 
     @Size(max=10)
     private String licenseplateNumber;
-
 
     //getters and setters
     public long getId() {
@@ -51,6 +49,4 @@ public class CarDto {
     public void setLicenseplatenumber(String licenseplatenumber) {
         this.licenseplateNumber = licenseplatenumber;
     }
-
-
 }
