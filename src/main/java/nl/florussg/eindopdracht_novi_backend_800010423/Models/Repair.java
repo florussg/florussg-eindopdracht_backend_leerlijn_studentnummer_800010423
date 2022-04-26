@@ -61,11 +61,6 @@ public class Repair {
     public void setRepairAppointment(Appointment repairAppointment) {
         this.repairAppointment = repairAppointment;
     }
-
-    public void setRepairAppointmentById(Long repairAppointmentId) {
-        this.repairAppointment = repairAppointment;
-    }
-
 }
 
 
