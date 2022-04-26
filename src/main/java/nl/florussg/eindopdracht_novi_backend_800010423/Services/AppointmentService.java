@@ -10,8 +10,11 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepositor
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -178,21 +181,12 @@ public class AppointmentService {
         } else {
             throw new RecordNotFoundException("There is no appointment with this id");
         }
-
     }
-        //methods
-        public String getDateFromDateTimeAppointment (LocalDateTime dateTimeAppointment){
-            String date = String.valueOf(dateTimeAppointment);
-            LocalDateTime ldt = LocalDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME);
-
-            return ldt.format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
-        }
 
         public boolean checkIfAppointmentsPerDayIsNotHigherThenThree (LocalDateTime dateTimeAppointment){
-            String date = getDateFromDateTimeAppointment(dateTimeAppointment);
+            List foundAppointment = appointmentRepository.findByDate(LocalDate.from(dateTimeAppointment));
 
-            List foundAppointment = appointmentRepository.findAppointmentByDate(date);
-            if (foundAppointment.size() > 3) {
+            if (foundAppointment.size() >= 3) {
                 return false;
             } else {
                 return true;

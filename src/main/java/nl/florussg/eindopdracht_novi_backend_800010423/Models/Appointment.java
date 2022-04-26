@@ -91,4 +91,13 @@ public class Appointment {
     public void setCustomerAppointment(Customer appointmentOfCustomer) {
         this.customerAppointment = appointmentOfCustomer;
     }
+
+    //TODO: De onderste twee verwijderen als de methode checkIfAppointmentHasMoreThenTreeWorksAgain
+    public Repair getAppointmentRepair() {
+        return appointmentRepair;
+    }
+
+    public void setAppointmentRepair(Repair appointmentRepair) {
+        this.appointmentRepair = appointmentRepair;
+    }
 }
