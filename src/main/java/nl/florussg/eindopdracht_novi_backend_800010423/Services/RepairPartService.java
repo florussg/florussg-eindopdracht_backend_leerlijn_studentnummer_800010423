@@ -1,6 +1,5 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Services;
 
-import nl.florussg.eindopdracht_novi_backend_800010423.Dto.RepairPartDto;
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Part;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Repair;
@@ -11,10 +10,8 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairPartRe
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RepairPartService {
@@ -28,9 +25,7 @@ public class RepairPartService {
     @Autowired
     private PartRepository partRepository;
 
-
     public RepairPartKey addPartToRepair(long repairId, long partId, int amountPart) {
-
         if (!repairRepository.findById(repairId).isPresent()) {
             throw new RecordNotFoundException("No repair with this id found");
         }
@@ -53,13 +48,11 @@ public class RepairPartService {
         repairParts.setId(newId);
 
         repairPartRepository.save(repairParts);
-
         return repairParts.getId();
     }
 
 
     public List<Part> getAllPartsToBeRepairedFromOneRepair (long repairId) {
-
         List<RepairPart> repairPartList = repairPartRepository.findAllByRepairId(repairId);
 
         if (repairPartList.size() > 0) {
@@ -67,8 +60,8 @@ public class RepairPartService {
             for (RepairPart rp : repairPartList) {
                 parts.add(rp.getPart());
             }
-            return parts;
 
+            return parts;
         } else {
             throw new RecordNotFoundException("No repair found");
             }
