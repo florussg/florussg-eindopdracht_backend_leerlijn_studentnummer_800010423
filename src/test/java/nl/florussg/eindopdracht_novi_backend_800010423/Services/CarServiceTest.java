@@ -5,7 +5,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.BadRequestExce
 import nl.florussg.eindopdracht_novi_backend_800010423.Exceptions.RecordNotFoundException;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
-import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -70,7 +69,6 @@ public class CarServiceTest {
         carDtoThree.setType("Civic");
         carDtoThree.setLicenseplatenumber("NE-WW-11");
 
-
         cars.add(carOne);
         cars.add(carTwo);
         cars.add(carThree);
@@ -86,7 +84,6 @@ public class CarServiceTest {
         verify(carRepository,times(1)).findAll();
 
         assertThat(foundCars).isEqualTo(cars);
-
     }
 
     @Test
@@ -222,14 +219,14 @@ public class CarServiceTest {
 
         when(carRepository.findCarByLicenseplateNumberContainingIgnoreCase("NO-NO-11")).thenReturn(Optional.ofNullable(null));
 
-            Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> {
         carService.partialEditCar("NO-NO-11", carDto);
-    });
+        });
 
-            String expectedMessage = "A car with this licenseplate number does not exist";
-    String actualMessage = exception.getMessage();
+        String expectedMessage = "A car with this licenseplate number does not exist";
+        String actualMessage = exception.getMessage();
 
-    assertTrue(actualMessage.contains(expectedMessage));
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
@@ -260,8 +257,6 @@ public class CarServiceTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
-
 
 }
