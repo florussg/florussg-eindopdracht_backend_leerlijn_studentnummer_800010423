@@ -2,10 +2,6 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Dto;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Appointment;
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
-
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,7 +9,7 @@ import java.util.List;
 
 public class CustomerDto {
 
-    //attributen
+    //attributes
     private long id;
 
     @NotBlank
@@ -35,7 +31,6 @@ public class CustomerDto {
     private List<Car> ownedCar;
 
     private List<Appointment> customerAppointment;
-
 
     //getters and setters
     public long getId() {
@@ -76,22 +71,5 @@ public class CustomerDto {
 
     public void setPhonenumber(int phonenumber) {
         this.phonenumber = phonenumber;
-    }
-
-
-    public List<Car> getOwnedCar() {
-        return ownedCar;
-    }
-
-    public void setOwnedCar(List<Car> ownedCar) {
-        this.ownedCar = ownedCar;
-    }
-
-    public List<Appointment> getCustomerAppointment() {
-        return customerAppointment;
-    }
-
-    public void setCustomerAppointment(List<Appointment> customerAppointment) {
-        this.customerAppointment = customerAppointment;
     }
 }
