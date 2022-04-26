@@ -2,6 +2,7 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
 public class UploadResponse {
 
+    //attributes
     private String fileName;
 
     private String contentType;
@@ -14,6 +15,7 @@ public class UploadResponse {
         this.url = url;
     }
 
+    //getters and setters
     public String getFileName() {
         return fileName;
     }
