@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.core.io.Resource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -39,7 +38,8 @@ public class CarRegistrationDocumentService {
     private Path storagePath;
     private String storageLocation;
 
-    public CarRegistrationDocumentService(@Value("${my.upload_location}") String storageLocation) {
+    public CarRegistrationDocumentService(
+            @Value("${my.upload_location}") String storageLocation) {
         storagePath = Paths.get(storageLocation).toAbsolutePath().normalize();
 
         this.storageLocation = storageLocation;
@@ -51,8 +51,8 @@ public class CarRegistrationDocumentService {
         }
     }
 
+    //File to save/upload has to be a PDF document!
     public String saveCarRegistrationDocument (MultipartFile dataFileName) {
-
         String fileName = StringUtils.cleanPath(dataFileName.getOriginalFilename());
 
         Path filePath = Paths.get(storagePath + "\\" + fileName);
@@ -76,7 +76,6 @@ public class CarRegistrationDocumentService {
     }
 
     public List<String> showAllDownloadableCarRegistrationDocuments() {
-
         var list = new ArrayList<String>();
         File folder = new File(storageLocation);
         File[] listOfFiles = folder.listFiles();
@@ -91,7 +90,6 @@ public class CarRegistrationDocumentService {
     }
 
     public Resource downloadCarRegistrationDocument (String fileName) {
-
         Path path = Paths.get(storageLocation).toAbsolutePath().resolve(fileName);
 
         Resource resource;
@@ -111,9 +109,7 @@ public class CarRegistrationDocumentService {
          }
     }
 
-
     public void saveUploadedCarRegistrationDocumentToDatabase (String fileName, String pathSaved) {
-
         CarRegistrationDocument saveToDatabase = new CarRegistrationDocument();
         saveToDatabase.setFileName(fileName);
         saveToDatabase.setPathSaved(pathSaved);
@@ -149,8 +145,6 @@ public class CarRegistrationDocumentService {
         carRegistrationDocumentToEdit.setCar(carToAdd);
 
         carRegistrationDocumentRepository.save(carRegistrationDocumentToEdit);
-
         return carToAdd.getId();
-
     }
 }
