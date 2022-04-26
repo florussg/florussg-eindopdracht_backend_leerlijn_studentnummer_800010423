@@ -1,7 +1,6 @@
 package nl.florussg.eindopdracht_novi_backend_800010423.Controllers;
 
 import nl.florussg.eindopdracht_novi_backend_800010423.Models.*;
-import nl.florussg.eindopdracht_novi_backend_800010423.Services.PartService;
 import nl.florussg.eindopdracht_novi_backend_800010423.Services.RepairService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,11 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
@@ -28,10 +25,6 @@ class RepairControllerTest {
 
     RepairStatus repairStatus;
 
-    @Mock
-    Part part;
-
-
     Repair repairOne = new Repair();
     Repair repairTwo = new Repair();
 
@@ -44,20 +37,16 @@ class RepairControllerTest {
     List<Repair> repairs = new ArrayList<>();
     List<Repair> repairsTwo = new ArrayList<>();
 
-    //RepairStatus newRepairStatus;
-
     @BeforeEach
     public void setUp() {
 
         appointment.setId(1L);
         appointmentTwo.setId(2L);
 
-        //partZ.setId(1L);
         parts.add(partZ);
 
         repairOne.setId(1L);
         repairOne.setRepairAppointment(appointment);
-        //repairOne.setRepairStatus(repairStatus.STARTED);
         repairOne.setPartToRepair(parts);
         repairOne.setFinding("APK failed");
 
@@ -70,14 +59,6 @@ class RepairControllerTest {
         repairTwo.setFinding("Bad brakes");
 
         repairsTwo.add(repairTwo);
-    }
-
-    @Test
-    void addRepairToAppointment() {
-    }
-
-    @Test
-    void setRepairStatus() {
     }
 
     @Test
@@ -98,6 +79,5 @@ class RepairControllerTest {
         repairController.getAllRepairs();
 
         verify(repairService, times(1)).getAllRepairs();
-
     }
 }
