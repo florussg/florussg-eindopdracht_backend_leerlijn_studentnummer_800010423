@@ -9,5 +9,4 @@ import javax.transaction.Transactional;
 public interface CarRegistrationDocumentRepository extends JpaRepository<CarRegistrationDocument, Long> {
 
     CarRegistrationDocument findByFileNameEquals(String fileName);
-
 }
