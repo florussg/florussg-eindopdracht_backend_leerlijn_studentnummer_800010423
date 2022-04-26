@@ -7,7 +7,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.Car;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -85,7 +84,7 @@ public class CarService {
         }
     }
 
-    public Car partialEditCar (String licenseplateNumber, CarDto carDto ) {
+    public Car partialEditCar(String licenseplateNumber, CarDto carDto) {
         Optional<Car> optionalCar = carRepository.findCarByLicenseplateNumberContainingIgnoreCase(licenseplateNumber);
 
         if (optionalCar.isPresent()) {
@@ -106,10 +105,8 @@ public class CarService {
                 carToEdit.setType(carDto.getType());
             }
 
-        carRepository.save(carToEdit);
-
+            carRepository.save(carToEdit);
             return carToEdit;
-
         } else {
             throw new RecordNotFoundException("A car with this licenseplate number does not exist");
         }
@@ -124,7 +121,6 @@ public class CarService {
             return false;
         }
     }
-
 }
 
 
