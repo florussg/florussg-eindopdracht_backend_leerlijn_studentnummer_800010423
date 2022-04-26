@@ -5,7 +5,6 @@ import nl.florussg.eindopdracht_novi_backend_800010423.Models.*;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.PartRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairPartRepository;
 import nl.florussg.eindopdracht_novi_backend_800010423.Repositories.RepairRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,9 +29,6 @@ class RepairPartServiceTest {
     @InjectMocks
     private RepairPartService repairPartService;
 
-    @Mock //TODO: Nodig?
-    private RepairPartKey repairPartKey;
-
     @Mock
     private RepairPartRepository repairPartRepository;
 
@@ -43,7 +39,6 @@ class RepairPartServiceTest {
     private RepairRepository repairRepository;
 
     RepairPart repairPartOne = new RepairPart();
-    RepairPart getRepairPartTwo = new RepairPart();
 
     Repair repairOne = new Repair();
 
@@ -78,12 +73,10 @@ class RepairPartServiceTest {
 
         repairParts.add(repairPartOne);
         parts.add(part);
-
     }
 
     @Test
     void addPartToRepair() {
-
         when(repairRepository.findById(1L)).thenReturn(Optional.ofNullable(repairOne));
         when(partRepository.findById(1L)).thenReturn(Optional.ofNullable(part));
         when(repairPartRepository.save(ArgumentMatchers.any(RepairPart.class))).thenReturn(repairPartOne);
@@ -101,7 +94,6 @@ class RepairPartServiceTest {
 
     @Test
     void addPartToRepairExceptionTwo() {
-
         when(repairRepository.findById(1L)).thenReturn(Optional.ofNullable(repairOne));
 
         Exception exception = assertThrows(RecordNotFoundException.class, () -> repairPartService.addPartToRepair(1L, 1000L, 1));
@@ -124,10 +116,7 @@ class RepairPartServiceTest {
 
     @Test
     void getAllPartsToBeRepairedFromOneRepairException() {
-        //when(repairRepository.findById(1000L)).thenReturn(null);
-
         assertThrows(RecordNotFoundException.class, () -> repairPartService.getAllPartsToBeRepairedFromOneRepair(1000L));
     }
-
 
 }
