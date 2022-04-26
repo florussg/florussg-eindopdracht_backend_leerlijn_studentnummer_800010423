@@ -2,7 +2,7 @@ package nl.florussg.eindopdracht_novi_backend_800010423.Models;
 
 import javax.persistence.*;
 
-//tussenklasse Repair en Part
+//Intermediate class Repair en Part
 @Entity
 public class RepairPart {
 
